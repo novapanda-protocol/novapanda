@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/key-history.schema.json",
+  "title": "Agent Key History (v1 placeholder)",
+  "type": "object",
+  "required": [
+    "key_history_version", "agent_id", "current_pubkey",
+    "previous_keys", "effective_from", "published_at", "signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "key_history_version": { "type": "string", "const": "0.1-placeholder" },
+    "agent_id": { "$ref": "#/$defs/agent_id" },
+    "current_pubkey": { "type": "string", "minLength": 1 },
+    "previous_keys": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pubkey", "retired_at"],
+        "properties": {
+          "pubkey": { "type": "string" },
+          "retired_at": { "$ref": "#/$defs/iso8601" }
+        }
+      }
+    },
+    "effective_from": { "$ref": "#/$defs/iso8601" },
+    "published_at": { "$ref": "#/$defs/iso8601" },
+    "signature": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "iso8601": { "type": "string", "format": "date-time" }
+  }
+}

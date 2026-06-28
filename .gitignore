@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+*.sqlite
+*.db
+demo/out/
+node_modules/
+sdk/typescript/dist/

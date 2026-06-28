@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/did-document.schema.json",
+  "title": "Troodon DID Document (v1 placeholder)",
+  "type": "object",
+  "required": ["did_version", "id", "verificationMethod", "signature"],
+  "additionalProperties": true,
+  "properties": {
+    "did_version": { "type": "string", "const": "0.1-placeholder" },
+    "id": { "type": "string", "pattern": "^did:troodon:ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "verificationMethod": { "type": "array", "minItems": 1 },
+    "service": { "type": "array" },
+    "published_at": { "type": "string" },
+    "signature": { "type": "string", "minLength": 1 }
+  }
+}

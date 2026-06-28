@@ -1,0 +1,26 @@
+[project]
+name = "troodon"
+version = "0.0.1"
+description = "Troodon — verifiable delivery exchange protocol, reference implementation"
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=42",
+    "jsonschema>=4.21",
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+    "httpx>=0.27",
+    "cbor2>=5.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["troodon*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

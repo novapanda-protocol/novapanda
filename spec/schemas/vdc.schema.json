@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/vdc.schema.json",
+  "title": "Verifiable Delivery Claim (VDC)",
+  "description": "可验证交割凭证。价值交换的第一公民：结构化、可签名、可被任意第三方独立复验。",
+  "type": "object",
+  "required": [
+    "vdc_version", "vdc_id", "parties", "resource_type", "quantity",
+    "result_hash", "rule_id", "evidence", "state", "idempotency_key",
+    "nonce", "prev_hash", "created_at", "signatures"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "vdc_version": { "type": "string" },
+    "vdc_id": { "type": "string", "minLength": 1 },
+    "parties": {
+      "type": "object",
+      "required": ["client", "provider"],
+      "additionalProperties": false,
+      "properties": {
+        "client": { "$ref": "#/$defs/agent_id" },
+        "provider": { "$ref": "#/$defs/agent_id" }
+      }
+    },
+    "resource_type": { "type": "string", "minLength": 1 },
+    "quantity": { "type": "integer", "minimum": 0 },
+    "result_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "rule_id": { "type": "string", "minLength": 1 },
+    "evidence": {
+      "type": "object",
+      "required": ["level", "started_at", "finished_at"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["self_reported", "dual_signed", "metered", "third_party_witnessed"]
+        },
+        "started_at": { "$ref": "#/$defs/iso8601" },
+        "finished_at": { "$ref": "#/$defs/iso8601" },
+        "metering": { "type": "object" }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["DELIVERED", "VERIFIED", "SETTLED", "DISPUTED"]
+    },
+    "idempotency_key": { "type": "string", "minLength": 1 },
+    "nonce": { "type": "string", "minLength": 1 },
+    "prev_hash": { "type": "string", "minLength": 1 },
+    "created_at": { "$ref": "#/$defs/iso8601" },
+    "signatures": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "provider_sig": { "type": "string", "minLength": 1 },
+        "client_sig": { "type": "string", "minLength": 1 },
+        "provider_payload_encoding": { "type": "string", "enum": ["json", "cbor"] }
+      }
+    }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "iso8601": { "type": "string", "format": "date-time" }
+  }
+}

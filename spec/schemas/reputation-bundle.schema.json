@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/reputation-bundle.schema.json",
+  "title": "Reputation Export Bundle (v2 placeholder)",
+  "type": "object",
+  "required": ["bundle_version", "source_node_id", "exported_at", "entries"],
+  "additionalProperties": true,
+  "properties": {
+    "bundle_version": { "type": "string", "const": "0.2-placeholder" },
+    "source_node_id": { "$ref": "#/$defs/agent_id" },
+    "agent_filter": { "$ref": "#/$defs/agent_id" },
+    "exported_at": { "$ref": "#/$defs/iso8601" },
+    "entry_count": { "type": "integer", "minimum": 0 },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "reputation-entry.schema.json" }
+    }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "iso8601": { "type": "string", "format": "date-time" }
+  }
+}

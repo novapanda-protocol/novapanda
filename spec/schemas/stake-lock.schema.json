@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/stake-lock.schema.json",
+  "title": "Stake Lock (v2 placeholder)",
+  "description": "信誉质押锁定意图。v2 占位 schema；不触达真实资金。",
+  "type": "object",
+  "required": [
+    "stake_version", "stake_id", "agent_id", "amount", "currency",
+    "purpose", "status", "locked_at"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "stake_version": { "type": "string", "const": "0.2-placeholder" },
+    "stake_id": { "type": "string", "minLength": 1 },
+    "agent_id": { "$ref": "#/$defs/agent_id" },
+    "amount": { "type": "integer", "minimum": 0 },
+    "currency": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "exchange_id": { "type": "string" },
+    "vdc_id": { "type": "string" },
+    "status": { "type": "string", "enum": ["locked", "released", "slashed"] },
+    "locked_at": { "$ref": "#/$defs/iso8601" },
+    "slashed_at": { "$ref": "#/$defs/iso8601" },
+    "slash_reason": { "type": "string" },
+    "slashed_by": { "$ref": "#/$defs/agent_id" }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "iso8601": { "type": "string", "format": "date-time" }
+  }
+}

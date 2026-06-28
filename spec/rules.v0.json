@@ -1,0 +1,113 @@
+{
+  "version": "0.0.1",
+  "rules": [
+    {
+      "rule_id": "R-task-status-v1",
+      "version": "1",
+      "resource_type": "service.task.generic",
+      "acceptance": "llm_judge",
+      "description": "任务状态 field_match 验收（plugfest / field_match judge）",
+      "check": {
+        "kind": "llm_rubric",
+        "require_hash_match": true
+      },
+      "schema": {
+        "type": "object",
+        "required": ["status", "score"],
+        "properties": {
+          "status": {"type": "string"},
+          "score": {"type": "string"}
+        },
+        "additionalProperties": true
+      },
+      "llm_rubric": {
+        "field_equals": {"status": "done", "score": "A"}
+      }
+    },
+    {
+      "rule_id": "R-llm-summary-v1",
+      "version": "1",
+      "resource_type": "service.task.generic",
+      "acceptance": "llm_judge",
+      "description": "任务摘要 + LLM rubric（regex 内置 judge 可复验）",
+      "check": {
+        "kind": "llm_rubric",
+        "require_hash_match": true
+      },
+      "schema": {
+        "type": "object",
+        "required": ["summary"],
+        "properties": {
+          "summary": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      },
+      "llm_rubric": {
+        "field": "summary",
+        "pattern": "^PASS:"
+      }
+    },
+    {
+      "rule_id": "R-extract-invoice-v1",
+      "version": "1",
+      "resource_type": "data.extraction.structured",
+      "acceptance": "deterministic",
+      "description": "发票字段抽取：invoice_no + total(两位小数) + currency(ISO4217 三字母)",
+      "check": {
+        "kind": "json_schema_plus_hash",
+        "require_hash_match": true
+      },
+      "schema": {
+        "type": "object",
+        "required": ["invoice_no", "total", "currency"],
+        "properties": {
+          "invoice_no": {"type": "string", "minLength": 1},
+          "total": {"type": "string", "pattern": "^\\d+\\.\\d{2}$"},
+          "currency": {"type": "string", "minLength": 3, "maxLength": 3}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "rule_id": "R-actuation-task-v1",
+      "version": "1",
+      "resource_type": "actuation.robot.task",
+      "acceptance": "deterministic",
+      "description": "机器人任务完成：task_id + completion_proof + duration_secs",
+      "check": {
+        "kind": "physical_metered",
+        "require_hash_match": true
+      }
+    },
+    {
+      "rule_id": "R-energy-dc-meter-v1",
+      "version": "1",
+      "resource_type": "energy.electric.dc",
+      "acceptance": "deterministic",
+      "description": "直流电能计量交割：session_id + kwh_delivered + meter_signature",
+      "check": {
+        "kind": "physical_metered",
+        "require_hash_match": true
+      }
+    },
+    {
+      "rule_id": "R-extract-schema-v1",
+      "version": "1",
+      "resource_type": "data.extraction.structured",
+      "acceptance": "deterministic",
+      "description": "最小结构化抽取（测试/模拟舱用）",
+      "check": {
+        "kind": "json_schema_plus_hash",
+        "require_hash_match": true
+      },
+      "schema": {
+        "type": "object",
+        "required": ["invoice_no"],
+        "properties": {
+          "invoice_no": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    }
+  ]
+}

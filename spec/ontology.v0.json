@@ -1,0 +1,42 @@
+{
+  "version": "0.0.1",
+  "types": [
+    {
+      "type_id": "data.extraction.structured",
+      "unit": "document",
+      "quantity_semantics": "count",
+      "description": "从非结构化输入抽取的结构化数据",
+      "required_evidence": ["dual_signed"]
+    },
+    {
+      "type_id": "compute.inference.tokens",
+      "unit": "token",
+      "quantity_semantics": "count",
+      "description": "大模型推理 token 用量（软件 Agent 常用）",
+      "required_evidence": ["dual_signed"]
+    },
+    {
+      "type_id": "service.task.generic",
+      "unit": "task",
+      "quantity_semantics": "count",
+      "description": "通用可验收任务单元",
+      "required_evidence": ["dual_signed"]
+    },
+    {
+      "type_id": "energy.electric.dc",
+      "unit": "kWh",
+      "quantity_semantics": "energy",
+      "description": "预留物理：直流电能交割（未来 ISO 15118 等适配器接入）",
+      "required_evidence": ["metered"],
+      "reserved": true
+    },
+    {
+      "type_id": "actuation.robot.task",
+      "unit": "task",
+      "quantity_semantics": "count",
+      "description": "预留物理：机器人动作/任务完成",
+      "required_evidence": ["dual_signed", "metered"],
+      "reserved": true
+    }
+  ]
+}

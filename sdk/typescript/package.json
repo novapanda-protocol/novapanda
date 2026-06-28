@@ -1,0 +1,20 @@
+{
+  "name": "@troodon/sdk",
+  "version": "0.0.1",
+  "description": "Troodon protocol TypeScript SDK",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^2.1.0",
+    "cbor": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
+}

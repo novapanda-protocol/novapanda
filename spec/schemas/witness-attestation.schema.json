@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/witness-attestation.schema.json",
+  "title": "Witness Attestation (v2 placeholder)",
+  "description": "第三方见证声明。v2 占位 schema；参考实现默认不启用运行时。",
+  "type": "object",
+  "required": [
+    "witness_version", "vdc_id", "witness_id", "vdc_result_hash",
+    "claim", "signed_at", "signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "witness_version": { "type": "string", "const": "0.2-placeholder" },
+    "vdc_id": { "type": "string", "minLength": 1 },
+    "witness_id": { "$ref": "#/$defs/agent_id" },
+    "vdc_result_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "claim": { "type": "string", "minLength": 1 },
+    "stake_ref": { "type": "string" },
+    "signed_at": { "$ref": "#/$defs/iso8601" },
+    "signature": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "iso8601": { "type": "string", "format": "date-time" }
+  }
+}

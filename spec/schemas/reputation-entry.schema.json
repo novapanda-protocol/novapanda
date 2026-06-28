@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://troodon.dev/spec/schemas/reputation-entry.schema.json",
+  "title": "Reputation Entry",
+  "description": "信誉账本中的一条记录。append-only、哈希链、节点签名、可跨节点独立复验。",
+  "type": "object",
+  "required": [
+    "seq", "node_id", "agent_id", "counterparty", "exchange_id",
+    "role", "outcome", "resource_type", "quantity", "timestamp",
+    "prev_hash", "entry_hash", "signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "seq": { "type": "integer", "minimum": 0 },
+    "node_id": { "$ref": "#/$defs/agent_id" },
+    "agent_id": { "$ref": "#/$defs/agent_id" },
+    "counterparty": { "$ref": "#/$defs/agent_id" },
+    "exchange_id": { "type": "string", "minLength": 1 },
+    "vdc_id": { "type": ["string", "null"] },
+    "role": { "type": "string", "enum": ["client", "provider"] },
+    "outcome": {
+      "type": "string",
+      "enum": ["settled", "rejected", "expired", "cancelled"]
+    },
+    "resource_type": { "type": "string" },
+    "quantity": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "prev_hash": { "type": "string", "minLength": 1 },
+    "entry_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "signature": { "type": "string", "minLength": 1 },
+    "import_kind": { "type": "string", "enum": ["native", "mirror"] },
+    "external_ref": {
+      "type": "object",
+      "required": ["source_node_id", "source_entry_hash", "source_seq"],
+      "properties": {
+        "source_node_id": { "$ref": "#/$defs/agent_id" },
+        "source_entry_hash": { "type": "string" },
+        "source_seq": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" }
+  }
+}
