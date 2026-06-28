@@ -1,6 +1,6 @@
 # Trademark & Compatibility Mark (placeholder)
 
-> **未注册、未发布。** 本文档为发布前占位，不构成法律意见。
+> **未注册、未发布。** 文字商标注册与官方域名**筹备中**。本文档为发布前占位，不构成法律意见。
 
 ## 协议品牌
 
@@ -32,5 +32,7 @@
 ## 下一步
 
 - [ ] 选定注册法域与代理
+- [ ] 文字商标近似检索 + 申请（见 [`PRE_PUBLISH_CHECKLIST.md`](PRE_PUBLISH_CHECKLIST.md)）
+- [ ] 主域名注册
 - [ ] 设计兼容标识视觉稿
 - [ ] 将 `CERTIFICATION.md` 流程与商标使用规则合并发布

@@ -21,6 +21,8 @@
         "additionalProperties": true
       },
       "llm_rubric": {
+        "field": "status",
+        "pattern": "^done$",
         "field_equals": {"status": "done", "score": "A"}
       }
     },

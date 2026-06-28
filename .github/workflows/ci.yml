@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e ".[dev]"
+      - name: Pytest
+        run: python -m pytest -q
+      - name: Conformance C1-C7
+        run: python -m conformance.run
+      - name: Plugfest
+        run: python demo/plugfest.py
+
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install and test SDK
+        working-directory: sdk/typescript
+        run: |
+          npm ci
+          npm run build
+          npm test

@@ -343,6 +343,58 @@ def run_field_match() -> bool:
     return True
 
 
+def run_consensus_llm() -> bool:
+    """多裁判共识：unanimous(regex + field_match) + schema 预检 + 全生命周期。"""
+    verifier = make_verifier("llm", llm_judge="consensus:unanimous:regex,field_match")
+    app = create_app(seed=True, auth=False, verifier=verifier)
+    tc = TestClient(app)
+    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+
+    manifest = build_agent_manifest(
+        provider.identity,
+        capabilities=[{
+            "resource_type": FIELD_MATCH_RESOURCE,
+            "rules": [FIELD_MATCH_RULE],
+            "price": FIELD_MATCH_PRICE,
+        }],
+        exchange_endpoint="http://testserver/exchanges",
+    )
+
+    ex = client.propose(
+        provider=manifest["agent_id"],
+        resource_type=FIELD_MATCH_RESOURCE,
+        quantity=1,
+        rule_id=FIELD_MATCH_RULE,
+        price=FIELD_MATCH_PRICE,
+        idempotency_key="plugfest-consensus",
+    )
+    eid = ex["exchange_id"]
+    client.contract(eid)
+    provider.contract(eid)
+    client.escrow(eid, amount=FIELD_MATCH_PRICE["amount"], currency=FIELD_MATCH_PRICE["currency"])
+    provider.deliver(eid, FIELD_MATCH_DELIVERABLE)
+    verified = client.verify(eid)
+    assert verified["state"] == "VERIFIED"
+    audit = verified["verify_result"].get("llm_audit") or {}
+    assert audit.get("consensus_strategy") == "unanimous"
+    assert audit.get("consensus_judges") == 2
+
+    settled = client.confirm(eid)
+    assert settled["state"] == "SETTLED"
+
+    print(json.dumps({
+        "scenario": "consensus_llm",
+        "exchange_id": eid,
+        "consensus": {
+            "strategy": audit.get("consensus_strategy"),
+            "judges": audit.get("consensus_judges"),
+            "votes": audit.get("consensus_votes"),
+        },
+    }, ensure_ascii=False, indent=2))
+    return True
+
+
 LLM_HTTP_RULE = "R-llm-summary-v1"
 LLM_HTTP_RESOURCE = "service.task.generic"
 LLM_HTTP_PRICE = {"amount": 50, "currency": "USD"}
@@ -532,6 +584,7 @@ def run() -> bool:
     ok_energy = run_energy()
     ok_actuation = run_actuation()
     ok_field_match = run_field_match()
+    ok_consensus = run_consensus_llm()
     ok_llm_http = run_llm_http_gateway()
     ok_witness = run_witness_stake()
     ok_confirm = run_confirm_timeout()
@@ -541,6 +594,7 @@ def run() -> bool:
         and ok_energy
         and ok_actuation
         and ok_field_match
+        and ok_consensus
         and ok_llm_http
         and ok_witness
         and ok_confirm
