@@ -25,22 +25,35 @@ sudo bash /opt/novapanda/src/deploy/scripts/verify-ops.sh
 
 ## 2. EBS 每日快照
 
-### 控制台（推荐）
+**快照不在「实例」列表里**，在左侧菜单：
 
-1. EC2 → **Elastic Block Store** → **Lifecycle Manager**
-2. **Create lifecycle policy**
-3. 类型：**Snapshot policy**
-4. 目标卷：选中实例系统盘（及若有独立 `/data` 卷一并选）
-5. 计划：每 **24** 小时，保留 **7** 份
-6. 标签：`Name=novapanda-node-daily`
+```
+EC2 控制台 → 左侧「弹性块存储」
+  ├─ 卷 (Volumes)        ← 选手动快照时从这里进
+  ├─ 快照 (Snapshots)    ← 已创建的快照在这里看
+  └─ 生命周期管理器 (Lifecycle Manager)  ← 自动每日快照在这里配
+```
 
-### 手动一次快照（立即可做）
+直接链接（新加坡区）：
+- 快照列表：https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Snapshots:
+- 生命周期管理器：https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#LifecyclePolicies:
 
-1. EC2 → **Volumes** → 选中实例根卷
-2. **Actions** → **Create snapshot**
-3. 描述：`novapanda-manual-YYYY-MM-DD`
+### 自动每日快照（配一次即可，不用每天手动）
 
-数据在 Docker 卷 `novapanda_data`（SQLite）；快照根盘即可覆盖 `/var/lib/docker/volumes`。
+1. 左侧 **弹性块存储** → **生命周期管理器**
+2. **创建生命周期策略**
+3. 类型选 **快照策略 (Snapshot policy)**
+4. 目标：选中 `claude` 实例的**根卷**（系统盘）
+5. 频率：每 **24** 小时，保留 **7** 份
+6. 保存
+
+之后 AWS **自动**每天拍快照，你不用每天点。
+
+### 手动做一次（可选，立刻备份）
+
+1. 左侧 **弹性块存储** → **卷**
+2. 勾选 `claude` 用的那块卷 → **操作** → **创建快照**
+3. 左侧 **快照** 里可看到新建记录
 
 ---
 
@@ -66,12 +79,21 @@ sudo bash /opt/novapanda/src/deploy/scripts/verify-ops.sh
 
 ## 5. 连续 7 天 health 观察（本机）
 
+**不必每天手敲**——注册一次计划任务即可：
+
 ```powershell
+# 以管理员打开 PowerShell
 cd D:\project\jiazhi
-.\deploy\scripts\health-watch.ps1
+.\deploy\scripts\install-health-watch-task.ps1
 ```
 
-日志：`deploy/logs/health-watch.log`（本地，已 gitignore）。连续 7 天无失败即通过 P2 稳定性门禁。
+默认每天 **09:00** 自动执行，日志：`deploy/logs/health-watch.log`。
+
+手动立即测一次：
+
+```powershell
+.\deploy\scripts\health-watch.ps1
+```
 
 ---
 

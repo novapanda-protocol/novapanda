@@ -42,13 +42,14 @@ set -eu
 BASE_URL="${NOVAPANDA_NODE_URL:-http://127.0.0.1}"
 ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN:?set NOVAPANDA_ADMIN_TOKEN}"
 curl -fsS -X POST "${BASE_URL}/admin/sweep" \
+  -H "Host: node.novapanda.io" \
   -H "X-Admin-Token: ${ADMIN_TOKEN}" \
   -H "Content-Type: application/json"
 EOF
 fi
 chmod +x "$SWEEP"
 
-CRON_LINE="*/5 * * * * root NOVAPANDA_NODE_URL=http://127.0.0.1 NOVAPANDA_ADMIN_TOKEN=${NOVAPANDA_ADMIN_TOKEN} ${SWEEP} >> /var/log/novapanda-sweep.log 2>&1"
+CRON_LINE="*/5 * * * * root NOVAPANDA_NODE_URL=http://127.0.0.1 NOVAPANDA_NODE_HOST=${NODE_DOMAIN} NOVAPANDA_ADMIN_TOKEN=${NOVAPANDA_ADMIN_TOKEN} ${SWEEP} >> /var/log/novapanda-sweep.log 2>&1"
 echo "$CRON_LINE" > /etc/cron.d/novapanda-sweep
 chmod 644 /etc/cron.d/novapanda-sweep
 
@@ -61,7 +62,7 @@ docker compose --env-file ../env/production.env up -d
 NOVAPANDA_NODE_URL="http://127.0.0.1" NOVAPANDA_ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN}" "$SWEEP"
 echo ""
 
-curl -fsS "http://127.0.0.1/health"
+curl -fsS -H "Host: ${NODE_DOMAIN}" "http://127.0.0.1/health"
 echo ""
 echo "========== 收尾完成 =========="
 echo "cron: /etc/cron.d/novapanda-sweep (每 5 分钟)"

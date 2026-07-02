@@ -24,9 +24,14 @@ docker compose --env-file ../env/production.env ps
 docker compose --env-file ../env/production.env ps --format json | grep -q '"State":"running"' || fail "container not running"
 
 echo ""
-echo "== Health (127.0.0.1) =="
-body="$(curl -fsS http://127.0.0.1/health)"
-echo "$body" | grep -q '"status"[[:space:]]*:[[:space:]]*"ok"' || fail "health: $body"
+echo "== Health (via Caddy + Host header) =="
+DOMAIN="$(grep '^NODE_DOMAIN=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- | tr -d '\r' || true)"
+DOMAIN="${DOMAIN:-node.novapanda.io}"
+body="$(curl -fsS -H "Host: ${DOMAIN}" "http://127.0.0.1/health" 2>/dev/null || true)"
+if [[ -z "$body" ]]; then
+  body="$(docker compose --env-file ../env/production.env exec -T node curl -fsS http://127.0.0.1:8000/health)"
+fi
+echo "$body" | grep -q '"status"[[:space:]]*:[[:space:]]*"ok"' || fail "health: ${body:-empty}"
 ok "health"
 
 echo ""
@@ -51,7 +56,7 @@ echo ""
 echo "== Manual sweep =="
 SWEEP="${INSTALL_DIR}/src/deploy/cron/sweep.sh"
 [[ -x "$SWEEP" ]] || fail "missing $SWEEP"
-NOVAPANDA_NODE_URL=http://127.0.0.1 NOVAPANDA_ADMIN_TOKEN="$TOKEN" "$SWEEP"
+NOVAPANDA_NODE_URL=http://127.0.0.1 NOVAPANDA_NODE_HOST="${DOMAIN}" NOVAPANDA_ADMIN_TOKEN="$TOKEN" "$SWEEP"
 ok "manual sweep"
 
 echo ""
