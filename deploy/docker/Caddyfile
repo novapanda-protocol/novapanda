@@ -1,0 +1,4 @@
+{$NODE_DOMAIN} {
+	encode gzip
+	reverse_proxy node:8000
+}

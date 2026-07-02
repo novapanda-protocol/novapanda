@@ -1,0 +1,39 @@
+services:
+  node:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../env/production.env
+    volumes:
+      - novapanda_data:/data
+    networks:
+      - web
+    expose:
+      - "8000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - NODE_DOMAIN=${NODE_DOMAIN:-localhost}
+    networks:
+      - web
+    depends_on:
+      - node
+
+volumes:
+  novapanda_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  web:

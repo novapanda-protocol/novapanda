@@ -27,4 +27,4 @@ conformance/SYNC_LAUNCH_ALIGNMENT.md
 conformance/TRADEMARK_CN_PERSONAL.md
 extract_doc.py
 deploy/NEXT_ACTIONS_CN.md
-deploy/
+deploy/env/production.env
