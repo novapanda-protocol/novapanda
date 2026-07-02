@@ -38,7 +38,6 @@ python -m conformance.run --list
 ## 相关
 
 - [`PRE_PUBLISH_CHECKLIST.md`](PRE_PUBLISH_CHECKLIST.md) — **公开前检查清单（商标/域名/表述红线）**
-- [`BRAND_PREP_LOG.md`](BRAND_PREP_LOG.md) — 域名/商标/GitHub 占坑记录
 - `EXTERNAL_PLUGFEST.md` — 对外 plugfest 指南
 - `TRADEMARK.md` — 商标与标识占位
 - `spec/SPEC.md` — 协议规范

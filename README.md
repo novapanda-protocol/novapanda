@@ -93,12 +93,10 @@ tests/          pytest + 一致性向量
 ## 文档
 
 - [`spec/SPEC.md`](spec/SPEC.md) — 协议规范
-- [`架构设计.md`](架构设计.md) / [`详细设计.md`](详细设计.md) / [`设计-协议v0与模拟舱.md`](设计-协议v0与模拟舱.md)
 - [`GOVERNANCE.md`](GOVERNANCE.md) / [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- [`conformance/NOVAPANDA_PARALLEL_CHECKLIST.md`](conformance/NOVAPANDA_PARALLEL_CHECKLIST.md) — **当前并行任务清单**
-- [`conformance/TRADEMARK_CN_PERSONAL.md`](conformance/TRADEMARK_CN_PERSONAL.md) — 中国个人商标申请备忘
-- [`GITHUB_SETUP.md`](GITHUB_SETUP.md) — GitHub + Pages 占坑步骤
 - [`conformance/CERTIFICATION.md`](conformance/CERTIFICATION.md) — Conformance C1–C7
+- [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md) — 公开发布前检查
+- [`deploy/README.md`](deploy/README.md) — 参考节点部署
 
 ## 许可
 

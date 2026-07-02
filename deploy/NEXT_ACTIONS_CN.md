@@ -13,7 +13,7 @@
 
 - [ ] 创建 GitHub 组织：`novapanda-protocol`
 - [ ] 创建仓库：`novapanda`
-- [ ] push 本地代码（见 `GITHUB_SETUP.md`）
+- [ ] push 本地代码到 `novapanda-protocol/novapanda`
 - [ ] 开启 Pages：`main` + `/docs`
 - [ ] 绑定 `novapanda.io`，开启 HTTPS
 

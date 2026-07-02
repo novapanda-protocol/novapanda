@@ -10,3 +10,18 @@ dist/
 demo/out/
 node_modules/
 sdk/typescript/dist/
+
+# Internal design / launch prep (local only, not for public repo)
+internal/
+投资战略-楔子与定位.md
+智能世界价值交换-完整汇编(1).md
+架构设计.md
+行动计划-从0到1.md
+设计-协议v0与模拟舱.md
+详细设计.md
+GITHUB_SETUP.md
+extracted.txt
+conformance/BRAND_PREP_LOG.md
+conformance/NOVAPANDA_PARALLEL_CHECKLIST.md
+conformance/SYNC_LAUNCH_ALIGNMENT.md
+conformance/TRADEMARK_CN_PERSONAL.md

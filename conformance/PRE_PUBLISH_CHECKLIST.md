@@ -28,7 +28,7 @@
 |----|:----:|------|
 | 主域名查询（`.org` / `.io` / `.dev` / `.cn` 等） | ☐ | 选定 1 个主域 + 可选 1 个防御域 |
 | 主域名注册 | ☐ | 年费占坑，防抢注 |
-| GitHub 组织 / 仓库名占坑 | ☐ | 可先 **private**；见 [`BRAND_PREP_LOG.md`](BRAND_PREP_LOG.md) |
+| GitHub 组织 / 仓库名占坑 | ☐ | 可先 **private**；记录组织与仓库名 |
 | PyPI / npm 包名 `@troodon/*` 检索 | ☐ | 与 `sdk/typescript` 包名一致 |
 | 官方邮箱（`hello@` / `security@`） | ☐ | **有域名后**再设 |
 
@@ -121,4 +121,4 @@
 - [`CERTIFICATION.md`](CERTIFICATION.md) — Conformance 与认证草案
 - [`EXTERNAL_PLUGFEST.md`](EXTERNAL_PLUGFEST.md) — 对外互操作指南
 - [`../README.md`](../README.md) — 快速开始
-- [`../行动计划-从0到1.md`](../行动计划-从0到1.md) — 里程碑
+- [`../deploy/README.md`](../deploy/README.md) — 参考节点部署
