@@ -53,3 +53,6 @@ echo "========== 完成 =========="
 echo "NODE: https://${NODE_DOMAIN}"
 echo "ADMIN_TOKEN: ${ADMIN_TOKEN}"
 echo "验证: curl -fsS https://${NODE_DOMAIN}/health"
+
+# 自动配置 cron sweep
+bash "${INSTALL_DIR}/src/deploy/scripts/post-install.sh"
