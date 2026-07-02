@@ -9,15 +9,19 @@
 
 $ErrorActionPreference = "Stop"
 
-$SecretsFile = Join-Path (Split-Path $PSScriptRoot -Parent) "env\node.local.env"
+$ScriptDir = Split-Path -Parent $PSCommandPath
+if (-not $ScriptDir) {
+    $ScriptDir = $PSScriptRoot
+}
+$SecretsFile = Join-Path (Split-Path $ScriptDir -Parent) "env\node.local.env"
 if (Test-Path $SecretsFile) {
-    Get-Content $SecretsFile | ForEach-Object {
+    Get-Content $SecretsFile -Encoding UTF8 | ForEach-Object {
         if ($_ -match '^\s*#' -or $_ -match '^\s*$') { return }
         $pair = $_ -split '=', 2
         if ($pair.Count -eq 2) {
             $name = $pair[0].Trim()
             $value = $pair[1].Trim().Trim('"')
-            if (-not (Get-Item -Path "Env:$name" -ErrorAction SilentlyContinue)) {
+            if ($value) {
                 Set-Item -Path "Env:$name" -Value $value
             }
         }
@@ -87,7 +91,7 @@ Write-Host "OK"
 
 if ($RunTs) {
     Write-Host "== [6/6] TS SDK lifecycle (auth) =="
-    $RepoRoot = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+    $RepoRoot = Split-Path (Split-Path $ScriptDir -Parent) -Parent
     $TsDir = Join-Path $RepoRoot "sdk\typescript"
     if (-not (Test-Path $TsDir)) { Fail "sdk/typescript not found at $TsDir" }
     Push-Location $TsDir
