@@ -24,7 +24,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      - NODE_DOMAIN=${NODE_DOMAIN:-localhost}
+      - NODE_DOMAIN=${NODE_DOMAIN:-node.novapanda.io}
     networks:
       - web
     depends_on:

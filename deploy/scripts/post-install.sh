@@ -6,6 +6,11 @@ NODE_DOMAIN="${NODE_DOMAIN:-node.novapanda.io}"
 INSTALL_DIR="${INSTALL_DIR:-/opt/novapanda}"
 ENV_FILE="${INSTALL_DIR}/src/deploy/env/production.env"
 
+if [[ -f "$ENV_FILE" ]]; then
+  _domain="$(grep '^NODE_DOMAIN=' "$ENV_FILE" | cut -d= -f2- | tr -d '\r' || true)"
+  [[ -n "$_domain" ]] && NODE_DOMAIN="$_domain"
+fi
+
 if [[ "$(id -u)" -ne 0 ]]; then
   echo "请用 sudo 运行"
   exit 1
@@ -34,7 +39,7 @@ if [[ ! -f "$SWEEP" ]]; then
   cat > "$SWEEP" <<'EOF'
 #!/usr/bin/env sh
 set -eu
-BASE_URL="${NOVAPANDA_NODE_URL:-https://node.novapanda.io}"
+BASE_URL="${NOVAPANDA_NODE_URL:-http://127.0.0.1}"
 ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN:?set NOVAPANDA_ADMIN_TOKEN}"
 curl -fsS -X POST "${BASE_URL}/admin/sweep" \
   -H "X-Admin-Token: ${ADMIN_TOKEN}" \
@@ -43,19 +48,20 @@ EOF
 fi
 chmod +x "$SWEEP"
 
-CRON_LINE="*/5 * * * * root NOVAPANDA_NODE_URL=https://${NODE_DOMAIN} NOVAPANDA_ADMIN_TOKEN=${NOVAPANDA_ADMIN_TOKEN} ${SWEEP} >> /var/log/novapanda-sweep.log 2>&1"
+CRON_LINE="*/5 * * * * root NOVAPANDA_NODE_URL=http://127.0.0.1 NOVAPANDA_ADMIN_TOKEN=${NOVAPANDA_ADMIN_TOKEN} ${SWEEP} >> /var/log/novapanda-sweep.log 2>&1"
 echo "$CRON_LINE" > /etc/cron.d/novapanda-sweep
 chmod 644 /etc/cron.d/novapanda-sweep
 
-# 确保容器重启策略
+# 确保容器重启策略（必须 export NODE_DOMAIN，否则 Caddy 会退成 localhost 导致 HTTPS 失效）
+export NODE_DOMAIN
 cd "${INSTALL_DIR}/src/deploy/docker"
 docker compose --env-file ../env/production.env up -d
 
 # 立即跑一次 sweep
-NOVAPANDA_NODE_URL="https://${NODE_DOMAIN}" NOVAPANDA_ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN}" "$SWEEP"
+NOVAPANDA_NODE_URL="http://127.0.0.1" NOVAPANDA_ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN}" "$SWEEP"
 echo ""
 
-curl -fsS "https://${NODE_DOMAIN}/health"
+curl -fsS "http://127.0.0.1/health"
 echo ""
 echo "========== 收尾完成 =========="
 echo "cron: /etc/cron.d/novapanda-sweep (每 5 分钟)"

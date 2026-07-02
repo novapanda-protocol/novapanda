@@ -5,6 +5,7 @@ set -euo pipefail
 NODE_DOMAIN="${NODE_DOMAIN:-node.novapanda.io}"
 INSTALL_DIR="${INSTALL_DIR:-/opt/novapanda}"
 REPO_URL="${REPO_URL:-https://github.com/novapanda-protocol/novapanda.git}"
+ENV_FILE="$INSTALL_DIR/src/deploy/env/production.env"
 
 if [[ "$(id -u)" -ne 0 ]]; then
   echo "请用 sudo 运行"
@@ -30,10 +31,12 @@ else
 fi
 
 ADMIN_TOKEN="$(openssl rand -hex 32)"
-ENV_FILE="$INSTALL_DIR/src/deploy/env/production.env"
 mkdir -p "$(dirname "$ENV_FILE")"
 cp "$INSTALL_DIR/src/deploy/env/mock.env.example" "$ENV_FILE"
 sed -i "s/change-me-to-long-random-secret/${ADMIN_TOKEN}/" "$ENV_FILE"
+if ! grep -q '^NODE_DOMAIN=' "$ENV_FILE"; then
+  echo "NODE_DOMAIN=${NODE_DOMAIN}" >> "$ENV_FILE"
+fi
 
 # 停掉旧 mock 容器（若存在）
 docker rm -f novapanda-node novapanda-caddy 2>/dev/null || true
