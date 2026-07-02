@@ -29,3 +29,4 @@ extract_doc.py
 deploy/NEXT_ACTIONS_CN.md
 deploy/env/production.env
 deploy/env/node.local.env
+deploy/logs/
