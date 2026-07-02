@@ -130,6 +130,20 @@ def test_health(ctx):
     assert r.json()["status"] == "ok"
 
 
+def test_dashboard_pages(ctx):
+    client, _ = ctx
+    home = client._http.get("/")
+    assert home.status_code == 200
+    assert "NovaPanda" in home.text
+    assert "交换总数" in home.text
+    admin = client._http.get("/admin")
+    assert admin.status_code == 200
+    assert "运维操作" in admin.text
+    status = client._http.get("/admin/status")
+    assert status.status_code == 200
+    assert status.json()["service"] == "novapanda-node"
+
+
 def test_sweep_admin_token(monkeypatch):
     monkeypatch.setenv("NOVAPANDA_ADMIN_TOKEN", "test-admin-secret")
     app = create_app(seed=True, auth=False)

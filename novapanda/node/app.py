@@ -12,7 +12,7 @@ from dataclasses import asdict
 from typing import Any, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 
 from ..auth import NonceStore, verify_request
@@ -31,6 +31,7 @@ from ..verifier import SchemaVerifier, make_verifier
 from ..reputation_gate import check_reputation_gate
 from ..v1.did import did_to_agent_id, is_novapanda_did, normalize_party_ref
 from ..v1.did_registry import DidRegistry
+from .dashboard import collect_status, render_dashboard
 
 
 class AuthError(Exception):
@@ -318,6 +319,20 @@ def create_app(
             "endpoints": ["/exchanges", "/vdc/{id}", "/reputation/{agent_id}", "/registry/rules"],
             "resource_types": [t["type_id"] for t in ontology.list()],
         }
+
+    @app.get("/", response_class=HTMLResponse, include_in_schema=False)
+    def dashboard_home():
+        status = collect_status(engine=engine, app_state=app.state)
+        return render_dashboard(status, admin=False)
+
+    @app.get("/admin", response_class=HTMLResponse, include_in_schema=False)
+    def dashboard_admin():
+        status = collect_status(engine=engine, app_state=app.state)
+        return render_dashboard(status, admin=True)
+
+    @app.get("/admin/status")
+    def admin_status():
+        return collect_status(engine=engine, app_state=app.state)
 
     def _parties(exchange_id: str) -> set[str]:
         ex = engine.get(exchange_id)
