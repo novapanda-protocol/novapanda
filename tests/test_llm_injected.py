@@ -1,6 +1,6 @@
 
 def test_llm_injected_judge_fn():
-    from troodon.v1.llm_verifier import LLMJudgeVerifier
+    from novapanda.v1.llm_verifier import LLMJudgeVerifier
 
     def always_pass(deliverable, rule):
         return {"passed": True, "reason": "injected ok", "checks": []}

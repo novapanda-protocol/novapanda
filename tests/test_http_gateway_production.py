@@ -1,7 +1,7 @@
 import httpx
 
-from troodon.http_gateway_base import HttpGatewayClient
-from troodon.settlement import SettlementError
+from novapanda.http_gateway_base import HttpGatewayClient
+from novapanda.settlement import SettlementError
 
 
 def test_gateway_retries_on_500():

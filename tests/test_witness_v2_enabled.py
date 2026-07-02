@@ -1,11 +1,11 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.store import SQLiteStore
-from troodon.v2 import witness as witness_mod
-from troodon.v2.witness import build_witness_attestation, witness_sign
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.store import SQLiteStore
+from novapanda.v2 import witness as witness_mod
+from novapanda.v2.witness import build_witness_attestation, witness_sign
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "W-2", "total": "100.00", "currency": "USD"}

@@ -1,4 +1,4 @@
-"""Troodon 参考节点（v0，HTTP/JSON）。
+"""NovaPanda 参考节点（v0，HTTP/JSON）。
 
 这是「身体/可运营」层：人人可自建、可被替代。它只做编排与校验，
 从不持有任何 agent 私钥；真理（VDC/签名/信誉）均可脱离本节点独立复验。
@@ -29,7 +29,7 @@ from ..v2.federation import FederationV2NotEnabledError
 from ..v2.witness import WitnessV2NotEnabledError
 from ..verifier import SchemaVerifier, make_verifier
 from ..reputation_gate import check_reputation_gate
-from ..v1.did import did_to_agent_id, is_troodon_did, normalize_party_ref
+from ..v1.did import did_to_agent_id, is_novapanda_did, normalize_party_ref
 from ..v1.did_registry import DidRegistry
 
 
@@ -197,7 +197,7 @@ def create_app(
         engine.recover()
         yield
 
-    app = FastAPI(title="Troodon Node", version="0.0.1", lifespan=lifespan)
+    app = FastAPI(title="NovaPanda Node", version="0.0.1", lifespan=lifespan)
     app.state.engine = engine
     app.state.rules = rules
     app.state.ontology = ontology
@@ -215,7 +215,7 @@ def create_app(
     app.state.rep_witness_bonus_per_stake = rep_witness_bonus_per_stake
     app.state.rep_witness_bonus_cap = rep_witness_bonus_cap
     app.state.did_registry = DidRegistry()
-    app.state.admin_token = os.environ.get("TROODON_ADMIN_TOKEN")
+    app.state.admin_token = os.environ.get("NOVAPANDA_ADMIN_TOKEN")
 
     def _normalize_party(ref: str) -> str:
         try:
@@ -309,10 +309,10 @@ def create_app(
     async def _exchange_err(_: Request, exc: ExchangeError):
         return _err(400, "E_INVALID", exc)
 
-    @app.get("/.well-known/troodon.json")
+    @app.get("/.well-known/novapanda.json")
     def manifest():
         return {
-            "protocol": "troodon",
+            "protocol": "novapanda",
             "version": "0.0.1",
             "node_id": app.state.node_id,
             "endpoints": ["/exchanges", "/vdc/{id}", "/reputation/{agent_id}", "/registry/rules"],
@@ -596,8 +596,8 @@ def create_app(
 
     @app.get("/v1/did/resolve/{did:path}")
     def resolve_did(did: str):
-        if not is_troodon_did(did):
-            raise HTTPException(400, {"code": "E_INVALID", "msg": "非 troodon DID"})
+        if not is_novapanda_did(did):
+            raise HTTPException(400, {"code": "E_INVALID", "msg": "非 novapanda DID"})
         try:
             return app.state.did_registry.resolve(did)
         except ValueError as exc:
@@ -662,7 +662,7 @@ def create_app(
     @app.get("/health")
     def health():
         """负载均衡 / 容器探活。"""
-        return {"status": "ok", "service": "troodon-node"}
+        return {"status": "ok", "service": "novapanda-node"}
 
     @app.post("/admin/sweep")
     def sweep(request: Request):

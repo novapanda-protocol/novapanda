@@ -1,4 +1,4 @@
-"""Troodon SDK 客户端：在**本地**构造与签名 VDC，私钥从不上送节点。
+"""NovaPanda SDK 客户端：在**本地**构造与签名 VDC，私钥从不上送节点。
 
 降低接入难度的最薄一层：任何持有 agent 身份的程序都能用它完成交割；
 它对节点而言是无状态的，节点只接收签名结果并校验。
@@ -24,7 +24,7 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-class TroodonClient:
+class NovaPandaClient:
     def __init__(self, base_url: str, identity: Identity, *, http: Optional[httpx.Client] = None):
         self.base_url = base_url.rstrip("/")
         self.identity = identity

@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { TroodonClient } from "../dist/index.js";
+import { NovaPandaClient } from "../dist/index.js";
 
 const baseUrl = process.argv[2];
 if (!baseUrl) {
@@ -24,8 +24,8 @@ const vector = JSON.parse(readFileSync(FIXTURE, "utf8"));
 const clientKey = Buffer.from(vector.client_private_key_hex, "hex");
 const providerKey = Buffer.from(vector.provider_private_key_hex, "hex");
 
-const client = new TroodonClient({ baseUrl, privateKey: clientKey });
-const provider = new TroodonClient({ baseUrl, privateKey: providerKey });
+const client = new NovaPandaClient({ baseUrl, privateKey: clientKey });
+const provider = new NovaPandaClient({ baseUrl, privateKey: providerKey });
 
 const GOOD = { invoice_no: "TS-001", total: "100.00", currency: "USD" };
 const idem = `ts-plugfest-${Date.now()}`;

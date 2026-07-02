@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.settlement import AP2Settlement
-from troodon.ap2_fake import create_ap2_fake_app
-from troodon.ap2_gateway import HttpAP2Gateway
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.settlement import AP2Settlement
+from novapanda.ap2_fake import create_ap2_fake_app
+from novapanda.ap2_gateway import HttpAP2Gateway
 from tests.helpers import dual_contract_engine
 
 

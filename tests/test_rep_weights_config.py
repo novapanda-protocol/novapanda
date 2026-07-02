@@ -3,9 +3,9 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.config import NodeConfig
-from troodon.identity import Identity
-from troodon.node import create_app
+from novapanda.config import NodeConfig
+from novapanda.identity import Identity
+from novapanda.node import create_app
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "A-1", "total": "100.00", "currency": "USD"}
@@ -32,7 +32,7 @@ def _settled_provider(app, provider: Identity) -> str:
 
 
 def test_node_config_parses_rep_weights(monkeypatch):
-    monkeypatch.setenv("TROODON_REP_WEIGHTS", '{"ed25519:NodeA":2.0}')
+    monkeypatch.setenv("NOVAPANDA_REP_WEIGHTS", '{"ed25519:NodeA":2.0}')
     cfg = NodeConfig.from_env()
     assert cfg.reputation_weights == {"ed25519:NodeA": 2.0}
 

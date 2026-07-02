@@ -1,4 +1,4 @@
-"""Agent Manifest：能力发现与自签名 manifest（`/.well-known/troodon.json`）。
+"""Agent Manifest：能力发现与自签名 manifest（`/.well-known/novapanda.json`）。
 
 Agent 在本地持有私钥并自签 manifest；对端拉取后验签即可发现能力与交换端点，
 无需预建关系。
@@ -23,7 +23,7 @@ def build_agent_manifest(
     include_did: bool = True,
 ) -> dict:
     body = {
-        "protocol": "troodon",
+        "protocol": "novapanda",
         "version": version,
         "agent_id": identity.agent_id,
         "pubkey": identity.pubkey_b64url,

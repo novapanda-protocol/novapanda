@@ -1,8 +1,8 @@
-from troodon import state_machine as sm
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.settlement import MockSettlement
-from troodon.store import SQLiteStore
+from novapanda import state_machine as sm
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.settlement import MockSettlement
+from novapanda.store import SQLiteStore
 from tests.helpers import dual_contract_engine
 
 

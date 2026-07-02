@@ -1,4 +1,4 @@
-/** VDC build + sign — align with troodon/vdc.py */
+/** VDC build + sign — align with novapanda/vdc.py */
 
 import { randomBytes } from "node:crypto";
 import { canonicalBytes } from "./canonical.js";

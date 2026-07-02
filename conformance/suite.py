@@ -1,4 +1,4 @@
-"""Troodon Conformance Suite — C1–C7 一致性测试映射。"""
+"""NovaPanda Conformance Suite — C1–C7 一致性测试映射。"""
 
 from __future__ import annotations
 

@@ -3,7 +3,7 @@
 > 让任意智能体/智能设备之间，在**无预建关系**下完成**跨主体**价值交换——
 > 不发币、不托管资金、不收协议费；交割的真理是一份**任何人都能独立复验**的凭证。
 
-**对外品牌：NovaPanda** · 参考实现 Python 包名仍为 `troodon`（内部代号）。规范 CC BY 4.0、代码 Apache-2.0。
+**品牌：NovaPanda** · Python 包名 `novapanda` · TypeScript `@novapanda/sdk`。规范 CC BY 4.0、代码 Apache-2.0。
 
 **官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）
 
@@ -41,47 +41,47 @@ cd sdk/typescript && npm run build && npm test    # TS parity + lifecycle
 ### 独立复验 VDC
 
 ```bash
-python -m troodon.reverify demo/out/settled_vdc.json --deliverable demo/out/deliverable.json
+python -m novapanda.reverify demo/out/settled_vdc.json --deliverable demo/out/deliverable.json
 ```
 
 ### 启动节点
 
 ```bash
 # 开发
-$env:TROODON_AUTH="0"
-.\.venv\Scripts\python.exe -m uvicorn troodon.node.app:create_app --factory --reload
+$env:NOVAPANDA_AUTH="0"
+.\.venv\Scripts\python.exe -m uvicorn novapanda.node.app:create_app --factory --reload
 
 # 生产（SQLite + 鉴权 + 环境配置）
-$env:TROODON_DB="troodon.sqlite"
-$env:TROODON_AUTH="1"
-.\.venv\Scripts\python.exe -m uvicorn troodon.node.app:create_app_from_config --factory
+$env:NOVAPANDA_DB="novapanda.sqlite"
+$env:NOVAPANDA_AUTH="1"
+.\.venv\Scripts\python.exe -m uvicorn novapanda.node.app:create_app_from_config --factory
 ```
 
 ### 常用环境变量
 
 | 变量 | 说明 |
 |------|------|
-| `TROODON_AUTH` | 鉴权 1/0 |
-| `TROODON_DB` | SQLite 路径 |
-| `TROODON_SETTLEMENT` | mock / x402 / ap2 / fiat |
-| `TROODON_WITNESS_V2` / `TROODON_FEDERATION_V2` | v2 特性 |
-| `TROODON_VERIFIER` / `TROODON_LLM_JUDGE` / `TROODON_LLM_GATEWAY_URL` | 验收器 |
-| `TROODON_REP_MIN_SCORE` / `TROODON_REP_GATE_STRICT` | 信誉 gate |
+| `NOVAPANDA_AUTH` | 鉴权 1/0 |
+| `NOVAPANDA_DB` | SQLite 路径 |
+| `NOVAPANDA_SETTLEMENT` | mock / x402 / ap2 / fiat |
+| `NOVAPANDA_WITNESS_V2` / `NOVAPANDA_FEDERATION_V2` | v2 特性 |
+| `NOVAPANDA_VERIFIER` / `NOVAPANDA_LLM_JUDGE` / `NOVAPANDA_LLM_GATEWAY_URL` | 验收器 |
+| `NOVAPANDA_REP_MIN_SCORE` / `NOVAPANDA_REP_GATE_STRICT` | 信誉 gate |
 
-完整列表见 [`troodon/config.py`](troodon/config.py) 与 [`spec/SPEC.md`](spec/SPEC.md) §19。
+完整列表见 [`novapanda/config.py`](novapanda/config.py) 与 [`spec/SPEC.md`](spec/SPEC.md) §19。
 
 ### 公开试用节点
 
 - Trial（mock）：[`https://node.novapanda.io`](https://node.novapanda.io)
 - 健康检查：`GET /health`
-- Manifest：`GET /.well-known/troodon.json`
+- Manifest：`GET /.well-known/novapanda.json`
 
 自营节点部署与运维文档不在本公开仓库；第三方可按规范与参考实现自建同构节点。
 
 ## 仓库结构
 
 ```
-troodon/        参考实现（Python）
+novapanda/        参考实现（Python）
 sdk/typescript/ TypeScript SDK
 spec/           规范 + JSON Schema
 demo/           模拟舱 + plugfest

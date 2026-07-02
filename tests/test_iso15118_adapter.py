@@ -1,4 +1,4 @@
-from troodon.v3 import iso15118_adapter as adapter
+from novapanda.v3 import iso15118_adapter as adapter
 
 
 def test_adapter_uses_sim_backend_by_default():

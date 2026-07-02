@@ -1,6 +1,6 @@
 import pytest
 
-from troodon import state_machine as sm
+from novapanda import state_machine as sm
 
 
 def test_happy_path_transitions_allowed():

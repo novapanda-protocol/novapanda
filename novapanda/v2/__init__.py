@@ -1,4 +1,4 @@
-"""Troodon v2 占位模块（见证网络 + 质押罚没）。
+"""NovaPanda v2 占位模块（见证网络 + 质押罚没）。
 
 v0 参考实现仅提供 schema 校验与 API 占位；运行时默认关闭（`WITNESS_V2_ENABLED=False`）。
 """

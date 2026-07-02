@@ -1,4 +1,4 @@
-"""Troodon v1+ 占位模块。"""
+"""NovaPanda v1+ 占位模块。"""
 
 from .cbor_codec import canonical_cbor_bytes, cbor_available
 from .did import (

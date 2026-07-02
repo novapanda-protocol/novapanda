@@ -1,7 +1,7 @@
 {
-  "name": "@troodon/sdk",
+  "name": "@novapanda/sdk",
   "version": "0.0.1",
-  "description": "Troodon protocol TypeScript SDK",
+  "description": "NovaPanda protocol TypeScript SDK",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

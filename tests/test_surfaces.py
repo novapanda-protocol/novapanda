@@ -3,13 +3,13 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.reverify import reverify
-from troodon.sdk import TroodonClient
+from novapanda import vdc as V
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.reverify import reverify
+from novapanda.sdk import NovaPandaClient
 from tests.helpers import dual_contract_sdk
-from troodon.surfaces import (
+from novapanda.surfaces import (
     A2ABinding,
     ExchangeSkill,
     MCPBinding,
@@ -29,8 +29,8 @@ GOOD = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
 def clients():
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     return client, provider
 
 
@@ -43,7 +43,7 @@ def _assert_settled_vdc(settled: dict):
 def test_surface_descriptor_parity():
     """MCP 工具 / A2A 技能 必须与统一操作集一一对应（不多不少）。"""
     ops = set(OPERATIONS_BY_NAME.keys())
-    mcp_names = {d["name"].split("troodon.", 1)[-1] for d in mcp_tool_descriptors()}
+    mcp_names = {d["name"].split("novapanda.", 1)[-1] for d in mcp_tool_descriptors()}
     a2a_names = {s["id"] for s in agent_card()["skills"]}
     assert mcp_names == ops
     assert a2a_names == ops
@@ -52,17 +52,17 @@ def test_surface_descriptor_parity():
 def test_mcp_surface_full_lifecycle(clients):
     client, provider = clients
     cb, pb = MCPBinding(client), MCPBinding(provider)
-    ex = cb.call_tool("troodon.propose", {
+    ex = cb.call_tool("novapanda.propose", {
         "provider": provider.agent_id, "resource_type": RESOURCE, "quantity": 1,
         "rule_id": RULE_ID, "price": PRICE, "idempotency_key": "mcp-1",
     })
     eid = ex["exchange_id"]
-    cb.call_tool("troodon.contract", {"exchange_id": eid})
-    pb.call_tool("troodon.contract", {"exchange_id": eid})
-    cb.call_tool("troodon.escrow", {"exchange_id": eid, "amount": 100, "currency": "USD"})
-    pb.call_tool("troodon.deliver", {"exchange_id": eid, "deliverable": GOOD})
-    cb.call_tool("troodon.verify", {"exchange_id": eid})
-    settled = cb.call_tool("troodon.confirm", {"exchange_id": eid})
+    cb.call_tool("novapanda.contract", {"exchange_id": eid})
+    pb.call_tool("novapanda.contract", {"exchange_id": eid})
+    cb.call_tool("novapanda.escrow", {"exchange_id": eid, "amount": 100, "currency": "USD"})
+    pb.call_tool("novapanda.deliver", {"exchange_id": eid, "deliverable": GOOD})
+    cb.call_tool("novapanda.verify", {"exchange_id": eid})
+    settled = cb.call_tool("novapanda.confirm", {"exchange_id": eid})
     _assert_settled_vdc(settled)
 
 
@@ -142,16 +142,16 @@ def test_all_surfaces_produce_equivalent_vdc_shape(clients):
 
     def run_via_mcp(idem):
         cb, pb = MCPBinding(client), MCPBinding(provider)
-        ex = cb.call_tool("troodon.propose", {
+        ex = cb.call_tool("novapanda.propose", {
             "provider": provider.agent_id, "resource_type": RESOURCE, "quantity": 1,
             "rule_id": RULE_ID, "price": PRICE, "idempotency_key": idem})
         eid = ex["exchange_id"]
-        cb.call_tool("troodon.contract", {"exchange_id": eid})
-        pb.call_tool("troodon.contract", {"exchange_id": eid})
-        cb.call_tool("troodon.escrow", {"exchange_id": eid, "amount": 100, "currency": "USD"})
-        pb.call_tool("troodon.deliver", {"exchange_id": eid, "deliverable": GOOD})
-        cb.call_tool("troodon.verify", {"exchange_id": eid})
-        return cb.call_tool("troodon.confirm", {"exchange_id": eid})["vdc"]
+        cb.call_tool("novapanda.contract", {"exchange_id": eid})
+        pb.call_tool("novapanda.contract", {"exchange_id": eid})
+        cb.call_tool("novapanda.escrow", {"exchange_id": eid, "amount": 100, "currency": "USD"})
+        pb.call_tool("novapanda.deliver", {"exchange_id": eid, "deliverable": GOOD})
+        cb.call_tool("novapanda.verify", {"exchange_id": eid})
+        return cb.call_tool("novapanda.confirm", {"exchange_id": eid})["vdc"]
 
     v1 = run_via_skill("eq-skill")
     v2 = run_via_mcp("eq-mcp")

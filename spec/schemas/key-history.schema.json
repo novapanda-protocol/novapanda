@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://troodon.dev/spec/schemas/key-history.schema.json",
+  "$id": "https://novapanda.dev/spec/schemas/key-history.schema.json",
   "title": "Agent Key History (v1 placeholder)",
   "type": "object",
   "required": [

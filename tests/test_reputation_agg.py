@@ -1,7 +1,7 @@
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.reputation import ReputationLog
-from troodon.v2.reputation_agg import aggregate_reputation_bundles
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.reputation import ReputationLog
+from novapanda.v2.reputation_agg import aggregate_reputation_bundles
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "A-1", "total": "100.00", "currency": "USD"}
@@ -9,8 +9,8 @@ GOOD = {"invoice_no": "A-1", "total": "100.00", "currency": "USD"}
 
 def _bundle_for(node: Identity) -> dict:
     log = ReputationLog(node)
-    from troodon.exchange import ExchangeEngine
-    from troodon.settlement import MockSettlement
+    from novapanda.exchange import ExchangeEngine
+    from novapanda.settlement import MockSettlement
 
     engine = ExchangeEngine(MockSettlement(), reputation=log)
     client, provider = Identity.generate(), Identity.generate()

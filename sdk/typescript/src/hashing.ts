@@ -1,4 +1,4 @@
-/** Result hash — align with troodon/hashing.py */
+/** Result hash — align with novapanda/hashing.py */
 
 import { canonicalBytes } from "./canonical.js";
 import { sha256Hex } from "./crypto.js";

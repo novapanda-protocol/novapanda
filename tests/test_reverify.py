@@ -1,7 +1,7 @@
-from troodon import vdc as V
-from troodon.hashing import result_hash_of_json
-from troodon.identity import Identity
-from troodon.reverify import reverify
+from novapanda import vdc as V
+from novapanda.hashing import result_hash_of_json
+from novapanda.identity import Identity
+from novapanda.reverify import reverify
 
 
 def _settled_vdc(deliverable):
@@ -39,7 +39,7 @@ def test_reverify_detects_deliverable_tamper():
 
 
 def test_reverify_replay_matches_node():
-    from troodon.registry import load_default_registries
+    from novapanda.registry import load_default_registries
 
     deliverable = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
     doc = _settled_vdc(deliverable)

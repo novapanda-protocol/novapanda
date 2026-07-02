@@ -1,4 +1,4 @@
-from troodon.v1.llm_verifier import LLMJudgeVerifier
+from novapanda.v1.llm_verifier import LLMJudgeVerifier
 
 
 def test_llm_stub_passes_with_keywords():

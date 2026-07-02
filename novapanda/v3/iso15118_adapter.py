@@ -36,7 +36,7 @@ def bind_backend(backend: Iso15118Backend) -> None:
 
 def adapter_info() -> dict:
     return {
-        "adapter": "troodon/iso15118-adapter/v1",
+        "adapter": "novapanda/iso15118-adapter/v1",
         "backend": type(_backend).__name__,
         "sim_version": sim.SIM_VERSION,
     }

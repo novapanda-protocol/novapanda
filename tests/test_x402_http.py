@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.settlement import X402Settlement
-from troodon.x402_fake import create_x402_fake_app
-from troodon.x402_gateway import HttpX402Gateway
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.settlement import X402Settlement
+from novapanda.x402_fake import create_x402_fake_app
+from novapanda.x402_gateway import HttpX402Gateway
 from tests.helpers import dual_contract_engine
 
 

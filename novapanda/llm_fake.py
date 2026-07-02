@@ -79,7 +79,7 @@ def create_llm_fake_app(*, mode: str = "regex") -> FastAPI:
         return {
             "id": "chatcmpl-fake",
             "object": "chat.completion",
-            "model": body.model or "troodon-judge-stub",
+            "model": body.model or "novapanda-judge-stub",
             "choices": [{"index": 0, "message": {"role": "assistant", "content": content}}],
         }
 

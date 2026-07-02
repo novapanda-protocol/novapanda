@@ -10,4 +10,4 @@ def test_typescript_sdk_skeleton_present():
     assert (TS / "src" / "index.ts").is_file()
     content = (TS / "src" / "index.ts").read_text(encoding="utf-8")
     assert "canonicalString" in content
-    assert "TroodonClient" in content
+    assert "NovaPandaClient" in content

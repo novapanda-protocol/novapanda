@@ -1,7 +1,7 @@
 [project]
-name = "troodon"
+name = "novapanda"
 version = "0.0.1"
-description = "Troodon — verifiable delivery exchange protocol, reference implementation"
+description = "NovaPanda — verifiable delivery exchange protocol, reference implementation"
 requires-python = ">=3.11"
 dependencies = [
     "cryptography>=42",
@@ -20,7 +20,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["troodon*"]
+include = ["novapanda*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

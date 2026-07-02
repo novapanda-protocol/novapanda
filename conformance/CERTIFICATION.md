@@ -1,6 +1,6 @@
-# Troodon Conformance & Certification (pre-publish)
+# NovaPanda Conformance & Certification (pre-publish)
 
-本目录说明 **Troodon-compatible** 一致性认证的准备材料；**尚未对外发布**，不含已注册商标图样。
+本目录说明 **NovaPanda-compatible** 一致性认证的准备材料；**尚未对外发布**，不含已注册商标图样。
 
 ## Conformance Suite
 
@@ -26,7 +26,7 @@ python -m conformance.run --list
 | C6 | 信誉链与加权聚合 |
 | C7 | Manifest 发现与交换 |
 
-通过 C1–C7 的第三方实现可申请 **Troodon-compatible** 标识（见 `TRADEMARK.md` 占位）。
+通过 C1–C7 的第三方实现可申请 **NovaPanda-compatible** 标识（见 `TRADEMARK.md` 占位）。
 
 ## 认证流程（草案）
 

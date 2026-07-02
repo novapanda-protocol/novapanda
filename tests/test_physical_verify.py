@@ -1,9 +1,9 @@
-from troodon import state_machine as sm
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.verifier import SchemaVerifier
+from novapanda import state_machine as sm
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.verifier import SchemaVerifier
 from tests.helpers import dual_contract_engine
 
 _, RULES = load_default_registries()

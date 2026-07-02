@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://troodon.dev/spec/schemas/reputation-entry.schema.json",
+  "$id": "https://novapanda.dev/spec/schemas/reputation-entry.schema.json",
   "title": "Reputation Entry",
   "description": "信誉账本中的一条记录。append-only、哈希链、节点签名、可跨节点独立复验。",
   "type": "object",

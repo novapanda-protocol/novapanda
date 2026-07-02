@@ -4,11 +4,11 @@ import secrets
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.auth import sign_request
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.sdk import TroodonClient
+from novapanda import vdc as V
+from novapanda.auth import sign_request
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.sdk import NovaPandaClient
 from tests.helpers import dual_contract_sdk
 
 RULE_ID = "R-extract-invoice-v1"
@@ -21,8 +21,8 @@ GOOD = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
 def ctx():
     app = create_app(seed=True, auth=True)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     return tc, client, provider
 
 

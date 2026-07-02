@@ -1,4 +1,4 @@
-from troodon.verifier import SchemaVerifier
+from novapanda.verifier import SchemaVerifier
 
 _SCHEMA = {
     "type": "object",

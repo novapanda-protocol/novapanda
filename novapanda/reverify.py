@@ -62,7 +62,7 @@ def _all_ok(checks: dict) -> bool:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    parser = argparse.ArgumentParser(prog="troodon.reverify")
+    parser = argparse.ArgumentParser(prog="novapanda.reverify")
     parser.add_argument("vdc", help="VDC JSON 文件路径")
     parser.add_argument("--deliverable", help="交付物 JSON 文件路径（可选）")
     parser.add_argument("--verify-result", help="VerifyResult JSON（含 replay_inputs_ref）")

@@ -1,11 +1,11 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.hashing import result_hash_of_json
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.store import SQLiteStore
-from troodon.v2.witness import (
+from novapanda.hashing import result_hash_of_json
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.store import SQLiteStore
+from novapanda.v2.witness import (
     WITNESS_V2_ENABLED,
     WitnessV2NotEnabledError,
     build_stake_lock,
@@ -51,8 +51,8 @@ def test_stake_lock_validation():
 
 
 def test_attach_witness_disabled_by_default():
-    from troodon.exchange import ExchangeEngine
-    from troodon.settlement import MockSettlement
+    from novapanda.exchange import ExchangeEngine
+    from novapanda.settlement import MockSettlement
 
     engine = ExchangeEngine(MockSettlement())
     witness = Identity.generate()

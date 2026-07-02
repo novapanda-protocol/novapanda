@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from troodon.v1.cbor_codec import cbor_available, canonical_cbor_bytes
-from troodon.vdc import provider_signing_bytes, provider_signing_cbor_bytes, provider_signing_payload
+from novapanda.v1.cbor_codec import cbor_available, canonical_cbor_bytes
+from novapanda.vdc import provider_signing_bytes, provider_signing_cbor_bytes, provider_signing_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "sdk_parity_vector.json"

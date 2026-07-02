@@ -3,9 +3,9 @@ from pathlib import Path
 
 import pytest
 
-from troodon.node import create_app
-from troodon.registry import load_default_registries
-from troodon.store import SQLiteStore
+from novapanda.node import create_app
+from novapanda.registry import load_default_registries
+from novapanda.store import SQLiteStore
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "ed25519_signing_vector.json"
@@ -42,8 +42,8 @@ def test_second_startup_loads_registry_from_db_not_duplicate(tmp_path):
 
 
 def test_signing_vector_fixture_matches_python():
-    from troodon.auth import sign_request
-    from troodon.identity import Identity
+    from novapanda.auth import sign_request
+    from novapanda.identity import Identity
 
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
     identity = Identity.from_private_bytes(bytes.fromhex(data["private_key_hex"]))

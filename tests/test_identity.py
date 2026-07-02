@@ -1,4 +1,4 @@
-from troodon.identity import Identity, b58decode, b58encode, pubkey_from_agent_id, verify
+from novapanda.identity import Identity, b58decode, b58encode, pubkey_from_agent_id, verify
 
 
 def test_agent_id_format_and_roundtrip():

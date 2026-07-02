@@ -1,4 +1,4 @@
-/** Contract terms hash + ack signing — align with troodon/terms.py */
+/** Contract terms hash + ack signing — align with novapanda/terms.py */
 
 import { canonicalBytes } from "./canonical.js";
 import { sha256Hex } from "./crypto.js";

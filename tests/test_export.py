@@ -1,10 +1,10 @@
 from fastapi.testclient import TestClient
 
-from troodon.config import DEFAULT_TIMEOUTS
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.settlement import MockSettlement
+from novapanda.config import DEFAULT_TIMEOUTS
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.settlement import MockSettlement
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "E-1", "total": "100.00", "currency": "USD"}

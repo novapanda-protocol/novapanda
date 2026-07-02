@@ -13,11 +13,11 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.reverify import reverify
-from troodon.sdk import TroodonClient
+from novapanda import vdc as V
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.reverify import reverify
+from novapanda.sdk import NovaPandaClient
 
 RULE_ID = "R-extract-invoice-v1"
 RESOURCE = "data.extraction.structured"
@@ -33,8 +33,8 @@ def _line(title: str) -> None:
 
 def _make_pair(tc: TestClient):
     # 两个全新的、互不相识的身份
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     print(f"client  (买方) agent_id = {client.agent_id}")
     print(f"provider(卖方) agent_id = {provider.agent_id}")
     return client, provider
@@ -65,7 +65,7 @@ def scenario_happy(tc: TestClient) -> None:
     print(json.dumps(reverify(doc, GOOD), ensure_ascii=False, indent=2))
     assert V.is_valid_settled(doc)
     print("已写出 demo/out/settled_vdc.json，可执行：")
-    print("  python -m troodon.reverify demo/out/settled_vdc.json --deliverable demo/out/deliverable.json")
+    print("  python -m novapanda.reverify demo/out/settled_vdc.json --deliverable demo/out/deliverable.json")
 
 
 def scenario_reject(tc: TestClient) -> None:

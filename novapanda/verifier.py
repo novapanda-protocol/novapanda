@@ -123,7 +123,7 @@ def make_verifier(
             else:
                 if not llm_gateway_url:
                     raise ValueError(
-                        "TROODON_LLM_JUDGE=http 时必须设置 TROODON_LLM_GATEWAY_URL"
+                        "NOVAPANDA_LLM_JUDGE=http 时必须设置 NOVAPANDA_LLM_GATEWAY_URL"
                     )
                 gw = HttpLLMGateway(llm_gateway_url)
             return LLMJudgeVerifier(
@@ -133,7 +133,7 @@ def make_verifier(
         if (llm_judge or "").lower() == "openai":
             from .v1.llm_openai_compat import OpenAICompatLLMGateway, make_openai_judge_fn
 
-            model = llm_model or "troodon-judge-stub"
+            model = llm_model or "novapanda-judge-stub"
             if llm_gateway_http is not None:
                 base = llm_gateway_url or "http://testserver"
                 gw = OpenAICompatLLMGateway(
@@ -142,7 +142,7 @@ def make_verifier(
             else:
                 if not llm_gateway_url:
                     raise ValueError(
-                        "TROODON_LLM_JUDGE=openai 时必须设置 TROODON_LLM_GATEWAY_URL"
+                        "NOVAPANDA_LLM_JUDGE=openai 时必须设置 NOVAPANDA_LLM_GATEWAY_URL"
                     )
                 gw = OpenAICompatLLMGateway(
                     llm_gateway_url, model=model, api_key=llm_api_key,

@@ -2,13 +2,13 @@ import json
 
 from fastapi.testclient import TestClient
 
-from troodon import state_machine as sm
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.settlement import MockSettlement
-from troodon.store import SQLiteStore
+from novapanda import state_machine as sm
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.settlement import MockSettlement
+from novapanda.store import SQLiteStore
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "V-1", "total": "100.00", "currency": "USD"}

@@ -1,12 +1,12 @@
 from fastapi.testclient import TestClient
 
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.llm_fake import create_llm_fake_app
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.v1.llm_openai_compat import OpenAICompatLLMGateway
-from troodon.verifier import make_verifier
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.llm_fake import create_llm_fake_app
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.v1.llm_openai_compat import OpenAICompatLLMGateway
+from novapanda.verifier import make_verifier
 from tests.helpers import dual_contract_engine
 
 _, RULES = load_default_registries()

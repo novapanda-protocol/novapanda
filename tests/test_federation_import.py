@@ -1,8 +1,8 @@
 import pytest
-from troodon.v2 import federation as fed_mod
-from troodon.node import create_app
+from novapanda.v2 import federation as fed_mod
+from novapanda.node import create_app
 from tests.helpers import dual_contract_engine
-from troodon.identity import Identity
+from novapanda.identity import Identity
 
 GOOD = {"invoice_no": "I-1", "total": "100.00", "currency": "USD"}
 

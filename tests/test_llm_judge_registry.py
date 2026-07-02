@@ -1,11 +1,11 @@
 import pytest
 
-from troodon.v1.judge_registry import field_match_judge, regex_judge, resolve_judge_fn
-from troodon.verifier import make_verifier
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
+from novapanda.v1.judge_registry import field_match_judge, regex_judge, resolve_judge_fn
+from novapanda.verifier import make_verifier
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
 from tests.helpers import dual_contract_engine
 
 _, RULES = load_default_registries()

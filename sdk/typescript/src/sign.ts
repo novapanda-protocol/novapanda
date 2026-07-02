@@ -1,4 +1,4 @@
-/** Ed25519 request signing — aligned with troodon/auth.py */
+/** Ed25519 request signing — aligned with novapanda/auth.py */
 
 import { createHash, randomBytes } from "node:crypto";
 import * as ed from "@noble/ed25519";

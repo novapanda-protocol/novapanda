@@ -11,7 +11,7 @@ from typing import Any
 
 from .base import OPERATIONS, Client, dispatch
 
-_PREFIX = "troodon."
+_PREFIX = "novapanda."
 
 
 def mcp_tool_descriptors() -> list[dict]:

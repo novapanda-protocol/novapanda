@@ -1,18 +1,18 @@
-export interface TroodonErrorBody {
+export interface NovaPandaErrorBody {
   code?: string;
   msg?: string;
   score?: number;
   [key: string]: unknown;
 }
 
-export class TroodonError extends Error {
+export class NovaPandaError extends Error {
   readonly status: number;
   readonly code?: string;
-  readonly body?: TroodonErrorBody;
+  readonly body?: NovaPandaErrorBody;
 
-  constructor(status: number, message: string, body?: TroodonErrorBody) {
+  constructor(status: number, message: string, body?: NovaPandaErrorBody) {
     super(message);
-    this.name = "TroodonError";
+    this.name = "NovaPandaError";
     this.status = status;
     this.code = body?.code;
     this.body = body;
@@ -22,13 +22,13 @@ export class TroodonError extends Error {
 export async function parseErrorResponse(
   status: number,
   response: Response,
-): Promise<TroodonError> {
-  let body: TroodonErrorBody | undefined;
+): Promise<NovaPandaError> {
+  let body: NovaPandaErrorBody | undefined;
   try {
-    body = (await response.json()) as TroodonErrorBody;
+    body = (await response.json()) as NovaPandaErrorBody;
   } catch {
     body = undefined;
   }
   const msg = body?.msg ?? response.statusText ?? `HTTP ${status}`;
-  return new TroodonError(status, msg, body);
+  return new NovaPandaError(status, msg, body);
 }

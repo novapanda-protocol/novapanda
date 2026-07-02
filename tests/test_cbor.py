@@ -1,11 +1,11 @@
 import pytest
 
-from troodon.canonical import canonical_bytes
-from troodon.v1.cbor_codec import canonical_cbor_bytes, cbor_available
+from novapanda.canonical import canonical_bytes
+from novapanda.v1.cbor_codec import canonical_cbor_bytes, cbor_available
 
 
 def test_cbor_module_importable_without_native():
-    from troodon.v1 import cbor_codec
+    from novapanda.v1 import cbor_codec
 
     assert hasattr(cbor_codec, "cbor_available")
 

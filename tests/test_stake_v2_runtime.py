@@ -1,8 +1,8 @@
 import pytest
-from troodon.v2 import federation as fed_mod
-from troodon.v2 import witness as witness_mod
-from troodon.v2.stake import lock_stake, release_stake, reset_stakes_for_tests
-from troodon.identity import Identity
+from novapanda.v2 import federation as fed_mod
+from novapanda.v2 import witness as witness_mod
+from novapanda.v2.stake import lock_stake, release_stake, reset_stakes_for_tests
+from novapanda.identity import Identity
 
 
 @pytest.fixture(autouse=True)
@@ -25,8 +25,8 @@ def test_lock_and_release_stake():
 
 
 def test_slash_after_lock():
-    from troodon.exchange import ExchangeEngine
-    from troodon.settlement import MockSettlement
+    from novapanda.exchange import ExchangeEngine
+    from novapanda.settlement import MockSettlement
 
     agent = Identity.generate()
     stake = lock_stake(

@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
+from novapanda.identity import Identity
+from novapanda.node import create_app
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "G-1", "total": "100.00", "currency": "USD"}
@@ -31,7 +31,7 @@ def _settled_provider(app, provider: Identity) -> str:
 
 
 def test_reputation_gate_disabled_allows():
-    from troodon.reputation_gate import check_reputation_gate
+    from novapanda.reputation_gate import check_reputation_gate
 
     app = create_app(seed=True, auth=False)
     gate = check_reputation_gate(
@@ -97,8 +97,8 @@ def test_reputation_gate_strict_blocks_no_history():
 
 
 def test_config_rep_min_score_from_env(monkeypatch):
-    from troodon.config import NodeConfig
+    from novapanda.config import NodeConfig
 
-    monkeypatch.setenv("TROODON_REP_MIN_SCORE", "0.75")
+    monkeypatch.setenv("NOVAPANDA_REP_MIN_SCORE", "0.75")
     cfg = NodeConfig.from_env()
     assert cfg.reputation_min_score == 0.75

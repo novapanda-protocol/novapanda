@@ -1,9 +1,9 @@
 """测试辅助：contract 双签等公共流程。"""
 
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.sdk import TroodonClient
-from troodon.terms import sign_contract_ack
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.sdk import NovaPandaClient
+from novapanda.terms import sign_contract_ack
 
 
 def ack_contract(engine: ExchangeEngine, exchange_id: str, party: Identity):
@@ -20,6 +20,6 @@ def dual_contract_engine(
     return ack_contract(engine, exchange_id, provider)
 
 
-def dual_contract_sdk(client: TroodonClient, provider: TroodonClient, exchange_id: str):
+def dual_contract_sdk(client: NovaPandaClient, provider: NovaPandaClient, exchange_id: str):
     client.contract(exchange_id)
     return provider.contract(exchange_id)

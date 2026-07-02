@@ -1,5 +1,5 @@
-from troodon.identity import Identity
-from troodon.key_history import build_key_history, validate_key_history, verify_with_key_history
+from novapanda.identity import Identity
+from novapanda.key_history import build_key_history, validate_key_history, verify_with_key_history
 
 
 def test_build_and_validate_key_history():

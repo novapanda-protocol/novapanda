@@ -11,10 +11,10 @@ from typing import Any, Optional
 from .base import OPERATIONS, Client, dispatch
 
 
-def agent_card(*, name: str = "troodon-agent", url: Optional[str] = None) -> dict:
+def agent_card(*, name: str = "novapanda-agent", url: Optional[str] = None) -> dict:
     return {
         "name": name,
-        "description": "Troodon-compatible 价值交割 Agent",
+        "description": "NovaPanda-compatible 价值交割 Agent",
         "url": url,
         "capabilities": {"streaming": False, "pushNotifications": False},
         "skills": [
@@ -30,7 +30,7 @@ def agent_card(*, name: str = "troodon-agent", url: Optional[str] = None) -> dic
 
 
 class A2ABinding:
-    def __init__(self, client: Client, *, name: str = "troodon-agent") -> None:
+    def __init__(self, client: Client, *, name: str = "novapanda-agent") -> None:
         self.client = client
         self.name = name
 

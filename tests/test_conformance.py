@@ -4,12 +4,12 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.hashing import result_hash_of_json
-from troodon.identity import Identity
-from troodon.reputation import ReputationLog
-from troodon.settlement import MockSettlement
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.hashing import result_hash_of_json
+from novapanda.identity import Identity
+from novapanda.reputation import ReputationLog
+from novapanda.settlement import MockSettlement
 from tests.helpers import dual_contract_engine
 
 SCHEMAS = Path(__file__).parents[1] / "spec" / "schemas"

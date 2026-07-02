@@ -1,4 +1,4 @@
-"""DID 占位：did:troodon:<agent_id> 与 agent_id 双向映射。"""
+"""DID 占位：did:novapanda:<agent_id> 与 agent_id 双向映射。"""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from typing import Any, Optional
 from ..identity import Identity, verify as _verify_sig
 from ..canonical import canonical_bytes
 
-DID_METHOD = "troodon"
+DID_METHOD = "novapanda"
 DID_VERSION = "0.1-placeholder"
 
 
@@ -25,25 +25,25 @@ def agent_id_to_did(agent_id: str) -> str:
 def did_to_agent_id(did: str) -> str:
     prefix = f"did:{DID_METHOD}:"
     if not did.startswith(prefix):
-        raise ValueError(f"非 troodon DID: {did}")
+        raise ValueError(f"非 novapanda DID: {did}")
     agent_id = did[len(prefix):]
     if not agent_id.startswith("ed25519:"):
         raise ValueError("DID 内 agent_id 格式无效")
     return agent_id
 
 
-def is_troodon_did(ref: str) -> bool:
+def is_novapanda_did(ref: str) -> bool:
     return ref.startswith(f"did:{DID_METHOD}:")
 
 
 def normalize_party_ref(ref: str, registry=None) -> str:
-    """将 agent_id 或 did:troodon:... 规范化为 agent_id。"""
-    if is_troodon_did(ref):
+    """将 agent_id 或 did:novapanda:... 规范化为 agent_id。"""
+    if is_novapanda_did(ref):
         if registry is not None:
             return registry.resolve(ref)["agent_id"]
         return did_to_agent_id(ref)
     if not ref.startswith("ed25519:"):
-        raise ValueError("party 须为 ed25519: agent_id 或 did:troodon:...")
+        raise ValueError("party 须为 ed25519: agent_id 或 did:novapanda:...")
     return ref
 
 

@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 
-from troodon.node import create_app
-from troodon.v3.iso15118_sim import create_session, reset_sessions_for_tests
-from troodon.v3.physical import validate_physical_deliverable
+from novapanda.node import create_app
+from novapanda.v3.iso15118_sim import create_session, reset_sessions_for_tests
+from novapanda.v3.physical import validate_physical_deliverable
 
 
 def setup_function():

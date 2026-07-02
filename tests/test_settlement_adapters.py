@@ -1,7 +1,7 @@
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.settlement import AP2Settlement, FakeGateway, X402Settlement
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.settlement import AP2Settlement, FakeGateway, X402Settlement
 from tests.helpers import dual_contract_engine
 
 

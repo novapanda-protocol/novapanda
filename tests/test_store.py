@@ -2,14 +2,14 @@ from fastapi.testclient import TestClient
 
 import pytest
 
-from troodon import state_machine as sm
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.sdk import TroodonClient
-from troodon.settlement import MockSettlement
-from troodon.store import ConcurrencyError, SQLiteStore
+from novapanda import state_machine as sm
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.sdk import NovaPandaClient
+from novapanda.settlement import MockSettlement
+from novapanda.store import ConcurrencyError, SQLiteStore
 from tests.helpers import dual_contract_engine, dual_contract_sdk
 
 
@@ -40,7 +40,7 @@ def test_sqlite_full_lifecycle():
 
 
 def test_sqlite_durable_across_engine_instances(tmp_path):
-    db = str(tmp_path / "troodon.db")
+    db = str(tmp_path / "novapanda.db")
     settlement = MockSettlement()
     client, provider = Identity.generate(), Identity.generate()
 
@@ -96,8 +96,8 @@ def test_optimistic_lock_conflict(tmp_path):
 def test_node_with_sqlite_store():
     app = create_app(seed=True, store=SQLiteStore(":memory:"))
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     good = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
 
     ex = client.propose(provider=provider.agent_id, resource_type="data.extraction.structured",

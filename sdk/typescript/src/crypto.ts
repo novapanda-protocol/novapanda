@@ -1,4 +1,4 @@
-/** Base58 + SHA-256 helpers aligned with troodon/identity.py & hashing.py */
+/** Base58 + SHA-256 helpers aligned with novapanda/identity.py & hashing.py */
 
 import { createHash } from "node:crypto";
 

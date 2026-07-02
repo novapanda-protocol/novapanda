@@ -1,4 +1,4 @@
-from troodon.registry import (
+from novapanda.registry import (
     DEFAULT_ONTOLOGY_PATH,
     DEFAULT_RULES_PATH,
     load_default_registries,

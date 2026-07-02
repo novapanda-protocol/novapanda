@@ -1,4 +1,4 @@
-"""Troodon v3 物理扩展占位。"""
+"""NovaPanda v3 物理扩展占位。"""
 
 from .physical import (
     PHYSICAL_VERSION,

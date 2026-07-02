@@ -34,5 +34,5 @@ git commit -s -m "your message"
 
 ## 授权
 
-- 你对 `troodon/` 等代码的贡献，按 **Apache-2.0** 授权。
+- 你对 `novapanda/` 等代码的贡献，按 **Apache-2.0** 授权。
 - 你对 `spec/` 的贡献，按 **CC BY 4.0** 授权。

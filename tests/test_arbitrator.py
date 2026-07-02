@@ -1,17 +1,17 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon import state_machine as sm
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.settlement import MockSettlement
-from troodon.sdk import TroodonClient
+from novapanda import state_machine as sm
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.settlement import MockSettlement
+from novapanda.sdk import NovaPandaClient
 from tests.helpers import dual_contract_engine
 
 
 def _to_verified(engine, client, provider, idem="arb-1"):
-    from troodon.registry import load_default_registries
+    from novapanda.registry import load_default_registries
 
     _, rules = load_default_registries()
     rule = rules.get("R-extract-schema-v1")
@@ -36,11 +36,11 @@ def test_arbitrator_only_can_resolve():
     ex = _to_verified(engine, client_id, provider_id)
     engine.dispute(ex.exchange_id, by=client_id.agent_id, reason="x")
 
-    client = TroodonClient("http://testserver", client_id, http=tc)
+    client = NovaPandaClient("http://testserver", client_id, http=tc)
     with pytest.raises(Exception):
         client._post(f"/exchanges/{ex.exchange_id}/resolve", {"outcome": "settle"})
 
-    arb_client = TroodonClient("http://testserver", arb, http=tc)
+    arb_client = NovaPandaClient("http://testserver", arb, http=tc)
     r = arb_client._post(f"/exchanges/{ex.exchange_id}/resolve", {"outcome": "settle"})
     assert r["state"] == sm.SETTLED
 

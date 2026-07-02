@@ -4,14 +4,14 @@
 
 ## 协议品牌
 
-- **名称**：Troodon
-- **包/命名空间**：`troodon`、`TROODON_*`、`did:troodon:`
+- **名称**：NovaPanda
+- **包/命名空间**：`novapanda`、`NOVAPANDA_*`、`did:novapanda:`
 
 ## 兼容标识（草案）
 
 通过 Conformance Suite C1–C7 的实现可使用文字标识：
 
-**Troodon-compatible**
+**NovaPanda-compatible**
 
 图形 mark、认证徽章 PNG/SVG **尚未设计**，待 steward 决策后补充。
 
@@ -19,14 +19,14 @@
 
 | 类别 | 建议 |
 |------|------|
-| 文字商标 | Troodon（目标法域按 GTM 选择） |
+| 文字商标 | NovaPanda（目标法域按 GTM 选择） |
 | 域名 | 待定 |
 | 认证标 | 与基金会/steward 绑定使用规则 |
 
 ## 使用规则（草案）
 
 1. 不得暗示官方背书而未通过认证
-2. 不得修改 VDC 核心字段仍称 Troodon-compatible
+2. 不得修改 VDC 核心字段仍称 NovaPanda-compatible
 3. Fork 须注明衍生关系，不得冒用认证标
 
 ## 下一步

@@ -1,6 +1,6 @@
 import pytest
 
-from troodon.canonical import canonical_bytes, canonical_str
+from novapanda.canonical import canonical_bytes, canonical_str
 
 
 def test_key_order_independent():

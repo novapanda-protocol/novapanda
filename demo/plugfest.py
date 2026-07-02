@@ -12,14 +12,14 @@ import sys
 
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.identity import Identity
-from troodon.manifest import build_agent_manifest, verify_agent_manifest
-from troodon.node import create_app
-from troodon.reverify import reverify
-from troodon.sdk import TroodonClient
-from troodon.store import SQLiteStore
-from troodon.verifier import make_verifier
+from novapanda import vdc as V
+from novapanda.identity import Identity
+from novapanda.manifest import build_agent_manifest, verify_agent_manifest
+from novapanda.node import create_app
+from novapanda.reverify import reverify
+from novapanda.sdk import NovaPandaClient
+from novapanda.store import SQLiteStore
+from novapanda.verifier import make_verifier
 
 RULE_ID = "R-extract-invoice-v1"
 RESOURCE = "data.extraction.structured"
@@ -50,7 +50,7 @@ FIELD_MATCH_PRICE = {"amount": 80, "currency": "USD"}
 FIELD_MATCH_DELIVERABLE = {"status": "done", "score": "A"}
 
 
-def _lifecycle(client: TroodonClient, provider: TroodonClient, manifest: dict,
+def _lifecycle(client: NovaPandaClient, provider: NovaPandaClient, manifest: dict,
                idem: str, tc: TestClient) -> dict:
     cap = manifest["capabilities"][0]
     ex = client.propose(
@@ -78,7 +78,7 @@ def _lifecycle(client: TroodonClient, provider: TroodonClient, manifest: dict,
     assert pub_verify["matches"] is True
 
     checks = reverify(settled["vdc"], GOOD, verified.get("verify_result"))
-    from troodon.reverify import _all_ok
+    from novapanda.reverify import _all_ok
 
     return {
         "exchange_id": eid,
@@ -94,8 +94,8 @@ def _lifecycle(client: TroodonClient, provider: TroodonClient, manifest: dict,
 def run_single_node() -> bool:
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -123,11 +123,11 @@ def run_federation() -> bool:
     client_id = Identity.generate()
     provider_id = Identity.generate()
 
-    client_sdk = TroodonClient("http://provider", client_id, http=provider_tc)
-    provider_sdk = TroodonClient("http://provider", provider_id, http=provider_tc)
+    client_sdk = NovaPandaClient("http://provider", client_id, http=provider_tc)
+    provider_sdk = NovaPandaClient("http://provider", provider_id, http=provider_tc)
 
-    node_manifest = provider_tc.get("/.well-known/troodon.json").json()
-    assert node_manifest["protocol"] == "troodon"
+    node_manifest = provider_tc.get("/.well-known/novapanda.json").json()
+    assert node_manifest["protocol"] == "novapanda"
 
     agent_manifest = build_agent_manifest(
         provider_id,
@@ -147,7 +147,7 @@ def run_federation() -> bool:
     assert client_tc.get(f"/vdc/{vdc_id}").status_code == 404
 
     cross_checks = reverify(remote_vdc, GOOD, result.get("verify_result"))
-    from troodon.reverify import _all_ok
+    from novapanda.reverify import _all_ok
 
     cross_ok = _all_ok(cross_checks)
 
@@ -169,7 +169,7 @@ def run_federation() -> bool:
     print(json.dumps({
         "scenario": "federation",
         "provider_node": node_manifest["node_id"],
-        "client_node": client_tc.get("/.well-known/troodon.json").json()["node_id"],
+        "client_node": client_tc.get("/.well-known/novapanda.json").json()["node_id"],
         "exchange_id": eid,
         "vdc_fetched_cross_node": True,
         "client_node_has_vdc": False,
@@ -186,8 +186,8 @@ def run_energy() -> bool:
     """能源物理场景：R-energy-dc-meter-v1 + /v3/physical/validate + 全生命周期。"""
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -228,7 +228,7 @@ def run_energy() -> bool:
     assert V.is_valid_settled(settled["vdc"])
 
     checks = reverify(settled["vdc"], ENERGY_DELIVERABLE, verified.get("verify_result"))
-    from troodon.reverify import _all_ok
+    from novapanda.reverify import _all_ok
 
     ok = _all_ok(checks)
     print(json.dumps({
@@ -245,8 +245,8 @@ def run_actuation() -> bool:
     """机器人 actuation 物理场景：R-actuation-task-v1 全生命周期。"""
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -283,7 +283,7 @@ def run_actuation() -> bool:
     assert settled["state"] == "SETTLED"
 
     checks = reverify(settled["vdc"], ACTUATION_DELIVERABLE, verified.get("verify_result"))
-    from troodon.reverify import _all_ok
+    from novapanda.reverify import _all_ok
 
     ok = _all_ok(checks)
     print(json.dumps({
@@ -300,8 +300,8 @@ def run_field_match() -> bool:
     verifier = make_verifier("llm", llm_judge="field_match")
     app = create_app(seed=True, auth=False, verifier=verifier)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -348,8 +348,8 @@ def run_consensus_llm() -> bool:
     verifier = make_verifier("llm", llm_judge="consensus:unanimous:regex,field_match")
     app = create_app(seed=True, auth=False, verifier=verifier)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -403,7 +403,7 @@ LLM_HTTP_DELIVERABLE = {"summary": "PASS: plugfest openai compat gateway"}
 
 def run_llm_http_gateway() -> bool:
     """OpenAI-compat HTTP LLM gateway 全链：fake /v1/chat/completions + schema 预检。"""
-    from troodon.llm_fake import create_llm_fake_app
+    from novapanda.llm_fake import create_llm_fake_app
 
     fake = create_llm_fake_app(mode="regex")
     fake_tc = TestClient(fake)
@@ -415,8 +415,8 @@ def run_llm_http_gateway() -> bool:
     )
     app = create_app(seed=True, auth=False, verifier=verifier)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,
@@ -461,16 +461,16 @@ def run_llm_http_gateway() -> bool:
 
 
 def run_witness_stake() -> bool:
-    """witness v2 + stake lock：TROODON_WITNESS_V2=1 多步场景。"""
-    from troodon.v2 import witness as witness_mod
-    from troodon.v2.witness import build_witness_attestation, witness_sign
+    """witness v2 + stake lock：NOVAPANDA_WITNESS_V2=1 多步场景。"""
+    from novapanda.v2 import witness as witness_mod
+    from novapanda.v2.witness import build_witness_attestation, witness_sign
 
     witness_mod.WITNESS_V2_ENABLED = True
     try:
         app = create_app(seed=True, auth=False)
         tc = TestClient(app)
-        client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-        provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+        client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+        provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
         manifest = build_agent_manifest(
             provider.identity,
@@ -530,14 +530,14 @@ def run_witness_stake() -> bool:
 
 def run_confirm_timeout() -> bool:
     """VERIFIED 后 confirm 超时：sweep 触发 EXPIRED_REFUNDED + 退款。"""
-    from troodon import state_machine as sm
-    from troodon.settlement import MockSettlement
+    from novapanda import state_machine as sm
+    from novapanda.settlement import MockSettlement
 
     settlement = MockSettlement()
     app = create_app(seed=True, auth=False, settlement=settlement)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,

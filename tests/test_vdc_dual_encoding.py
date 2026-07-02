@@ -1,8 +1,8 @@
 import pytest
 
-from troodon import vdc as V
-from troodon.identity import Identity
-from troodon.v1.cbor_codec import cbor_available
+from novapanda import vdc as V
+from novapanda.identity import Identity
+from novapanda.v1.cbor_codec import cbor_available
 
 
 @pytest.mark.skipif(not cbor_available(), reason="cbor2 unavailable")

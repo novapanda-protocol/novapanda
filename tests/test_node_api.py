@@ -1,10 +1,10 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.sdk import TroodonClient
+from novapanda import vdc as V
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.sdk import NovaPandaClient
 from tests.helpers import dual_contract_sdk
 
 RULE_ID = "R-extract-invoice-v1"
@@ -18,12 +18,12 @@ def ctx():
     app = create_app(seed=True, auth=False)  # 本文件测 API 语义；鉴权见 test_auth.py
     tc = TestClient(app)
     client_id, provider_id = Identity.generate(), Identity.generate()
-    client = TroodonClient("http://testserver", client_id, http=tc)
-    provider = TroodonClient("http://testserver", provider_id, http=tc)
+    client = NovaPandaClient("http://testserver", client_id, http=tc)
+    provider = NovaPandaClient("http://testserver", provider_id, http=tc)
     return client, provider
 
 
-def _setup_escrowed(client: TroodonClient, provider: TroodonClient, idem="t1"):
+def _setup_escrowed(client: NovaPandaClient, provider: NovaPandaClient, idem="t1"):
     ex = client.propose(
         provider=provider.agent_id, resource_type=RESOURCE, quantity=1,
         rule_id=RULE_ID, price={"amount": 100, "currency": "USD"}, idempotency_key=idem,
@@ -36,8 +36,8 @@ def _setup_escrowed(client: TroodonClient, provider: TroodonClient, idem="t1"):
 
 def test_manifest_discoverable(ctx):
     client, _ = ctx
-    r = client._get("/.well-known/troodon.json")
-    assert r["protocol"] == "troodon"
+    r = client._get("/.well-known/novapanda.json")
+    assert r["protocol"] == "novapanda"
     assert RESOURCE in r["resource_types"]
 
 
@@ -131,7 +131,7 @@ def test_health(ctx):
 
 
 def test_sweep_admin_token(monkeypatch):
-    monkeypatch.setenv("TROODON_ADMIN_TOKEN", "test-admin-secret")
+    monkeypatch.setenv("NOVAPANDA_ADMIN_TOKEN", "test-admin-secret")
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
     assert tc.post("/admin/sweep").status_code == 401

@@ -1,4 +1,4 @@
-"""适配器接入面：把任意现有系统包装成 Troodon provider，最薄接入。
+"""适配器接入面：把任意现有系统包装成 NovaPanda provider，最薄接入。
 
 这是「泛化接入」的关键：行业 Agent / OpenClaw / 爱马仕等只需提供一个
 `work_fn(request) -> deliverable` 函数，即可作为 provider 接入协议——

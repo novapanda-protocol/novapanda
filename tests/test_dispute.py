@@ -1,13 +1,13 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon import state_machine as sm
-from troodon.exchange import ExchangeEngine, ExchangeError
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.reputation import ReputationLog
-from troodon.sdk import TroodonClient
-from troodon.settlement import MockSettlement
+from novapanda import state_machine as sm
+from novapanda.exchange import ExchangeEngine, ExchangeError
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.reputation import ReputationLog
+from novapanda.sdk import NovaPandaClient
+from novapanda.settlement import MockSettlement
 from tests.helpers import dual_contract_engine, dual_contract_sdk
 
 
@@ -69,8 +69,8 @@ def test_cannot_dispute_before_verified():
 def test_dispute_resolve_over_http():
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     good = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
     ex = client.propose(provider=provider.agent_id, resource_type="data.extraction.structured",
                         quantity=1, rule_id="R-extract-invoice-v1",

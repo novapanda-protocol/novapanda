@@ -3,10 +3,10 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.manifest import build_agent_manifest, manifest_agent_id, verify_agent_manifest
-from troodon.node import create_app
-from troodon.v1.did import agent_id_to_did
+from novapanda.identity import Identity
+from novapanda.manifest import build_agent_manifest, manifest_agent_id, verify_agent_manifest
+from novapanda.node import create_app
+from novapanda.v1.did import agent_id_to_did
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "D-1", "total": "100.00", "currency": "USD"}
@@ -89,7 +89,7 @@ def test_contract_party_did_ok():
         idempotency_key="did-contract-1",
     )
     eid = ex.exchange_id
-    from troodon.terms import sign_contract_ack
+    from novapanda.terms import sign_contract_ack
 
     sig = sign_contract_ack(client, ex)
     r = tc.post(f"/exchanges/{eid}/contract", json={

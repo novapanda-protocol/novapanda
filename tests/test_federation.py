@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.reputation import ReputationLog
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.reputation import ReputationLog
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "F-1", "total": "100.00", "currency": "USD"}

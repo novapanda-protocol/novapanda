@@ -1,4 +1,4 @@
-# Troodon TypeScript SDK (skeleton)
+# NovaPanda TypeScript SDK (skeleton)
 
 Minimal v0 package: canonical JSON + read-only HTTP helpers.
 

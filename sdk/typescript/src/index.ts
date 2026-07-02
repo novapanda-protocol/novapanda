@@ -1,8 +1,8 @@
 export { canonicalBytes, canonicalString } from "./canonical.js";
 export type { AuthHeaders, RequestSigner } from "./auth.js";
 export { unsignedSigner } from "./auth.js";
-export type { TroodonErrorBody } from "./errors.js";
-export { TroodonError, parseErrorResponse } from "./errors.js";
+export type { NovaPandaErrorBody } from "./errors.js";
+export { NovaPandaError, parseErrorResponse } from "./errors.js";
 export {
   agentIdFromPublicKey,
   b58decode,
@@ -51,7 +51,7 @@ export type ExchangeState =
   | "EXPIRED_REFUNDED"
   | "CANCELLED";
 
-export interface TroodonClientOptions {
+export interface NovaPandaClientOptions {
   baseUrl: string;
   agentId?: string;
   privateKey?: Uint8Array;
@@ -67,14 +67,14 @@ import { signContractAck, type ExchangeTerms } from "./terms.js";
 import { buildVdc, clientSign, providerSign } from "./vdc.js";
 import { parseErrorResponse } from "./errors.js";
 
-export class TroodonClient {
+export class NovaPandaClient {
   readonly baseUrl: string;
   readonly agentId: string;
   readonly privateKey?: Uint8Array;
   private readonly fetchImpl: typeof fetch;
   private readonly signer: import("./auth.js").RequestSigner;
 
-  constructor(opts: TroodonClientOptions) {
+  constructor(opts: NovaPandaClientOptions) {
     this.baseUrl = opts.baseUrl.replace(/\/$/, "");
     this.privateKey = opts.privateKey;
     this.agentId =
@@ -88,7 +88,7 @@ export class TroodonClient {
 
   private requireKey(): Uint8Array {
     if (!this.privateKey) {
-      throw new Error("TroodonClient 需要 privateKey 才能本地签名");
+      throw new Error("NovaPandaClient 需要 privateKey 才能本地签名");
     }
     return this.privateKey;
   }

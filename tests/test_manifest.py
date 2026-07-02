@@ -2,10 +2,10 @@
 
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.manifest import build_agent_manifest, verify_agent_manifest
-from troodon.node import create_app
-from troodon.sdk import TroodonClient
+from novapanda.identity import Identity
+from novapanda.manifest import build_agent_manifest, verify_agent_manifest
+from novapanda.node import create_app
+from novapanda.sdk import NovaPandaClient
 from tests.helpers import dual_contract_sdk
 
 RULE_ID = "R-extract-invoice-v1"
@@ -34,8 +34,8 @@ def test_discover_provider_from_manifest_and_exchange():
     """client 从 provider manifest 发现 rule，完成一笔交换。"""
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
 
     manifest = build_agent_manifest(
         provider.identity,

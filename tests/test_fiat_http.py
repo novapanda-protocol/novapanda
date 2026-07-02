@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.settlement import FiatSettlement
-from troodon.fiat_fake import create_fiat_fake_app
-from troodon.fiat_gateway import HttpFiatGateway
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.settlement import FiatSettlement
+from novapanda.fiat_fake import create_fiat_fake_app
+from novapanda.fiat_gateway import HttpFiatGateway
 from tests.helpers import dual_contract_engine
 
 

@@ -1,6 +1,6 @@
-from troodon.v1.judge_registry import field_match_judge, regex_judge
-from troodon.v1.llm_consensus import consensus_judge_fn, parse_consensus_judges
-from troodon.v1.judge_registry import resolve_judge_fn
+from novapanda.v1.judge_registry import field_match_judge, regex_judge
+from novapanda.v1.llm_consensus import consensus_judge_fn, parse_consensus_judges
+from novapanda.v1.judge_registry import resolve_judge_fn
 
 
 def test_consensus_unanimous_all_pass():
@@ -46,7 +46,7 @@ def test_parse_consensus_from_env_shape():
 
 
 def test_verifier_factory_consensus():
-    from troodon.verifier import make_verifier
+    from novapanda.verifier import make_verifier
 
     v = make_verifier("llm", llm_judge="consensus:unanimous:regex,field_match")
     out = v.verify(

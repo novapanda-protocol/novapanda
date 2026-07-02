@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://troodon.dev/spec/schemas/witness-attestation.schema.json",
+  "$id": "https://novapanda.dev/spec/schemas/witness-attestation.schema.json",
   "title": "Witness Attestation (v2 placeholder)",
   "description": "第三方见证声明。v2 占位 schema；参考实现默认不启用运行时。",
   "type": "object",

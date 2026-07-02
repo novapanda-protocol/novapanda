@@ -14,13 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.terms import sign_contract_ack
-from troodon.verifier import make_verifier
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.terms import sign_contract_ack
+from novapanda.verifier import make_verifier
 
 _, RULES = load_default_registries()
 RULE = RULES.get("R-llm-summary-v1")

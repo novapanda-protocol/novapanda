@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.v1.did import agent_id_to_did, build_did_document
-from troodon.terms import sign_contract_ack
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.v1.did import agent_id_to_did, build_did_document
+from novapanda.terms import sign_contract_ack
 
 
 def test_propose_with_pure_provider_did():

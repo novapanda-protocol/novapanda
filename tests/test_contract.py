@@ -1,10 +1,10 @@
 import pytest
 
-from troodon import state_machine as sm
-from troodon.exchange import ExchangeEngine, ExchangeError
-from troodon.identity import Identity
-from troodon.settlement import MockSettlement
-from troodon.terms import sign_contract_ack, terms_hash_from_exchange, verify_contract_ack
+from novapanda import state_machine as sm
+from novapanda.exchange import ExchangeEngine, ExchangeError
+from novapanda.identity import Identity
+from novapanda.settlement import MockSettlement
+from novapanda.terms import sign_contract_ack, terms_hash_from_exchange, verify_contract_ack
 from tests.helpers import ack_contract, dual_contract_engine
 
 

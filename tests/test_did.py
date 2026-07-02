@@ -1,5 +1,5 @@
-from troodon.identity import Identity
-from troodon.v1.did import agent_id_to_did, build_did_document, did_to_agent_id, validate_did_document
+from novapanda.identity import Identity
+from novapanda.v1.did import agent_id_to_did, build_did_document, did_to_agent_id, validate_did_document
 
 
 def test_did_roundtrip():

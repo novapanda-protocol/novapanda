@@ -1,4 +1,4 @@
-from troodon.reputation_gate import apply_witness_score_boost, check_reputation_gate
+from novapanda.reputation_gate import apply_witness_score_boost, check_reputation_gate
 import pytest
 
 

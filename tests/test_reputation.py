@@ -1,7 +1,7 @@
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.reputation import ReputationLog
-from troodon.settlement import MockSettlement
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.reputation import ReputationLog
+from novapanda.settlement import MockSettlement
 from tests.helpers import dual_contract_engine
 
 

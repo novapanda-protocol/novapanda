@@ -1,10 +1,10 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.store import SQLiteStore
-from troodon.v2 import witness as witness_mod
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.store import SQLiteStore
+from novapanda.v2 import witness as witness_mod
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ def test_stake_persists_in_sqlite(enable_witness):
 
     app2 = create_app(seed=True, auth=False, store=app.state.engine._store)
     tc2 = TestClient(app2)
-    from troodon.v2.stake import get_stake
+    from novapanda.v2.stake import get_stake
     loaded = get_stake(stake_id)
     assert loaded is not None
     assert loaded["status"] == "locked"
@@ -53,7 +53,7 @@ def test_witness_attach_requires_stake_when_configured(enable_witness):
     engine.escrow(eid, amount=100, currency="USD")
     engine.deliver(eid, provider, {"invoice_no": "W", "total": "1.00", "currency": "USD"})
     vdc = engine.get(eid).vdc
-    from troodon.v2.witness import build_witness_attestation, witness_sign
+    from novapanda.v2.witness import build_witness_attestation, witness_sign
     witness = Identity.generate()
     att = build_witness_attestation(
         vdc_id=vdc["vdc_id"], witness=witness, claim="c",

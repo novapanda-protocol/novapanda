@@ -1,13 +1,13 @@
 from fastapi.testclient import TestClient
 
-from troodon import vdc as V
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.llm_fake import create_llm_fake_app
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.v1.llm_openai_compat import OpenAICompatLLMGateway, build_judge_prompt, parse_judge_content
-from troodon.verifier import make_verifier
+from novapanda import vdc as V
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.llm_fake import create_llm_fake_app
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.v1.llm_openai_compat import OpenAICompatLLMGateway, build_judge_prompt, parse_judge_content
+from novapanda.verifier import make_verifier
 from tests.helpers import dual_contract_engine
 
 _, RULES = load_default_registries()
@@ -17,7 +17,7 @@ LLM_RULE = RULES.get("R-llm-summary-v1")
 def test_make_verifier_openai_requires_gateway_url():
     import pytest
 
-    with pytest.raises(ValueError, match="TROODON_LLM_GATEWAY_URL"):
+    with pytest.raises(ValueError, match="NOVAPANDA_LLM_GATEWAY_URL"):
         make_verifier("llm", llm_judge="openai")
 
 

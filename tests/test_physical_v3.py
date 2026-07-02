@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
-from troodon.node import create_app
-from troodon.v3.physical import iso15118_session_stub, validate_physical_deliverable
+from novapanda.node import create_app
+from novapanda.v3.physical import iso15118_session_stub, validate_physical_deliverable
 
 
 def test_energy_deliverable_validation():

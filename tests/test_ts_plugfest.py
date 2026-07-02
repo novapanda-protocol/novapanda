@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 import uvicorn
 
-from troodon.node import create_app
+from novapanda.node import create_app
 
 ROOT = Path(__file__).resolve().parents[1]
 TS_ROOT = ROOT / "sdk" / "typescript"

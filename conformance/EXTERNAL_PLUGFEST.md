@@ -4,7 +4,7 @@
 
 ## 目标
 
-验证两个独立 Troodon 节点 + 可选结算/LLM/见证服务能否：
+验证两个独立 NovaPanda 节点 + 可选结算/LLM/见证服务能否：
 
 1. 通过 manifest 发现能力
 2. 完成 propose → contract → escrow → deliver → verify → confirm
@@ -36,12 +36,12 @@ cd sdk/typescript && npm run build && node test/plugfest_lifecycle.mjs http://12
 
 ## 环境变量清单
 
-见 `troodon/config.py` 模块 docstring（`TROODON_*`）。
+见 `novapanda/config.py` 模块 docstring（`NOVAPANDA_*`）。
 
 ## 对外举办 checklist
 
 - [ ] 公布测试向量：`tests/fixtures/`
-- [ ] 提供 fake x402/AP2/fiat 网关（`troodon/*_fake.py`）
+- [ ] 提供 fake x402/AP2/fiat 网关（`novapanda/*_fake.py`）
 - [ ] 提供 `llm_fake` OpenAI-compat 端点
 - [ ] 运行 `python -m conformance.run` 全绿
 - [ ] 记录互操作矩阵（实现 × 场景）

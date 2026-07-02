@@ -1,4 +1,4 @@
-/** Canonical JSON (v0) — align with troodon/canonical.py */
+/** Canonical JSON (v0) — align with novapanda/canonical.py */
 
 function normalize(value: unknown): unknown {
   if (value === null || typeof value === "boolean") return value;

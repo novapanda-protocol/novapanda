@@ -1,4 +1,4 @@
-"""Troodon — verifiable delivery exchange protocol (reference implementation).
+"""NovaPanda — verifiable delivery exchange protocol (reference implementation).
 
 哲学底线（凌驾于一切实现）：普适通用 · 降低接入难度 · 要标准 · 要开放。
 Litmus test：陌生 Agent 能否不依赖我方专有组件、不经许可，照规范完成交割并被任何人独立复验？答案必须永远是「能」。

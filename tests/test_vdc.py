@@ -1,8 +1,8 @@
 import pytest
 
-from troodon.hashing import result_hash_of_json
-from troodon.identity import Identity
-from troodon import vdc as V
+from novapanda.hashing import result_hash_of_json
+from novapanda.identity import Identity
+from novapanda import vdc as V
 
 
 def _fresh_vdc(client: Identity, provider: Identity) -> dict:

@@ -1,11 +1,11 @@
-from troodon.blobs import InMemoryBlobStore, SQLiteBlobStore
-from troodon.exchange import ExchangeEngine
-from troodon.hashing import result_hash_of_json
-from troodon.identity import Identity
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.store import SQLiteStore
-from troodon.verifier import SchemaVerifier
+from novapanda.blobs import InMemoryBlobStore, SQLiteBlobStore
+from novapanda.exchange import ExchangeEngine
+from novapanda.hashing import result_hash_of_json
+from novapanda.identity import Identity
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.store import SQLiteStore
+from novapanda.verifier import SchemaVerifier
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
@@ -67,16 +67,16 @@ def test_inmemory_blob_get_deliverable():
 def test_public_deliverable_verify_endpoint(tmp_path):
     from fastapi.testclient import TestClient
 
-    from troodon.node import create_app
-    from troodon.sdk import TroodonClient
+    from novapanda.node import create_app
+    from novapanda.sdk import NovaPandaClient
 
     db = str(tmp_path / "api.db")
     store = SQLiteStore(db)
     blobs = SQLiteBlobStore(db)
     app = create_app(seed=True, auth=False, store=store, blob_store=blobs)
     tc = TestClient(app)
-    client = TroodonClient("http://testserver", Identity.generate(), http=tc)
-    provider = TroodonClient("http://testserver", Identity.generate(), http=tc)
+    client = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
+    provider = NovaPandaClient("http://testserver", Identity.generate(), http=tc)
     ex = client.propose(
         provider=provider.agent_id, resource_type="data.extraction.structured",
         quantity=1, rule_id="R-extract-invoice-v1",

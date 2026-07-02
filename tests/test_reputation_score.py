@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.v2 import federation as fed_mod
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.v2 import federation as fed_mod
 from tests.helpers import dual_contract_engine
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,9 +15,9 @@ GOOD = {"invoice_no": "A-1", "total": "100.00", "currency": "USD"}
 
 
 def test_sdk_parity_fixture_internally_consistent():
-    from troodon import vdc as V
-    from troodon.auth import sign_request
-    from troodon.terms import contract_ack_bytes, sign_contract_ack, terms_hash_from_dict
+    from novapanda import vdc as V
+    from novapanda.auth import sign_request
+    from novapanda.terms import contract_ack_bytes, sign_contract_ack, terms_hash_from_dict
 
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
     provider = Identity.from_private_bytes(bytes.fromhex(data["provider_private_key_hex"]))

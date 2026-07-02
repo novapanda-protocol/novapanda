@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable
 
-# 客户端鸭子类型：troodon.sdk.TroodonClient 即满足；未来也可换成进程内 facade。
+# 客户端鸭子类型：novapanda.sdk.NovaPandaClient 即满足；未来也可换成进程内 facade。
 Client = Any
 
 

@@ -3,10 +3,10 @@ import secrets
 
 from fastapi.testclient import TestClient
 
-from troodon.auth import sign_request
-from troodon.identity import Identity
-from troodon.node import create_app
-from troodon.store import SQLiteStore
+from novapanda.auth import sign_request
+from novapanda.identity import Identity
+from novapanda.node import create_app
+from novapanda.store import SQLiteStore
 
 
 def test_auth_enabled_by_default():
@@ -43,9 +43,9 @@ def test_startup_recover_runs_on_lifespan(tmp_path):
     """lifespan 启动时 recover() 应被调用（通过 pending intent 副作用验证）。"""
     db = str(tmp_path / "rec.db")
     store = SQLiteStore(db)
-    from troodon import state_machine as sm
-    from troodon.exchange import ExchangeEngine
-    from troodon.settlement import MockSettlement
+    from novapanda import state_machine as sm
+    from novapanda.exchange import ExchangeEngine
+    from novapanda.settlement import MockSettlement
     from tests.helpers import dual_contract_engine
 
     settlement = MockSettlement()
@@ -67,7 +67,7 @@ def test_startup_recover_runs_on_lifespan(tmp_path):
     # 新 app 启动 -> lifespan recover（共享同一 settlement 实例）
     app = create_app(seed=True, store=SQLiteStore(db), settlement=settlement)
     with TestClient(app) as tc:
-        tc.get("/.well-known/troodon.json")
+        tc.get("/.well-known/novapanda.json")
     final = SQLiteStore(db).get(ex.exchange_id)
     assert final.state == sm.SETTLED
     assert settlement.status(live.escrow_handle) == "settled"

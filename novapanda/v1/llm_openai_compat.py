@@ -41,7 +41,7 @@ class OpenAICompatLLMGateway:
         self,
         base_url: str,
         *,
-        model: str = "troodon-judge-stub",
+        model: str = "novapanda-judge-stub",
         api_key: Optional[str] = None,
         http: Optional[httpx.Client] = None,
     ) -> None:

@@ -1,6 +1,6 @@
 """内置 LLM judge_fn 注册表 — 可复验、无外部 API 依赖。
 
-通过 TROODON_LLM_JUDGE=regex|field_match 选用；也可在代码中直接注入 judge_fn。
+通过 NOVAPANDA_LLM_JUDGE=regex|field_match 选用；也可在代码中直接注入 judge_fn。
 """
 
 from __future__ import annotations

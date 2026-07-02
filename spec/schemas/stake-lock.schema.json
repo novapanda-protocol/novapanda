@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://troodon.dev/spec/schemas/stake-lock.schema.json",
+  "$id": "https://novapanda.dev/spec/schemas/stake-lock.schema.json",
   "title": "Stake Lock (v2 placeholder)",
   "description": "信誉质押锁定意图。v2 占位 schema；不触达真实资金。",
   "type": "object",

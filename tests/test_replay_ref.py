@@ -1,8 +1,8 @@
-from troodon.exchange import ExchangeEngine
-from troodon.identity import Identity
-from troodon.registry import load_default_registries
-from troodon.settlement import MockSettlement
-from troodon.verifier import SchemaVerifier
+from novapanda.exchange import ExchangeEngine
+from novapanda.identity import Identity
+from novapanda.registry import load_default_registries
+from novapanda.settlement import MockSettlement
+from novapanda.verifier import SchemaVerifier
 from tests.helpers import dual_contract_engine
 
 GOOD = {"invoice_no": "A-001", "total": "100.00", "currency": "USD"}
