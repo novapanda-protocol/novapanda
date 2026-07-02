@@ -3,107 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trial · NovaPanda 公开 mock 试用</title>
-  <meta name="description" content="连接 node.novapanda.io 试用 NovaPanda 协议：VDC、状态机、mock 结算。无真实资金。">
-  <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, sans-serif; max-width: 44rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.1rem; margin-top: 1.75rem; }
-    h3 { font-size: 1rem; margin-top: 1.25rem; }
-    .note { font-size: 0.9rem; opacity: 0.85; border-left: 3px solid #888; padding-left: 0.75rem; margin: 1.5rem 0; }
-    .warn { border-left-color: #c96; }
-    a { color: #0969da; }
-    code, pre { font-size: 0.88em; }
-    pre { background: rgba(127,127,127,0.12); padding: 0.75rem 1rem; overflow-x: auto; border-radius: 4px; }
-    ul { padding-left: 1.2rem; }
-    nav { margin-bottom: 1.5rem; font-size: 0.95rem; }
-  </style>
+  <title>开发者 Trial · NovaPanda</title>
+  <meta name="description" content="5 分钟连 node.novapanda.io 跑通 SETTLED。mock 结算，无真钱。">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <nav><a href="index.html">首页</a> · Trial · <a href="terms.html">用户协议</a> · <a href="privacy.html">隐私政策</a></nav>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">首页</a>
+      <a href="constitution.html">协议宪法</a>
+      <a href="trial.html" class="active">Trial</a>
+      <a href="https://node.novapanda.io/">节点控制台</a>
+      <a href="terms.html">用户协议</a>
+    </nav>
 
-  <h1>公开 Trial（mock）</h1>
-  <p>在 <a href="https://node.novapanda.io">node.novapanda.io</a> 上试用 <strong>NovaPanda</strong> 协议：<strong>VDC + 交换状态机 + 签名鉴权</strong>。结算为 <code>mock</code>，<strong>不涉及真实货币或稳定币</strong>。</p>
+    <h1 style="font-size:1.5rem;margin:0 0 .5rem">开发者 Trial</h1>
+    <p style="color:var(--muted);max-width:38rem">
+      在验证<strong>协议与 VDC</strong>，不是在验证支付。先读
+      <a href="constitution.html">协议宪法</a>了解层级与原则，再按下列步骤连
+      <a href="https://node.novapanda.io">零号 mock 节点</a>。
+    </p>
 
-  <div class="note warn">
-    <strong>试用的是什么：</strong>可验证交割凭证（VDC）、HTTP API、双签与离线复验。<br>
-    <strong>不是什么：</strong>银行、支付机构、持牌清算、真钱托管。勿用于生产资金场景。
-  </div>
+    <div class="card" style="border-color:var(--accent);margin:1.5rem 0">
+      <strong>mock 试用边界</strong>
+      <p style="margin-top:.5rem">✓ 完整状态机 + 双签 VDC + 离线复验 &nbsp;|&nbsp; ✗ 真钱 / 稳定币 / 持牌清算</p>
+    </div>
 
-  <h2>0. 30 秒检查节点</h2>
-  <pre><code>curl -fsS https://node.novapanda.io/health
+    <h2 class="section-title">Step 1 · 检查节点</h2>
+    <pre><code>curl -fsS https://node.novapanda.io/health
 curl -fsS https://node.novapanda.io/.well-known/novapanda.json</code></pre>
-  <p>应看到 <code>{"status":"ok",...}</code> 与 <code>"protocol":"novapanda"</code>。</p>
 
-  <h2>1. Python（推荐）</h2>
-  <h3>安装</h3>
-  <pre><code>git clone https://github.com/novapanda-protocol/novapanda.git
+    <h2 class="section-title">Step 2 · Python 一键 SETTLED</h2>
+    <pre><code>git clone https://github.com/novapanda-protocol/novapanda.git
 cd novapanda
 python -m venv .venv
-# Windows:
-.\.venv\Scripts\python.exe -m pip install -e .
-# macOS / Linux:
-# source .venv/bin/activate && pip install -e .</code></pre>
+.\.venv\Scripts\python.exe -m pip install -e .   # Windows
+python demo/trial_remote.py</code></pre>
+    <p style="color:var(--muted);font-size:.9rem">本地生成两个 Agent 身份，私钥不上传；输出 <code>SETTLED</code> 与 <code>vdc_id</code>。</p>
 
-  <h3>一键跑通 SETTLED</h3>
-  <pre><code>python demo/trial_remote.py</code></pre>
-  <p>脚本在本地生成两个陌生 Agent 身份（私钥不上传），对公开节点完成 propose → contract → escrow → deliver → verify → confirm，输出 <code>SETTLED</code> 与 <code>vdc_id</code>。</p>
-
-  <h3>最小代码片段</h3>
-  <pre><code>from novapanda.identity import Identity
-from novapanda.sdk import NovaPandaClient
-
-BASE = "https://node.novapanda.io"
-client = NovaPandaClient(BASE, Identity.generate())
-provider = NovaPandaClient(BASE, Identity.generate())
-
-ex = client.propose(
-    provider=provider.agent_id,
-    resource_type="data.extraction.structured",
-    quantity=1,
-    rule_id="R-extract-invoice-v1",
-    price={"amount": 100, "currency": "USD"},
-    idempotency_key="my-first-exchange",
-)
-eid = ex["exchange_id"]
-client.contract(eid); provider.contract(eid)
-client.escrow(eid, amount=100, currency="USD")
-provider.deliver(eid, {"invoice_no": "A-1", "total": "100.00", "currency": "USD"})
-client.verify(eid)
-settled = client.confirm(eid)
-print(settled["state"], settled["vdc"]["vdc_id"])</code></pre>
-
-  <h2>2. TypeScript</h2>
-  <pre><code>git clone https://github.com/novapanda-protocol/novapanda.git
-cd novapanda/sdk/typescript
-npm install
-npm run build
+    <h2 class="section-title">Step 3 · TypeScript</h2>
+    <pre><code>cd sdk/typescript && npm install && npm run build
 node test/plugfest_lifecycle.mjs https://node.novapanda.io</code></pre>
-  <p>使用仓库内固定测试向量密钥，对公开节点跑全生命周期；成功时输出 <code>{"ok":true,...}</code>。</p>
 
-  <h2>3. 你能做什么 / 不能做什么</h2>
-  <table>
-    <thead><tr><th>可以</th><th>不可以（Trial 阶段）</th></tr></thead>
-    <tbody>
-      <tr><td>完整交换状态机与 VDC</td><td>转 USDC / 法币</td></tr>
-      <tr><td>本地生成身份，私钥不上传</td><td>声称已持牌清算</td></tr>
-      <tr><td>离线 <code>novapanda.reverify</code> 复验 VDC</td><td>生产级 SLA 保证</td></tr>
-      <tr><td>读规则注册表、信誉 API</td><td>托管真实资金</td></tr>
-    </tbody>
-  </table>
+    <h2 class="section-title">Step 4 · 读规范</h2>
+    <div class="btn-row" style="margin-top:0">
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a>
+      <a class="btn btn-dark" href="constitution.html" style="background:transparent;color:var(--accent);border:1px solid var(--border)">协议宪法</a>
+      <a class="btn btn-dark" href="https://node.novapanda.io/docs" style="background:transparent;color:var(--accent);border:1px solid var(--border)">HTTP API</a>
+    </div>
 
-  <h2>4. 进一步阅读</h2>
-  <ul>
-    <li><a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">协议规范 SPEC.md</a></li>
-    <li><a href="https://github.com/novapanda-protocol/novapanda">参考实现与 conformance 套件</a></li>
-    <li><a href="index.html">NovaPanda 原则与开源范围</a></li>
-  </ul>
-
-  <p class="note">
-    运营主体：北京青合数智科技有限公司。<br>
-    使用本 Trial 即表示同意 <a href="terms.html">用户协议</a> 与 <a href="privacy.html">隐私政策</a>。<br>
-    NovaPanda 名称与标识遵循网站条款与开源许可；<strong>尚未获得商标注册核准，不使用 ®</strong>。
-  </p>
+    <p class="note">
+      使用 Trial 即表示同意 <a href="terms.html">用户协议</a> 与 <a href="privacy.html">隐私政策</a>。
+    </p>
+  </div>
 </body>
 </html>

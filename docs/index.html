@@ -3,144 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NovaPanda · 智能世界价值交割层</title>
-  <meta name="description" content="开放协议与参考实现：可验证交割（VDC）。公开 mock 试用节点，无真实资金。">
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --text: #1a2332;
-      --muted: #5c6b7f;
-      --accent: #0969da;
-      --accent2: #0550ae;
-      --ok: #1a7f37;
-      --border: #d8dee8;
-      --shadow: 0 8px 30px rgba(20, 40, 80, .08);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1419;
-        --card: #1a2332;
-        --text: #e7ecf3;
-        --muted: #8b9cb3;
-        --accent: #3d9cf5;
-        --accent2: #79b8ff;
-        --ok: #3ecf8e;
-        --border: #2a3544;
-        --shadow: 0 8px 30px rgba(0, 0, 0, .25);
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: "Segoe UI", system-ui, sans-serif;
-      background: var(--bg); color: var(--text); line-height: 1.6;
-    }
-    .hero {
-      background: linear-gradient(135deg, #0550ae 0%, #0969da 45%, #1f6feb 100%);
-      color: #fff; padding: 2.5rem 1rem 3rem;
-    }
-    .hero-inner { max-width: 56rem; margin: 0 auto; }
-    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.4rem); margin: 0 0 .75rem; font-weight: 700; }
-    .hero p { font-size: 1.05rem; opacity: .95; max-width: 40rem; margin: 0 0 1.5rem; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-    .btn {
-      display: inline-block; padding: .65rem 1.15rem; border-radius: 10px;
-      text-decoration: none; font-weight: 600; font-size: .95rem;
-    }
-    .btn-primary { background: #fff; color: var(--accent2); }
-    .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); }
-    .wrap { max-width: 56rem; margin: 0 auto; padding: 0 1rem 3rem; }
-    .status-card {
-      margin-top: -1.75rem; background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
-      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
-    }
-    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
-    .status-label { font-weight: 600; }
-    .status-meta { color: var(--muted); font-size: .9rem; margin-left: auto; }
-    .grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem; margin: 2rem 0;
-    }
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.15rem 1.25rem; box-shadow: var(--shadow);
-    }
-    .card h2 { font-size: 1rem; margin: 0 0 .5rem; }
-    .card p { margin: 0; color: var(--muted); font-size: .92rem; }
-    .card a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    h2.section { font-size: 1.15rem; margin: 2rem 0 1rem; }
-    ul.links { list-style: none; padding: 0; margin: 0; }
-    ul.links li {
-      padding: .65rem 0; border-bottom: 1px solid var(--border);
-    }
-    ul.links a { color: var(--accent); text-decoration: none; font-weight: 500; }
-    .note {
-      font-size: .88rem; color: var(--muted); border-left: 3px solid var(--border);
-      padding-left: .85rem; margin-top: 2rem;
-    }
-    code { font-size: .88em; background: rgba(127,127,127,.12); padding: .1rem .35rem; border-radius: 4px; }
-  </style>
+  <title>NovaPanda · 智能世界可验证交割层</title>
+  <meta name="description" content="开放协议：VDC 可验证交割凭证。规范开源，mock 试用节点在线。">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
   <header class="hero">
-    <div class="hero-inner">
-      <h1>NovaPanda</h1>
-      <p>智能体与智能设备之间，<strong>无预建关系</strong>下的可验证价值交割层。第一公民是 <strong>VDC（可验证交割凭证）</strong>——任何人可独立复验；不是钱包，也不是全球货币。</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="trial.html">开始 Trial</a>
-        <a class="btn btn-ghost" href="https://node.novapanda.io/">打开节点控制台</a>
-        <a class="btn btn-ghost" href="https://github.com/novapanda-protocol/novapanda">GitHub</a>
+    <div class="wrap" style="padding-bottom:0">
+      <span class="pill">开放协议 · mock 试用在线</span>
+      <h1>先证交付，后谈价格</h1>
+      <p class="lead">
+        NovaPanda 是智能体之间的<strong>可验证交割层</strong>。
+        第一公民是 <strong>VDC（可验证交割凭证）</strong>——任何人可独立复验；
+        不是钱包，不是全球货币，不对协议每笔抽成。
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="constitution.html">阅读协议宪法</a>
+        <a class="btn btn-ghost" href="trial.html">开发者 Trial</a>
+        <a class="btn btn-ghost" href="https://node.novapanda.io/">节点控制台</a>
       </div>
     </div>
   </header>
 
   <div class="wrap">
-    <div class="status-card">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="status-label">公开 mock 节点在线</span>
-      <span class="status-meta"><code>node.novapanda.io</code> · settlement: mock · 无真钱</span>
+    <div class="card" style="margin-top:-1rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--ok)"></span>
+      <strong>零号节点</strong>
+      <span style="color:var(--muted);font-size:.92rem"><code>node.novapanda.io</code> · settlement: mock · 无真钱</span>
+      <a href="https://node.novapanda.io/" style="margin-left:auto;font-weight:600">打开控制台 →</a>
     </div>
 
-    <div class="grid">
-      <article class="card">
-        <h2>📋 节点控制台</h2>
-        <p>交换统计、状态分布、最近记录；运维页可手动 Sweep。</p>
-        <p style="margin-top:.75rem"><a href="https://node.novapanda.io/">打开控制台 →</a></p>
-      </article>
-      <article class="card">
-        <h2>🚀 开发者 Trial</h2>
-        <p>Python / TypeScript 5 分钟连上 mock 节点，跑通 SETTLED。</p>
-        <p style="margin-top:.75rem"><a href="trial.html">Quickstart →</a></p>
-      </article>
-      <article class="card">
-        <h2>📖 协议与规范</h2>
-        <p>CC BY 4.0 规范 + Apache-2.0 参考实现，人人可自建节点。</p>
-        <p style="margin-top:.75rem"><a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">阅读 SPEC →</a></p>
-      </article>
+    <h2 class="section-title">这是什么 · 不是什么</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h2>✓ 这是</h2>
+        <p>无预建关系下的<strong>跨主体价值交割协议</strong>；双签 VDC；状态机 + 确定性验收；可插拔清算（Trial 为 mock）。</p>
+      </div>
+      <div class="card">
+        <h2>✗ 这不是</h2>
+        <p>银行、支付机构、持牌清算、真钱托管、发币项目、对每笔交换抽成的平台。</p>
+      </div>
     </div>
 
-    <h2 class="section">原则</h2>
-    <div class="grid">
-      <article class="card"><h2>开放可复验</h2><p>无许可接入；VDC 可离线独立验真。</p></article>
-      <article class="card"><h2>协议不铸币</h2><p>不对每笔交换抽成；清算为可选下游。</p></article>
-      <article class="card"><h2>先证交付</h2><p>价值交换的第一公民是交割记录，不是支付。</p></article>
+    <h2 class="section-title">架构一览</h2>
+    <p style="color:var(--muted);margin:-.5rem 0 1rem;font-size:.94rem">从下到上：身份 → 凭证 → 协议（开源）→ 节点（参考实现开源）→ 清算（可选）→ 运营实例。</p>
+    <div class="stack">
+      <div class="layer"><div class="tag">L1</div><div><div class="name">VDC 可验证交割凭证</div><div class="desc">真理层；脱离任何节点可复验</div></div></div>
+      <div class="layer"><div class="tag">L2</div><div><div class="name">协议规范 · CC BY 4.0</div><div class="desc">状态机、Schema、规则注册表 — <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a></div></div></div>
+      <div class="layer"><div class="tag">L3</div><div><div class="name">参考实现 · Apache-2.0</div><div class="desc">Python 节点 + TS SDK — <a href="https://github.com/novapanda-protocol/novapanda">GitHub</a></div></div></div>
+      <div class="layer"><div class="tag">L4</div><div><div class="name">清算轨（可插拔）</div><div class="desc">mock / x402 / 法币 — Trial 仅 mock</div></div></div>
+      <div class="layer" style="border-color:var(--accent)"><div class="tag">运营</div><div><div class="name">零号公开节点</div><div class="desc">我们运营的试用实例；协议本身不绑定这一台机器</div></div></div>
     </div>
+    <p style="text-align:center;margin:1rem 0"><a href="constitution.html">查看完整协议宪法与开源边界 →</a></p>
 
-    <h2 class="section">链接</h2>
-    <ul class="links">
-      <li><a href="trial.html">公开 Trial / Quickstart</a></li>
-      <li><a href="https://node.novapanda.io/">节点控制台</a> · <a href="https://node.novapanda.io/docs">API 文档</a></li>
-      <li><a href="https://github.com/novapanda-protocol/novapanda">GitHub 参考实现</a></li>
-      <li><a href="terms.html">用户协议</a> · <a href="privacy.html">隐私政策</a></li>
-    </ul>
+    <h2 class="section-title">下一步</h2>
+    <div class="grid-3">
+      <a class="card" href="constitution.html" style="text-decoration:none;color:inherit">
+        <h2>① 理解原则</h2>
+        <p>五条铁律、分层归属、Litmus 测试</p>
+      </a>
+      <a class="card" href="trial.html" style="text-decoration:none;color:inherit">
+        <h2>② 跑通 Trial</h2>
+        <p>5 分钟 Python/TS 连 mock 节点，产出 SETTLED</p>
+      </a>
+      <a class="card" href="https://node.novapanda.io/" style="text-decoration:none;color:inherit">
+        <h2>③ 看节点状态</h2>
+        <p>交换统计、最近记录、运维 Sweep</p>
+      </a>
+    </div>
 
     <p class="note">
       运营主体：北京青合数智科技有限公司。<br>
-      公开 Trial 使用模拟结算，不涉及真实资金；非银行、非支付机构、不托管用户资金。<br>
-      NovaPanda 名称与标识的使用遵循网站条款与开源许可；<strong>尚未获得商标注册核准，不使用 ®</strong>。<br>
-      规范 CC BY 4.0 · 代码 Apache-2.0 · 联系：<a href="mailto:kwu65348@gmail.com">kwu65348@gmail.com</a>
+      公开 Trial 为模拟结算，不涉及真实资金；非银行、非支付机构。<br>
+      NovaPanda 尚未获得商标注册核准，不使用 ®。规范 CC BY 4.0 · 代码 Apache-2.0。<br>
+      <a href="terms.html">用户协议</a> · <a href="privacy.html">隐私政策</a> ·
+      <a href="mailto:kwu65348@gmail.com">kwu65348@gmail.com</a>
     </p>
   </div>
 </body>

@@ -1,0 +1,92 @@
+/* NovaPanda docs site — shared */
+:root {
+  color-scheme: light dark;
+  --bg: #f4f6fa;
+  --card: #fff;
+  --text: #141c28;
+  --muted: #5a6b82;
+  --accent: #0550ae;
+  --accent-soft: #e8f2ff;
+  --border: #d9e1ec;
+  --ok: #1a7f37;
+  --shadow: 0 10px 40px rgba(15, 40, 80, .07);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c1018;
+    --card: #151d2b;
+    --text: #e9eef5;
+    --muted: #93a4bb;
+    --accent: #58a6ff;
+    --accent-soft: #1a2740;
+    --border: #2a3548;
+    --shadow: 0 10px 40px rgba(0, 0, 0, .35);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: "Segoe UI", "PingFang SC", system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.65;
+}
+a { color: var(--accent); }
+.wrap { max-width: 52rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+.site-nav {
+  display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; align-items: center;
+  padding: 1rem 0 1.5rem; font-size: .92rem; border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.site-nav strong { margin-right: .5rem; font-size: 1rem; }
+.site-nav a { text-decoration: none; color: var(--muted); }
+.site-nav a:hover, .site-nav a.active { color: var(--accent); }
+.hero {
+  background: linear-gradient(135deg, #033d8b 0%, #0969da 55%, #218bff 100%);
+  color: #fff; padding: 2.75rem 1.25rem 3rem; margin: 0 -1.25rem 2rem;
+  border-radius: 0 0 20px 20px;
+}
+.hero h1 { font-size: clamp(1.6rem, 4vw, 2.35rem); margin: 0 0 .85rem; line-height: 1.25; }
+.hero .lead { font-size: 1.05rem; opacity: .95; max-width: 40rem; margin: 0; }
+.pill {
+  display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28);
+  border-radius: 999px; padding: .2rem .7rem; font-size: .78rem; margin-bottom: .85rem;
+}
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.2rem 1.35rem; margin-bottom: 1rem; box-shadow: var(--shadow);
+}
+.card h2 { font-size: 1.05rem; margin: 0 0 .65rem; }
+.card p { margin: 0; color: var(--muted); font-size: .94rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .85rem; }
+.principle {
+  background: var(--accent-soft); border-radius: 10px; padding: .85rem 1rem;
+  border: 1px solid var(--border);
+}
+.principle b { display: block; margin-bottom: .25rem; font-size: .92rem; }
+.principle span { font-size: .85rem; color: var(--muted); }
+.stack { display: flex; flex-direction: column; gap: .5rem; margin: 1rem 0; }
+.layer {
+  display: grid; grid-template-columns: 7rem 1fr; gap: .75rem; align-items: start;
+  padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--card);
+}
+.layer .tag { font-size: .75rem; font-weight: 700; text-transform: uppercase; color: var(--accent); padding-top: .15rem; }
+.layer .name { font-weight: 600; margin-bottom: .15rem; }
+.layer .desc { font-size: .88rem; color: var(--muted); }
+.open-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.open-table th, .open-table td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.open-table th { color: var(--muted); font-weight: 600; }
+.btn-row { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+.btn {
+  display: inline-block; padding: .6rem 1.1rem; border-radius: 10px; text-decoration: none;
+  font-weight: 600; font-size: .92rem;
+}
+.btn-primary { background: #fff; color: var(--accent); }
+.btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.btn-dark { background: var(--accent); color: #fff; }
+.section-title { font-size: 1.2rem; margin: 2rem 0 1rem; }
+.note {
+  font-size: .88rem; color: var(--muted); border-left: 3px solid var(--border);
+  padding-left: .85rem; margin-top: 2rem;
+}
+code { font-size: .88em; background: rgba(127,127,127,.12); padding: .1rem .35rem; border-radius: 4px; }
+pre { background: rgba(127,127,127,.1); padding: .85rem 1rem; overflow-x: auto; border-radius: 8px; font-size: .85rem; }
+footer { margin-top: 2.5rem; font-size: .82rem; color: var(--muted); }

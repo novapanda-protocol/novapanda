@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>协议宪法 · NovaPanda</title>
+  <meta name="description" content="NovaPanda 协议原则、分层归属与开源边界。">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">首页</a>
+      <a href="constitution.html" class="active">协议宪法</a>
+      <a href="trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">节点控制台</a>
+      <a href="terms.html">用户协议</a>
+      <a href="privacy.html">隐私政策</a>
+    </nav>
+
+    <h1 style="font-size:1.6rem;margin:0 0 .5rem">协议宪法</h1>
+    <p style="color:var(--muted);max-width:40rem">这是 NovaPanda 的<strong>公共原则</strong>与<strong>分层归属</strong>。完整技术规范见 <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a>；治理流程见 <a href="https://github.com/novapanda-protocol/novapanda/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>。</p>
+
+    <h2 class="section-title">我们在解决什么</h2>
+    <div class="card">
+      <p style="color:var(--text);font-size:1rem">
+        智能体与智能设备要在<strong>无预建关系</strong>下交换价值。价值交换的第一公民不是支付，而是
+        <strong>VDC（可验证交割凭证）</strong>——结构化、双签、<strong>任何人可脱离单一平台独立复验</strong>。
+      </p>
+      <p style="margin-top:.75rem;color:var(--muted)">
+        <strong>Litmus 测试：</strong>陌生 Agent 能否不依赖我方专有组件、不经许可，照规范完成交割并被任何人独立复验？
+      </p>
+    </div>
+
+    <h2 class="section-title">五条铁律（不可动摇）</h2>
+    <div class="grid-2">
+      <div class="principle"><b>1. 开放、平等</b><span>协议是公共能力；任何人可无许可实现、自建节点、独立复验 VDC。</span></div>
+      <div class="principle"><b>2. 永不铸币</b><span>协议层不造全球流通、可投机的货币。清算轨可插拔，不等于发币。</span></div>
+      <div class="principle"><b>3. 永不对协议抽成</b><span>规范归共域；公司价值在运营与服务质量，不在协议租金。</span></div>
+      <div class="principle"><b>4. 先证交付，后谈价格</b><span>VDC 与验收是一等公民；mock / x402 / 法币只是可选下游清算。</span></div>
+      <div class="principle" style="grid-column:1/-1"><b>5. 灵魂与身体分离</b><span>规范与商标意图归中立公共物；公司是<strong>可替代的</strong>托管与运营主体——节点可被替代，真理（VDC）不可被垄断。</span></div>
+    </div>
+
+    <h2 class="section-title">整体层级（你在哪里）</h2>
+    <div class="stack">
+      <div class="layer">
+        <div class="tag">L0 身份</div>
+        <div>
+          <div class="name">Ed25519 Agent 身份</div>
+          <div class="desc">私钥仅存本地，不上送任何节点。</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L1 凭证</div>
+        <div>
+          <div class="name">VDC · 双签 · 离线复验</div>
+          <div class="desc">交割的「真理」；与价格、链、平台无关。</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L2 协议</div>
+        <div>
+          <div class="name">状态机 · 验收规则 · 资源本体</div>
+          <div class="desc"><strong>开源公共物</strong>（CC BY 4.0）。任何人可实现。</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L3 节点</div>
+        <div>
+          <div class="name">交换编排 · 信誉账本 · HTTP API</div>
+          <div class="desc"><strong>参考实现开源</strong>（Apache-2.0）；人人可自建同构节点。</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L4 清算</div>
+        <div>
+          <div class="name">Mock · x402 · AP2 · 法币伙伴</div>
+          <div class="desc"><strong>可插拔下游</strong>；Trial 仅用 mock，无真钱。</div>
+        </div>
+      </div>
+      <div class="layer" style="border-color:var(--accent)">
+        <div class="tag">运营</div>
+        <div>
+          <div class="name">零号节点 node.novapanda.io</div>
+          <div class="desc">我们运营的<strong>公开 mock 试用实例</strong>之一；不是协议本身，可被替代。</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">开源什么 · 不承诺什么</h2>
+    <table class="open-table card" style="padding:0;overflow:hidden">
+      <thead><tr><th>公开（GitHub）</th><th>不等于公开 / 不承诺</th></tr></thead>
+      <tbody>
+        <tr><td>协议规范 SPEC + JSON Schema</td><td>持牌清算、法币生产环境</td></tr>
+        <tr><td>参考实现代码 + SDK + 一致性套件</td><td>零号节点的 ADMIN_TOKEN、生产密钥</td></tr>
+        <tr><td>任何人可 fork、自建节点</td><td>® 商标排他（核准前不使用 ®）</td></tr>
+        <tr><td>mock 试用节点 API</td><td>节点内运营数据与商业策略文档</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">治理铁律（摘自 GOVERNANCE）</h2>
+    <div class="card">
+      <ol style="margin:0;padding-left:1.2rem;color:var(--muted)">
+        <li>协议 / 规范 / 商标意图是<strong>公共物</strong>，不归属单一公司。</li>
+        <li>任何人可不经许可实现规范、自建节点、接入交换。</li>
+        <li>治理变更不得破坏既有 VDC 的可复验性与向后兼容路径。</li>
+      </ol>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="trial.html">开始 Trial</a>
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md" style="background:transparent;color:var(--accent);border:1px solid var(--border)">完整规范 SPEC</a>
+    </div>
+
+    <footer>
+      北京青合数智科技有限公司 · 运营 mock 试用节点 · 非银行/支付机构<br>
+      NovaPanda 尚未获得商标注册核准，不使用 ® · 规范 CC BY 4.0 · 代码 Apache-2.0
+    </footer>
+  </div>
+</body>
+</html>
