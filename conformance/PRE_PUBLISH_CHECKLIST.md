@@ -121,4 +121,3 @@
 - [`CERTIFICATION.md`](CERTIFICATION.md) — Conformance 与认证草案
 - [`EXTERNAL_PLUGFEST.md`](EXTERNAL_PLUGFEST.md) — 对外互操作指南
 - [`../README.md`](../README.md) — 快速开始
-- [`../deploy/README.md`](../deploy/README.md) — 参考节点部署

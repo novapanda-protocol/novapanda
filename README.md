@@ -70,15 +70,13 @@ $env:TROODON_AUTH="1"
 
 完整列表见 [`troodon/config.py`](troodon/config.py) 与 [`spec/SPEC.md`](spec/SPEC.md) §19。
 
-### 生产部署（自营全球节点）
+### 公开试用节点
 
-**路径**：mock 上云 → x402 sandbox → 持牌法币伙伴。AWS / 阿里云国际通用 Docker 方案：
+- Trial（mock）：[`https://node.novapanda.io`](https://node.novapanda.io)
+- 健康检查：`GET /health`
+- Manifest：`GET /.well-known/troodon.json`
 
-- [`deploy/README.md`](deploy/README.md) — 架构、阶段、环境变量、cron
-- [`deploy/OPERATOR_LEGAL.md`](deploy/OPERATOR_LEGAL.md) — 主体/银行/国内公司说明
-- [`deploy/MOCK_STABILITY.md`](deploy/MOCK_STABILITY.md) — mock 稳定标准与 smoke 脚本
-- [`deploy/MINIMAL_LAUNCH_CN.md`](deploy/MINIMAL_LAUNCH_CN.md) — 国内公司一页启动 + 对外试用说明
-- [`deploy/aws/README.md`](deploy/aws/README.md) / [`deploy/aliyun/README.md`](deploy/aliyun/README.md)
+自营节点部署与运维文档不在本公开仓库；第三方可按规范与参考实现自建同构节点。
 
 ## 仓库结构
 
@@ -96,7 +94,6 @@ tests/          pytest + 一致性向量
 - [`GOVERNANCE.md`](GOVERNANCE.md) / [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - [`conformance/CERTIFICATION.md`](conformance/CERTIFICATION.md) — Conformance C1–C7
 - [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md) — 公开发布前检查
-- [`deploy/README.md`](deploy/README.md) — 参考节点部署
 
 ## 许可
 
