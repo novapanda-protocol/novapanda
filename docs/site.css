@@ -90,3 +90,67 @@ a { color: var(--accent); }
 code { font-size: .88em; background: rgba(127,127,127,.12); padding: .1rem .35rem; border-radius: 4px; }
 pre { background: rgba(127,127,127,.1); padding: .85rem 1rem; overflow-x: auto; border-radius: 8px; font-size: .85rem; }
 footer { margin-top: 2.5rem; font-size: .82rem; color: var(--muted); }
+
+/* Constitution / manifesto */
+.page-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(145deg, #021a3a 0%, #054491 42%, #0a5bc4 100%);
+  color: #fff; padding: 3rem 1.25rem 3.25rem; margin: 0 -1.25rem 2.5rem;
+  border-radius: 0 0 24px 24px;
+}
+.page-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 90% 10%, rgba(255,255,255,.12), transparent 55%),
+              radial-gradient(ellipse 50% 40% at 10% 90%, rgba(120,180,255,.15), transparent 50%);
+  pointer-events: none;
+}
+.page-hero-inner { position: relative; max-width: 40rem; }
+.page-hero .eyebrow {
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .8; margin-bottom: .75rem;
+}
+.page-hero h1 {
+  font-size: clamp(1.75rem, 4.5vw, 2.6rem); margin: 0 0 1rem; line-height: 1.2; font-weight: 700;
+}
+.page-hero .manifesto {
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem); line-height: 1.7; opacity: .94; margin: 0 0 1.25rem;
+}
+.page-hero .manifesto strong { color: #fff; font-weight: 600; }
+.redline-strip {
+  display: flex; flex-wrap: wrap; gap: .5rem 1rem; font-size: .82rem; opacity: .88; margin-top: 1rem;
+}
+.redline-strip span::before { content: "·"; margin-right: .35rem; opacity: .6; }
+.redline-strip span:first-child::before { content: none; }
+.litmus-box {
+  background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 12px; padding: 1.25rem 1.35rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+}
+.litmus-box .label { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+.litmus-box p { margin: 0; font-size: 1.02rem; color: var(--text); line-height: 1.6; }
+.principle-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.75rem; height: 1.75rem; border-radius: 8px; background: var(--accent); color: #fff;
+  font-size: .8rem; font-weight: 700; margin-bottom: .5rem;
+}
+.principle-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.1rem 1.2rem; box-shadow: var(--shadow);
+}
+.principle-card h3 { margin: 0 0 .35rem; font-size: 1rem; }
+.principle-card p { margin: 0; font-size: .88rem; color: var(--muted); }
+.layer-timeline { position: relative; padding-left: 1.5rem; margin: 1rem 0; }
+.layer-timeline::before {
+  content: ""; position: absolute; left: .45rem; top: .5rem; bottom: .5rem;
+  width: 2px; background: linear-gradient(180deg, var(--accent), var(--border));
+  border-radius: 2px;
+}
+.layer-timeline .layer { position: relative; margin-bottom: .65rem; }
+.layer-timeline .layer::before {
+  content: ""; position: absolute; left: -1.35rem; top: 1.1rem;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--card);
+}
+.layer-timeline .layer.highlight { border-color: var(--accent); background: var(--accent-soft); }
+.section-lead { color: var(--muted); font-size: .94rem; margin: -.35rem 0 1rem; max-width: 38rem; }
+.quote-soul {
+  font-size: 1rem; color: var(--text); border-left: 3px solid var(--accent);
+  padding: .5rem 0 .5rem 1rem; margin: 1rem 0 0; font-style: italic;
+}
