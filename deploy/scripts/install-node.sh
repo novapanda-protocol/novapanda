@@ -43,10 +43,10 @@ export NODE_DOMAIN
 docker compose --env-file ../env/production.env build
 docker compose --env-file ../env/production.env up -d
 
-sleep 5
-curl -fsS http://127.0.0.1:8000/health
+sleep 8
+curl -fsS "https://${NODE_DOMAIN}/health" || curl -fsS http://127.0.0.1/health || docker compose --env-file ../env/production.env exec -T node curl -fsS http://127.0.0.1:8000/health
 echo ""
-curl -fsS "http://127.0.0.1:8000/.well-known/novapanda.json" | head -c 200 || true
+curl -fsS "https://${NODE_DOMAIN}/.well-known/novapanda.json" | head -c 200 || true
 echo ""
 
 echo "========== 完成 =========="
