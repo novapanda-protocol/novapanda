@@ -16,6 +16,12 @@ if [[ ! -f "$ENV_FILE" ]]; then
   exit 1
 fi
 
+# 拉最新部署脚本（安装时可能还是旧 commit）
+if [[ -d "${INSTALL_DIR}/src/.git" ]]; then
+  git -C "${INSTALL_DIR}/src" fetch --depth 1 origin main
+  git -C "${INSTALL_DIR}/src" reset --hard origin/main
+fi
+
 NOVAPANDA_ADMIN_TOKEN="$(grep '^NOVAPANDA_ADMIN_TOKEN=' "$ENV_FILE" | cut -d= -f2- | tr -d '\r')"
 if [[ -z "$NOVAPANDA_ADMIN_TOKEN" ]]; then
   echo "NOVAPANDA_ADMIN_TOKEN missing in $ENV_FILE"
@@ -23,6 +29,18 @@ if [[ -z "$NOVAPANDA_ADMIN_TOKEN" ]]; then
 fi
 
 SWEEP="${INSTALL_DIR}/src/deploy/cron/sweep.sh"
+mkdir -p "$(dirname "$SWEEP")"
+if [[ ! -f "$SWEEP" ]]; then
+  cat > "$SWEEP" <<'EOF'
+#!/usr/bin/env sh
+set -eu
+BASE_URL="${NOVAPANDA_NODE_URL:-https://node.novapanda.io}"
+ADMIN_TOKEN="${NOVAPANDA_ADMIN_TOKEN:?set NOVAPANDA_ADMIN_TOKEN}"
+curl -fsS -X POST "${BASE_URL}/admin/sweep" \
+  -H "X-Admin-Token: ${ADMIN_TOKEN}" \
+  -H "Content-Type: application/json"
+EOF
+fi
 chmod +x "$SWEEP"
 
 CRON_LINE="*/5 * * * * root NOVAPANDA_NODE_URL=https://${NODE_DOMAIN} NOVAPANDA_ADMIN_TOKEN=${NOVAPANDA_ADMIN_TOKEN} ${SWEEP} >> /var/log/novapanda-sweep.log 2>&1"
