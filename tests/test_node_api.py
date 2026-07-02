@@ -121,3 +121,20 @@ def test_illegal_state_returns_409(ctx):
     # 未 contract/escrow 直接 deliver -> 状态机拒绝 409
     resp = client._http.post(f"/exchanges/{eid}/deliver", json={"vdc": {"state": "DELIVERED"}, "deliverable": GOOD})
     assert resp.status_code == 409
+
+
+def test_health(ctx):
+    client, _ = ctx
+    r = client._http.get("/health")
+    assert r.status_code == 200
+    assert r.json()["status"] == "ok"
+
+
+def test_sweep_admin_token(monkeypatch):
+    monkeypatch.setenv("TROODON_ADMIN_TOKEN", "test-admin-secret")
+    app = create_app(seed=True, auth=False)
+    tc = TestClient(app)
+    assert tc.post("/admin/sweep").status_code == 401
+    r = tc.post("/admin/sweep", headers={"X-Admin-Token": "test-admin-secret"})
+    assert r.status_code == 200
+    assert "expired" in r.json()

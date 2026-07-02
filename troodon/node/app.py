@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import os
 from contextlib import asynccontextmanager
 from dataclasses import asdict
 from typing import Any, Optional
@@ -214,6 +215,7 @@ def create_app(
     app.state.rep_witness_bonus_per_stake = rep_witness_bonus_per_stake
     app.state.rep_witness_bonus_cap = rep_witness_bonus_cap
     app.state.did_registry = DidRegistry()
+    app.state.admin_token = os.environ.get("TROODON_ADMIN_TOKEN")
 
     def _normalize_party(ref: str) -> str:
         try:
@@ -657,9 +659,19 @@ def create_app(
             parsed.update(json.loads(weights))
         return app.state.reputation.weighted_score(agent_id, weights=parsed)
 
+    @app.get("/health")
+    def health():
+        """负载均衡 / 容器探活。"""
+        return {"status": "ok", "service": "troodon-node"}
+
     @app.post("/admin/sweep")
-    def sweep():
+    def sweep(request: Request):
         """超时清扫：由外部调度器周期调用（真实部署可挂 cron 或后台任务）。"""
+        token = app.state.admin_token
+        if token:
+            header = request.headers.get("X-Admin-Token")
+            if header != token:
+                raise AuthError(401, "E_ADMIN_UNAUTHORIZED", "invalid or missing X-Admin-Token")
         expired = engine.sweep()
         return {"expired": [ex.exchange_id for ex in expired]}
 

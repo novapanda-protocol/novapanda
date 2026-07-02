@@ -1,0 +1,20 @@
+# /etc/systemd/system/troodon-node.service
+# 非 Docker 部署：pip install -e . 后使用
+
+[Unit]
+Description=Troodon reference exchange node
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=troodon
+Group=troodon
+WorkingDirectory=/opt/troodon
+EnvironmentFile=/etc/troodon/node.env
+ExecStart=/opt/troodon/.venv/bin/uvicorn troodon.node.app:create_app_from_config --factory --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

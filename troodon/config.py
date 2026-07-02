@@ -32,6 +32,7 @@
   TROODON_REP_WITNESS_BONUS=0.05  每条 locked stake 对 gate 的有效分加成
   TROODON_REP_WITNESS_BONUS_CAP=0.25  见证加成上限
   TROODON_X402_API_KEY=secret     x402 网关 Bearer（可选）
+  TROODON_ADMIN_TOKEN=secret      保护 POST /admin/sweep（生产必设）
   TROODON_AP2_API_KEY=secret      AP2 网关 Bearer（可选）
   TROODON_FIAT_API_KEY=secret     法币网关 Bearer（可选）
 """

@@ -1,0 +1,7 @@
+# 将 NODE_DOMAIN 设为公网域名，例如 node.example.com
+# docker compose 传入：NODE_DOMAIN=node.example.com
+
+{$NODE_DOMAIN} {
+	encode gzip
+	reverse_proxy node:8000
+}
