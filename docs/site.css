@@ -154,3 +154,26 @@ footer { margin-top: 2.5rem; font-size: .82rem; color: var(--muted); }
   font-size: 1rem; color: var(--text); border-left: 3px solid var(--accent);
   padding: .5rem 0 .5rem 1rem; margin: 1rem 0 0; font-style: italic;
 }
+.path-flow { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+.path-step {
+  display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 1rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.path-step:last-child { border-bottom: none; }
+.path-step .phase { font-size: .75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; padding-top: .15rem; }
+.path-step .title { font-weight: 600; margin-bottom: .2rem; }
+.path-step .desc { font-size: .88rem; color: var(--muted); }
+.belief-item { padding: .75rem 0; border-bottom: 1px solid var(--border); }
+.belief-item:last-child { border-bottom: none; }
+.belief-item strong { display: block; margin-bottom: .2rem; font-size: .95rem; }
+.belief-item span { font-size: .88rem; color: var(--muted); }
+.narrative-level { display: grid; grid-template-columns: 4rem 1fr; gap: .75rem; padding: .85rem 0; border-bottom: 1px solid var(--border); }
+.narrative-level:last-child { border-bottom: none; }
+.narrative-level .lv { font-weight: 700; color: var(--accent); font-size: .85rem; }
+.draft-banner {
+  background: #fff3cd; color: #664d03; border: 1px solid #ffc107;
+  border-radius: 10px; padding: .75rem 1rem; margin: 1rem 0 1.5rem; font-size: .9rem;
+}
+@media (prefers-color-scheme: dark) {
+  .draft-banner { background: #3d3200; color: #ffe08a; border-color: #806600; }
+}

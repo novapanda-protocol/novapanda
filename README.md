@@ -1,11 +1,17 @@
 # NovaPanda · 智能世界价值交割层
 
+> **北极星：** 让一切智能体、智能设备、大模型，在**无预建关系**下，用同一套**可验证的交割语言**彼此交换价值——**智能万物交换**。
+>
+> 智能世界**不是先统一货币**，而是先统一**「交割与互认」**。我们不造新钱，我们给智能世界一种**「承认彼此付出」**的共同语言。
+>
+> 今天从陌生软件 Agent 的模拟舱出发；明天同一套 VDC + 状态机平移到能源、机器人与物理设备。详见 [愿景与路径](https://novapanda.io/vision.html)。
+
 > 让任意智能体/智能设备之间，在**无预建关系**下完成**跨主体**价值交换——
-> 不发币、不托管资金、不收协议费；交割的真理是一份**任何人都能独立复验**的凭证。
+> 不发币、不托管资金、不收协议费；交割的真理是一份**任何人都能独立复验**的凭证（VDC）。
 
 **品牌：NovaPanda** · Python 包名 `novapanda` · TypeScript `@novapanda/sdk`。规范 CC BY 4.0、代码 Apache-2.0。
 
-**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）
+**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）· [愿景](https://novapanda.io/vision.html) · [协议宪法](https://novapanda.io/constitution.html)
 
 > **品牌筹备中**：**域名已注册**（Namecheap）；**NovaPanda 国内商标已提交**（待缴费/受理）。**对外高调发布前**请阅读 [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md)。
 

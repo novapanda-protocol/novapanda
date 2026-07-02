@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>【草稿】两个陌生 Agent，如何在没有预建关系的情况下交换价值？</title>
+  <meta name="description" content="NovaPanda 宣传稿草稿。智能世界先统一交割，再统一货币。">
+  <link rel="stylesheet" href="../site.css">
+  <style>
+    .draft-banner {
+      background: #fff3cd; color: #664d03; border: 1px solid #ffc107;
+      border-radius: 10px; padding: .75rem 1rem; margin-bottom: 1.5rem; font-size: .9rem;
+    }
+  @media (prefers-color-scheme: dark) {
+    .draft-banner { background: #3d3200; color: #ffe08a; border-color: #806600; }
+  }
+    .article h2 { font-size: 1.15rem; margin: 2rem 0 .75rem; }
+    .article p { margin: 0 0 1rem; color: var(--text); }
+    .article .lead { font-size: 1.08rem; color: var(--muted); }
+    .article ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    .article li { margin-bottom: .35rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="draft-banner">
+      <strong>内部草稿 · 暂不对外发布</strong> — 未链入站点导航；发布前请删 <code>noindex</code> 并移至 <code>docs/why.html</code>。
+    </div>
+
+    <header class="page-hero" style="margin-top:0">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Draft · 为什么</div>
+        <h1>两个陌生 Agent，如何在没有预建关系的情况下交换价值？</h1>
+        <p class="manifesto" style="font-size:1.05rem">
+          副标题：<strong>智能世界先统一交割，再统一货币</strong>
+        </p>
+      </div>
+    </header>
+
+    <article class="article">
+      <p class="lead">
+        想象两个互不相识的软件 Agent：A 需要 B 完成一项可验收的任务，B 声称已经完成。
+        它们没有共同的平台账号，没有历史合同，也没有「加好友」这一步。
+        问题不是「谁付钱」，而是：<strong>谁真的交付了？谁能独立证明？</strong>
+      </p>
+
+      <h2>支付解决「谁付钱」，交割解决「谁真的做了」</h2>
+      <p>
+        人类商业世界里，我们习惯先建立关系——公司、合同、账户、发票——再谈交换。
+        支付系统在此基础上运转：它记录资金的转移，却<strong>很少成为交付本身的真理</strong>。
+      </p>
+      <p>
+        智能体密度上来之后，瓶颈会前移：
+        两个陌生主体能否在<strong>无预建关系</strong>下，就「是否完成交付」达成一致？
+        这比「用哪种币结算」更基础。
+      </p>
+      <p>
+        我们的判断是：<strong>智能世界不是先统一货币，而是先统一「交割与互认」</strong>。
+        成功标志不是清算额，而是：陌生对端能否互认一张<strong>可独立验真</strong>的交付收据。
+      </p>
+
+      <h2>一张可验真的收据，而不是又一种钱</h2>
+      <p>
+        NovaPanda 的第一公民是 <strong>VDC（可验证交割凭证）</strong>：
+        结构化记录、双方 Ed25519 双签、任何人可脱离单一平台复验。
+        它回答的是：<em>这件事有没有按约定完成？</em>——而不是 <em>钱从哪到哪</em>。
+      </p>
+      <p>
+        清算（mock、x402、法币通道）是<strong>可插拔的下游</strong>。
+        你可以用任何支付方式结算，但交付的真理不应绑死在某个 App 或某条链的账本里。
+      </p>
+
+      <div class="litmus-box">
+        <div class="label">Litmus</div>
+        <p>
+          一个从没见过的、用别的语言 / 框架 / 结算方式的陌生 Agent，能否
+          <strong>不依赖我方专有组件、不经我方许可</strong>，照公开规范完成交割，
+          并被<strong>任何人独立复验</strong>？
+        </p>
+      </div>
+
+      <h2>今天就能排练：陌生软件 Agent 的模拟舱</h2>
+      <p>完整路径并不遥远，今天就可以在公开 mock 节点上跑通：</p>
+      <pre>propose → contract → escrow → deliver → verify → confirm → SETTLED</pre>
+      <p>
+        两个事先互不认识的主体，产出一份双签 VDC。
+        这是未来陌生车、桩、机器人之间交换的<strong>替身排练</strong>——
+        同一套资源本体、状态机与凭证格式，日后可平移到物理世界。
+      </p>
+      <ul>
+        <li>规范：<a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a>（CC BY 4.0）</li>
+        <li>试用：<a href="https://novapanda.io/trial.html">开发者 Trial</a> · <code>node.novapanda.io</code>（mock，无真钱）</li>
+        <li>复验：<code>novapanda.reverify</code> — 脱离节点独立验真</li>
+      </ul>
+
+      <h2>我们不是什么</h2>
+      <p>为了避免误读，先说清楚边界：</p>
+      <ul>
+        <li>不是钱包，不是发币项目</li>
+        <li>不是银行、持牌清算机构，Trial 不涉及真实资金</li>
+        <li>不是对每笔交换抽成的平台</li>
+        <li>不是「Web3 又一种币」——我们做的是<strong>公共交割语法</strong>，像 HTTP，不属于任何公司</li>
+      </ul>
+
+      <h2>路径：从软件到万物</h2>
+      <p>
+        北极星是<strong>智能万物交换</strong>：一切智能体、设备、大模型，
+        在无预建关系下用同一套可验证交割语言彼此交换价值。
+        路径务实——今天从陌生软件 Agent 出发，明天平移到能源、机器人与合规物理交割。
+        详见 <a href="../vision.html">愿景与路径</a>。
+      </p>
+
+      <h2>你可以做什么</h2>
+      <ul>
+        <li><strong>开发者</strong>：5 分钟跑通 Trial，拿到 SETTLED</li>
+        <li><strong>怀疑者</strong>：用 Litmus 检验——fork 节点、换语言、独立复验 VDC</li>
+        <li><strong>共建者</strong>：参考实现开源（Apache-2.0），人人可自建节点</li>
+      </ul>
+
+      <p class="note" style="margin-top:2rem">
+        北京青合数智科技有限公司 · NovaPanda 开放协议<br>
+        配套阅读：<a href="../vision.html">愿景</a> · <a href="../constitution.html">协议宪法</a>
+      </p>
+    </article>
+  </div>
+</body>
+</html>
