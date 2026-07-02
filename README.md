@@ -72,7 +72,9 @@ $env:NOVAPANDA_AUTH="1"
 
 ### 公开试用节点
 
-- Trial（mock）：[`https://node.novapanda.io`](https://node.novapanda.io)
+- **Trial 指南（官网）：** [https://novapanda.io/trial.html](https://novapanda.io/trial.html)
+- 节点（mock）：[`https://node.novapanda.io`](https://node.novapanda.io)
+- 一键脚本：`python demo/trial_remote.py`
 - 健康检查：`GET /health`
 - Manifest：`GET /.well-known/novapanda.json`
 
