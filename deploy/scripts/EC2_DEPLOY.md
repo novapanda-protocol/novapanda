@@ -1,7 +1,7 @@
 # EC2 部署指南（我无法代你 SSH，请你按此操作）
 
-> **说明**：Cursor / AI **不能**登录你的 AWS 账号或 EC2（没有 `.pem`、没有控制台权限）。  
-> 下面两种方式任选其一；**你在酒店今天可用 SSH**，明天可用 **EC2 Instance Connect**（浏览器终端）。
+> **说明**：部署需在 AWS 控制台或本机 SSH/Instance Connect 执行。  
+> 推荐优先使用 **EC2 Instance Connect**（浏览器终端），减少本地网络对 22 端口的干扰。
 
 ---
 
@@ -27,10 +27,10 @@ cd d:\project\jiazhi
 tar -czf $env:TEMP\novapanda-upload.tar.gz --exclude=.git --exclude=.venv --exclude=__pycache__ .
 
 # 上传（用户名多为 ubuntu 或 ec2-user，看 AMI）
-scp -i "C:\path\to\your-key.pem" $env:TEMP\novapanda-upload.tar.gz ubuntu@18.142.231.250:/tmp/
+scp -i "C:\path\to\your-key.pem" $env:TEMP\novapanda-upload.tar.gz ubuntu@YOUR_EC2_PUBLIC_IP:/tmp/
 
 # SSH 登录
-ssh -i "C:\path\to\your-key.pem" ubuntu@18.142.231.250
+ssh -i "C:\path\to\your-key.pem" ubuntu@YOUR_EC2_PUBLIC_IP
 ```
 
 ### B. 在服务器上执行
