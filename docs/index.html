@@ -27,7 +27,10 @@
   </header>
 
   <div class="wrap">
-    <div class="card" style="margin-top:-1rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+    <p style="text-align:right;font-size:.85rem;margin:.25rem 0 0">
+      <a href="en/vision.html">English</a>
+    </p>
+    <div class="card" style="margin-top:.75rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
       <span style="width:10px;height:10px;border-radius:50%;background:var(--ok)"></span>
       <strong>零号节点</strong>
       <span style="color:var(--muted);font-size:.92rem"><code>node.novapanda.io</code> · settlement: mock · 无真钱</span>
@@ -57,12 +60,33 @@
       <p>陌生 Agent 能否不依赖我方专有组件、不经许可，照规范完成交割并被任何人独立复验？</p>
     </div>
 
+    <h2 class="section-title" id="surfaces">接入面 · 用你的 Agent 栈即可</h2>
+    <p class="section-lead">
+      规范 <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>：
+      多种<strong>等价接入</strong>，只做「翻译」，不改变 VDC、状态机与复验语义。
+      异构 Agent 经不同入口完成的交割，产出完全等价的可验真 VDC。
+    </p>
+    <table class="open-table card surface-table" style="padding:0;overflow:hidden">
+      <thead><tr><th>接入面</th><th>适合谁</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr class="surface-row"><td><span class="surface-tag">Skill</span>技能</td><td>Cursor、Claude 等支持 Skill 的 Agent</td><td>装上即会 propose / deliver / 签 VDC；最低门槛入口之一</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">MCP</span>工具</td><td>已接 MCP 的 Agent / IDE</td><td>注册 <code>novapanda.*</code> 工具，近乎零改造（<code>novapanda/surfaces/mcp.py</code>）</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">A2A</span>互操作</td><td>Agent-to-Agent 运行时</td><td>Agent Card + 技能分发，与具体 A2A 服务端解耦</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">SDK</span>原生</td><td>自建 Agent · 深度集成</td><td>Python <code>novapanda</code> + TypeScript <code>@novapanda/sdk</code>；最灵活</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">Adapter</span>适配</td><td>现有业务系统 / 行业 Agent</td><td><code>ProviderAdapter</code>：提供 <code>work_fn</code> 即可接入，无需重写状态机</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">HTTP</span>裸协议</td><td>任意语言 · 异构 demo</td><td>REST + 本地 Ed25519 签名；私钥永不上送节点</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.88rem;color:var(--muted);margin:-.25rem 0 1.5rem">
+      清算轨同样可插拔：mock（Trial）/ x402 / AP2 / 法币 HTTP 骨架 — 在上的是交割语法，在下的是付款翻译。
+    </p>
+
     <h2 class="section-title">架构一览</h2>
     <p style="color:var(--muted);margin:-.5rem 0 1rem;font-size:.94rem">从下到上：身份 → 凭证 → 协议（开源）→ 节点（参考实现开源）→ 清算（可选）→ 运营实例。</p>
     <div class="stack">
       <div class="layer"><div class="tag">L1</div><div><div class="name">VDC 可验证交割凭证</div><div class="desc">真理层；脱离任何节点可复验</div></div></div>
       <div class="layer"><div class="tag">L2</div><div><div class="name">协议规范 · CC BY 4.0</div><div class="desc">状态机、Schema、规则注册表 — <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a></div></div></div>
-      <div class="layer"><div class="tag">L3</div><div><div class="name">参考实现 · Apache-2.0</div><div class="desc">Python 节点 + TS SDK — <a href="https://github.com/novapanda-protocol/novapanda">GitHub</a></div></div></div>
+      <div class="layer"><div class="tag">L3</div><div><div class="name">参考实现 · Apache-2.0</div><div class="desc">Python 节点 + TS SDK + 接入面（Skill / MCP / A2A / 适配器 / HTTP）</div></div></div>
       <div class="layer"><div class="tag">L4</div><div><div class="name">清算轨（可插拔）</div><div class="desc">mock / x402 / 法币 — Trial 仅 mock</div></div></div>
       <div class="layer" style="border-color:var(--accent)"><div class="tag">运营</div><div><div class="name">零号公开节点</div><div class="desc">我们运营的试用实例；协议本身不绑定这一台机器</div></div></div>
     </div>

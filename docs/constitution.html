@@ -18,6 +18,7 @@
       <a href="https://node.novapanda.io/">节点控制台</a>
       <a href="terms.html">用户协议</a>
       <a href="privacy.html">隐私政策</a>
+      <span class="lang-switch"><a href="en/vision.html">EN</a> · <a href="vision.html">中文</a></span>
     </nav>
 
     <header class="page-hero">
@@ -139,13 +140,32 @@
       </div>
     </div>
 
+    <h2 class="section-title">接入面 · 降低接入难度</h2>
+    <p class="section-lead">
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a> 要求实现提供多种等价入口。
+      铁律：<strong>接入面只做翻译</strong>，MUST NOT 改变凭证、状态机与复验语义。
+    </p>
+    <div class="grid-2">
+      <div class="principle-card">
+        <h3>Skill · MCP · A2A</h3>
+        <p>面向已支持技能 / MCP / A2A 的 Agent 生态（如 Cursor、OpenClaw 式运行时）。注册工具或 Agent Card 即可，无需理解签名细节。</p>
+      </div>
+      <div class="principle-card">
+        <h3>SDK · 适配器 · HTTP</h3>
+        <p>Python + TypeScript SDK 原生调用；<code>ProviderAdapter</code> 包装现有系统；任意语言走 HTTP + 本地签名。plugfest 刻意用<strong>异构栈</strong>互证。</p>
+      </div>
+    </div>
+    <p class="quote-soul" style="margin-top:1rem">
+      互通来自遵守规范，而非「人人都用同一个 SDK」。详见首页<a href="index.html#surfaces">接入面对照表</a>与 <code>novapanda/surfaces/</code>。
+    </p>
+
     <h2 class="section-title">开源边界</h2>
     <p class="section-lead">公开的是规范与可复验能力；不公开的是密钥与商业运营细节。</p>
     <table class="open-table card" style="padding:0;overflow:hidden">
       <thead><tr><th>公开（GitHub）</th><th>不公开 / 不承诺</th></tr></thead>
       <tbody>
         <tr><td>协议规范 SPEC + Schema</td><td>持牌清算、法币生产环境</td></tr>
-        <tr><td>参考实现 + SDK + 一致性套件</td><td>ADMIN_TOKEN、生产密钥</td></tr>
+        <tr><td>参考实现 + SDK + 一致性套件 + 接入面</td><td>ADMIN_TOKEN、生产密钥</td></tr>
         <tr><td>fork 与自建节点</td><td>® 商标排他（核准前不使用 ®）</td></tr>
         <tr><td>mock 试用 API</td><td>内部战略与运营策略文档</td></tr>
       </tbody>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>[Draft] How can two stranger agents exchange value without a pre-existing relationship?</title>
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="draft-banner">
+      <strong>Internal draft · not published</strong> — for HN / dev.to when ready. Remove <code>noindex</code> and move to <code>docs/en/why.html</code>.
+    </div>
+
+    <header class="page-hero" style="margin-top:0">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Draft · Why</div>
+        <h1>How can two stranger agents exchange value without a pre-existing relationship?</h1>
+        <p class="manifesto" style="font-size:1.05rem">
+          Subtitle: <strong>Unify delivery before currency in the intelligent world</strong>
+        </p>
+      </div>
+    </header>
+
+    <article class="article" style="--text:var(--text)">
+      <p style="font-size:1.08rem;color:var(--muted)">
+        Agent A needs Agent B to complete a verifiable task. B claims it is done.
+        They share no platform account, no prior contract, no “add friend” step.
+        The question is not <em>who pays</em> — it is <strong>who actually delivered, and who can prove it independently?</strong>
+      </p>
+
+      <h2 style="font-size:1.15rem;margin:2rem 0 .75rem">Payment answers “who paid”; delivery answers “who did the work”</h2>
+      <p>As agent density rises, the bottleneck moves upstream: can strangers agree on <strong>whether delivery happened</strong> before arguing about settlement rails?</p>
+      <p>Our bet: the intelligent world <strong>unifies delivery and mutual recognition first</strong> — not a new global coin.</p>
+
+      <h2 style="font-size:1.15rem;margin:2rem 0 .75rem">A verifiable receipt, not another token</h2>
+      <p>
+        NovaPanda’s first citizen is the <strong>VDC (Verifiable Delivery Credential)</strong>:
+        structured record, dual Ed25519 signatures, re-verifiable off any single node.
+        Settlement (mock, x402, AP2, fiat adapters) is <strong>pluggable downstream</strong>.
+      </p>
+
+      <h2 style="font-size:1.15rem;margin:2rem 0 .75rem">Meet your agent where it already lives</h2>
+      <p>SPEC §7 defines equivalent access surfaces — translations only, core semantics unchanged:</p>
+      <ul>
+        <li><strong>Skill</strong> — for skill-capable agents (Cursor, Claude agents, …)</li>
+        <li><strong>MCP</strong> — register <code>novapanda.*</code> tools on any MCP server</li>
+        <li><strong>A2A</strong> — Agent Card + skill dispatch</li>
+        <li><strong>SDK</strong> — Python + TypeScript <code>@novapanda/sdk</code></li>
+        <li><strong>HTTP</strong> — any language; sign requests locally, keys never leave the agent</li>
+      </ul>
+
+      <h2 style="font-size:1.15rem;margin:2rem 0 .75rem">Try it today (mock only)</h2>
+      <pre style="background:rgba(127,127,127,.1);padding:.85rem 1rem;border-radius:8px">propose → contract → escrow → deliver → verify → confirm → SETTLED</pre>
+      <ul>
+        <li>Spec: <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a></li>
+        <li>Trial: <a href="https://novapanda.io/trial.html">novapanda.io/trial</a> · <code>node.novapanda.io</code> (mock, no real money)</li>
+      </ul>
+
+      <h2 style="font-size:1.15rem;margin:2rem 0 .75rem">What we are not</h2>
+      <ul>
+        <li>Not a wallet or token project</li>
+        <li>Not a bank or licensed clearing house</li>
+        <li>Not a platform fee on every swap</li>
+        <li>Not “another Web3 coin” — we are <strong>public delivery grammar</strong>, like HTTP</li>
+      </ul>
+
+      <p class="note" style="margin-top:2rem">
+        <a href="../en/vision.html">Vision (EN)</a> · <a href="../vision.html">愿景 (中文)</a> ·
+        <a href="https://github.com/novapanda-protocol/novapanda">GitHub</a>
+      </p>
+    </article>
+  </div>
+</body>
+</html>

@@ -11,7 +11,23 @@
 
 **品牌：NovaPanda** · Python 包名 `novapanda` · TypeScript `@novapanda/sdk`。规范 CC BY 4.0、代码 Apache-2.0。
 
-**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）· [愿景](https://novapanda.io/vision.html) · [协议宪法](https://novapanda.io/constitution.html)
+**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）· [愿景](https://novapanda.io/vision.html) · [协议宪法](https://novapanda.io/constitution.html) · [Vision (EN)](https://novapanda.io/en/vision.html)
+
+<details>
+<summary><strong>English TL;DR</strong></summary>
+
+**NovaPanda** is an open protocol for **verifiable value delivery** between strangers — agents, devices, and models with **no pre-existing relationship**.
+
+- **North star:** Universal machine exchange — one shared, verifiable delivery language before unifying money.
+- **First citizen:** **VDC** (Verifiable Delivery Credential) — dual-signed, independently re-verifiable off any node.
+- **Not:** a wallet, token, bank, or platform taking a cut on every swap.
+- **Access surfaces (SPEC §7):** Skill · MCP · A2A · SDK (Python + TypeScript) · adapters · raw HTTP — all equivalent translations; core semantics unchanged.
+- **Settlement rails (pluggable):** mock / x402 / AP2 / fiat HTTP skeletons — Trial uses **mock only**.
+- **Litmus:** Can a stranger agent complete delivery per the public spec, without our proprietary stack, and can anyone re-verify the VDC?
+
+Try: [Trial](https://novapanda.io/trial.html) · mock node [`node.novapanda.io`](https://node.novapanda.io) · [SPEC](spec/SPEC.md)
+
+</details>
 
 > **品牌筹备中**：**域名已注册**（Namecheap）；**NovaPanda 国内商标已提交**（待缴费/受理）。**对外高调发布前**请阅读 [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md)。
 
@@ -23,7 +39,8 @@
 - **验收**：SchemaVerifier + 可选 LLM judge（预检链 + 网关 + audit 快照）。
 - **结算**：Mock / x402 / AP2 / 法币 HTTP 骨架（**参考 fake 网关**；真实持牌伙伴对接属部署层，**不阻塞协议验证**）。
 - **信誉**：哈希链 + 加权 score + 可选 gate / 联邦 import。
-- **节点 + SDK**：Python 参考节点 + TypeScript SDK；私钥永不上送。
+- **节点 + SDK**：Python 参考节点 + TypeScript `@novapanda/sdk`；私钥永不上送。
+- **接入面（SPEC §7）**：Skill / MCP / A2A / SDK / 适配器 / 裸 HTTP — 等价翻译，不改变 VDC 与状态机语义（`novapanda/surfaces/`）。
 
 ## 设计底线
 

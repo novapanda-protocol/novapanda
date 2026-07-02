@@ -177,3 +177,13 @@ footer { margin-top: 2.5rem; font-size: .82rem; color: var(--muted); }
 @media (prefers-color-scheme: dark) {
   .draft-banner { background: #3d3200; color: #ffe08a; border-color: #806600; }
 }
+.lang-switch { margin-left: auto; font-size: .85rem; }
+.lang-switch a { color: var(--muted); text-decoration: none; }
+.lang-switch a:hover, .lang-switch a.active { color: var(--accent); }
+.lang-switch a.active { font-weight: 600; }
+.surface-row td:first-child { font-weight: 600; }
+.surface-tag {
+  display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+  border-radius: 4px; padding: .1rem .4rem; margin-right: .35rem;
+}
