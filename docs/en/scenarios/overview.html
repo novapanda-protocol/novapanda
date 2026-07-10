@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exchange scenarios · NovaPanda</title>
+  <meta name="description" content="NovaPanda public scenario map: verifiable delivery between strangers.">
+  <link rel="stylesheet" href="../../site.css">
+  <style>
+    .fig { width: 100%; min-height: 120px; height: auto; display: block; border-radius: 12px; background: #0f1624; border: 1px solid var(--border); margin: .75rem 0 1.25rem; }
+    .sc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: .85rem; }
+    .sc-card h3 { margin: 0 0 .35rem; font-size: 1rem; }
+    .sc-card .tier { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: .35rem; }
+    .sc-card .tier.lh { color: #c69026; }
+    .sc-card .tier.vis { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="../index.html">Home</a>
+      <a href="../vision.html">Vision</a>
+      <a href="overview.html" class="active">Scenarios</a>
+      <a href="ecosystem-eight-domains.html">Eight domains</a>
+      <a href="../constitution.html">Constitution</a>
+      <a href="../faq-money.html">Money FAQ</a>
+      <a href="../trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">Node</a>
+      <span class="lang-switch"><a href="overview.html" class="active">EN</a> · <a href="../../scenarios/overview.html">中文</a></span>
+    </nav>
+
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Scenarios · open map</div>
+        <h1>What exchange looks like</h1>
+        <p class="manifesto">
+          Figures answer three questions: what this is, what can be exchanged, and how it differs from payment.
+          All copy and SVGs are <strong>open in the repo</strong>
+          <code>docs/scenarios/</code> — the zero node is just a public mirror.
+        </p>
+      </div>
+    </header>
+
+    <h2 class="section-title">Poster · One business, many receipts</h2>
+    <img class="fig" src="../../scenarios/figures/06-poster-nested.svg" alt="Nested delivery poster: software diligence vs on-site patrol">
+    <p class="section-lead">
+      Left: software nesting you can rehearse today (diligence pack). Right: IoT lighthouse nesting (vehicle · drone · robot).
+      Bundle rules in <a href="../../scenarios/bundle.md">bundle.md</a> — without overturning the single-exchange state machine.
+    </p>
+
+    <h2 class="section-title">1 · Shared grammar</h2>
+    <img class="fig" src="../../scenarios/figures/01-lifecycle.svg" alt="Standard delivery lifecycle">
+
+    <h2 class="section-title">2 · Strangers can settle</h2>
+    <img class="fig" src="../../scenarios/figures/02-strangers.svg" alt="Parties without prior relationship">
+
+    <h2 class="section-title">3 · Delivery first, currency second</h2>
+    <img class="fig" src="../../scenarios/figures/03-layers.svg" alt="VDC above, settlement below">
+
+    <h2 class="section-title">4 · What can be exchanged</h2>
+    <img class="fig" src="../../scenarios/figures/04-matrix.svg" alt="Scenario matrix: software agents and energy/robotics">
+
+    <h2 class="section-title">Demoable now</h2>
+    <div class="sc-grid">
+      <div class="card sc-card"><div class="tier">now</div><h3>Structured extraction</h3><p>Stranger agents deliver invoice JSON; dual-signed VDC.</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>Generic tasks / LLM acceptance</h3><p>Field match or multi-judge consensus.</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>Token metering</h3><p>Inference usage as deliverable resource, not a black-box bill.</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>Reject · timeout · federation</h3><p>Failure paths and cross-node reverify are first-class.</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>Nested B · diligence pack</h3><p>Three VDCs + depends_on · <code>nested_diligence.py</code></p></div>
+    </div>
+
+    <h2 class="section-title">Lighthouse (same state machine)</h2>
+    <img class="fig" src="../../scenarios/figures/05-iot-ecosystem.svg" alt="IoT ecosystem: vehicles, drones, robots, software agents" style="margin-bottom:1.25rem">
+    <div class="sc-grid">
+      <div class="card sc-card"><div class="tier lh">lighthouse</div><h3>DC energy / EV charging</h3><p>Metered kWh · vehicle as agent identity.</p></div>
+      <div class="card sc-card"><div class="tier lh">lighthouse</div><h3>Robot tasks</h3><p>Provable action completion written to VDC.</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>Autonomous vehicles · V2X</h3><p>Lot and roadside delivery recognition — not control stack.</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>Drones · airspace · inspection</h3><p>Mission completion delivered to owner agents.</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>Sensing / edge IoT</h3><p>Attested data and edge compute delivery.</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>Cross-domain orchestration · human gate</h3><p>Vehicle · drone · robot collaboration; major liability stays human.</p></div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="../../scenarios/catalog.md">Full catalog</a>
+      <a class="btn btn-dark" href="ecosystem-eight-domains.html">Eight domains</a>
+      <a class="btn btn-dark" href="../trial.html">Run Trial</a>
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/tree/main/docs/scenarios" style="background:transparent;color:var(--accent);border:1px solid var(--border)">GitHub</a>
+    </div>
+
+    <footer>
+      Source <a href="../../scenarios/catalog.json">catalog.json</a> · narrative CC BY 4.0 · code Apache-2.0
+    </footer>
+  </div>
+</body>
+</html>

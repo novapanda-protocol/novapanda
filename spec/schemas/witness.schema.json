@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.io/schemas/witness-g09.schema.json",
+  "title": "NovaPanda Witness Attestation (G09)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "wit_version",
+    "witness_agent_id",
+    "exchange_id",
+    "observed_state",
+    "observed_at",
+    "terms_hash",
+    "stake",
+    "signature"
+  ],
+  "properties": {
+    "wit_version": { "type": "string", "const": "0.1" },
+    "witness_agent_id": { "type": "string", "pattern": "^ed25519:" },
+    "exchange_id": { "type": "string", "minLength": 1 },
+    "observed_state": { "type": "string", "minLength": 1 },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "terms_hash": { "type": "string", "minLength": 1 },
+    "stake": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "rail", "amount"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "rail": { "type": ["string", "null"] },
+        "amount": { "type": ["number", "null"] }
+      }
+    },
+    "signature": { "type": "string", "minLength": 1 }
+  }
+}

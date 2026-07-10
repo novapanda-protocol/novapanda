@@ -1,4 +1,4 @@
-"""NovaPanda Conformance Suite — C1–C7 一致性测试映射。"""
+"""NovaPanda Conformance Suite — C1–C12 + NODE-R / LITE / PRIV / S1."""
 
 from __future__ import annotations
 
@@ -72,6 +72,56 @@ SUITE: tuple[ConformanceCase, ...] = (
         "Manifest/发现",
         ("tests/test_manifest.py",),
     ),
+    ConformanceCase(
+        "C8",
+        "Bundle/prior_vdc_refs",
+        ("tests/test_bundle.py",),
+    ),
+    ConformanceCase(
+        "C9",
+        "物理/计量证据",
+        ("tests/test_phys_c9.py",),
+    ),
+    ConformanceCase(
+        "C10",
+        "Settlement 适配幂等/失败/mock rail · 多轨注册表",
+        ("tests/test_c10_settlement.py", "tests/test_c10_multi_rail.py"),
+    ),
+    ConformanceCase(
+        "C11",
+        "Claim 无锚 / 双花拒绝",
+        ("tests/test_c11_claim.py",),
+    ),
+    ConformanceCase(
+        "C12",
+        "DELEGATE 过期/限价/轨白名单/撤销/额度",
+        ("tests/test_c12_delegate.py",),
+    ),
+    ConformanceCase(
+        "C-NODE-R",
+        "recover / pending settlement intent",
+        ("tests/test_c_node_r.py",),
+    ),
+    ConformanceCase(
+        "C-LITE-RT",
+        "LITE 瘦报文 ↔ C1 round-trip",
+        ("tests/test_c_lite_rt.py",),
+    ),
+    ConformanceCase(
+        "C-PRIV",
+        "PRIV hash_only / 无 Operator PII",
+        ("tests/test_c_priv.py",),
+    ),
+    ConformanceCase(
+        "C-S1-SANDBOX",
+        "S1 沙箱轨诚实 Manifest / env gate",
+        ("tests/test_c_s1_sandbox.py",),
+    ),
+    ConformanceCase(
+        "C-MCP",
+        "MCP 绑定 ≡ SDK（informative → v0.2 suite）",
+        ("tests/test_c_mcp.py",),
+    ),
 )
 
 
@@ -85,7 +135,8 @@ def run_case(
     pytest_run: Optional[Callable[..., int]] = None,
 ) -> int:
     runner = pytest_run or pytest.main
-    case = next((c for c in SUITE if c.case_id == case_id.upper()), None)
+    wanted = case_id.upper()
+    case = next((c for c in SUITE if c.case_id.upper() == wanted), None)
     if case is None:
         raise ValueError(f"未知 conformance case: {case_id}")
     return runner(list(case.tests))

@@ -6,7 +6,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from .canonical import canonical_bytes
 from .hashing import sha256_hex
@@ -25,8 +25,9 @@ def terms_fields(
     timeouts: dict,
     nonce: str,
     idempotency_key: str,
+    settlement: Optional[dict] = None,
 ) -> dict:
-    return {
+    out = {
         "exchange_id": exchange_id,
         "client": client,
         "provider": provider,
@@ -38,6 +39,9 @@ def terms_fields(
         "nonce": nonce,
         "idempotency_key": idempotency_key,
     }
+    if settlement is not None:
+        out["settlement"] = settlement
+    return out
 
 
 def terms_hash_from_exchange(ex: Any) -> str:
@@ -52,6 +56,7 @@ def terms_hash_from_exchange(ex: Any) -> str:
         timeouts=ex.timeouts,
         nonce=ex.nonce,
         idempotency_key=ex.idempotency_key,
+        settlement=getattr(ex, "settlement_terms", None),
     )))
 
 
@@ -67,6 +72,7 @@ def terms_hash_from_dict(ex: dict) -> str:
         timeouts=ex.get("timeouts") or {},
         nonce=ex["nonce"],
         idempotency_key=ex["idempotency_key"],
+        settlement=ex.get("settlement_terms") or ex.get("settlement"),
     )))
 
 

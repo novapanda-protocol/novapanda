@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""运行 NovaPanda Conformance Suite（C1–C7）。
+"""运行 NovaPanda Conformance Suite。
 
 用法:
   python -m conformance.run           # 全部
-  python -m conformance.run C1 C3     # 指定 case
-  python -m conformance.run --list    # 列出 case
+  python -m conformance.run C9        # 指定 case
+  python -m conformance.run --list
+  python -m conformance.gap_audit     # T15 套件审计
 """
 
 from __future__ import annotations
@@ -17,7 +18,7 @@ from .suite import list_cases, run_all, run_case
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="NovaPanda Conformance Suite")
-    parser.add_argument("cases", nargs="*", help="C1–C7（默认全部）")
+    parser.add_argument("cases", nargs="*", help="C1–C8（默认全部）")
     parser.add_argument("--list", action="store_true", help="列出 case 映射")
     args = parser.parse_args(argv)
 

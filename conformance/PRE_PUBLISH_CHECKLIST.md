@@ -42,7 +42,9 @@
 |----|:----:|------|
 | `python -m pytest -q` 全绿 | ☑ | 参考实现 baseline |
 | `python demo/plugfest.py` 8 场景 | ☑ | 模拟舱冒烟 |
-| `python -m conformance.run` C1–C7 | ☑ | 一致性套件 |
+| `python -m conformance.run` C1–C12 | ☑ | 含 C10 结算 · C11 Claim · C12 DELEGATE |
+| `python -m conformance.gap_audit` | ☑ | T15 套件审计 |
+| `python internal/ops/release_check.py` | ☑ | T23 发布前自动检查（非门禁） |
 | `cd sdk/typescript && npm test` | ☑ | 含 CBOR 交叉向量 |
 | `python demo/run_demo.py` | ☑ | 陌生 Agent 完整仪式 |
 | demo 录屏或 CI 产物链接 | ☐ | 公开前建议准备 |
@@ -120,4 +122,5 @@
 - [`TRADEMARK.md`](TRADEMARK.md) — 商标与兼容标识占位
 - [`CERTIFICATION.md`](CERTIFICATION.md) — Conformance 与认证草案
 - [`EXTERNAL_PLUGFEST.md`](EXTERNAL_PLUGFEST.md) — 对外互操作指南
+- [`../internal/ops/T23-发布前检查清单.md`](../internal/ops/T23-发布前检查清单.md) — 内部执行版（含 SEC 审阅）
 - [`../README.md`](../README.md) — 快速开始

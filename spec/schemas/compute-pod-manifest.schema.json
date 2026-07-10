@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/compute-pod-manifest.schema.json",
+  "title": "Manifest Compute Pod Extension",
+  "description": "邻接扩展：远端算力/Pod 能力声明。informative；不进 CORE Exchange 状态机。",
+  "type": "object",
+  "required": ["pods"],
+  "additionalProperties": false,
+  "properties": {
+    "pods": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/pod" }
+    }
+  },
+  "$defs": {
+    "pod": {
+      "type": "object",
+      "required": [
+        "pod_id",
+        "family",
+        "resource_types",
+        "environment",
+        "licensed"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "pod_id": { "type": "string", "minLength": 1 },
+        "family": {
+          "type": "string",
+          "enum": ["remote.sandbox", "remote.dedicated", "edge.local"]
+        },
+        "resource_types": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["sandbox", "production"]
+        },
+        "endpoint": { "type": "string", "format": "uri" },
+        "auth": {
+          "type": "string",
+          "enum": ["bearer", "mTLS", "token_exchange"]
+        },
+        "metering": {
+          "type": "string",
+          "enum": ["per_token", "per_second", "per_job"]
+        },
+        "max_batch": { "type": "integer", "minimum": 1 },
+        "licensed": { "type": "boolean" },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

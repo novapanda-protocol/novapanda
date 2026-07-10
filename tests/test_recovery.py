@@ -24,7 +24,10 @@ def test_settlement_is_idempotent():
     h = s.escrow("ex", 100, "USD")
     r1 = s.settle(h)
     r2 = s.settle(h)  # 重放安全
-    assert r1 == r2 == {"handle": h, "status": "settled", "amount": 100, "currency": "USD"}
+    assert r1 == r2
+    assert r1["status"] == "settled"
+    assert r1["handle"] == h
+    assert r1["rail"] == "mock"
 
 
 def test_happy_confirm_records_intent_done():

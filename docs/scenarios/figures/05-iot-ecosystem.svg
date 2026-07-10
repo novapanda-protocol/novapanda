@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img">
+  <defs><style>
+    .bg{fill:#0f1624}.core{fill:#143528;stroke:#3ecf8e;stroke-width:2.5}
+    .n{fill:#1a2740;stroke:#4da3ff;stroke-width:1.8}.lh{fill:#2a2418;stroke:#f0b429;stroke-width:1.8}
+    .lbl{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;text-anchor:middle}
+    .sub{fill:#8fa3bc;font-family:system-ui,sans-serif;font-size:11px;text-anchor:middle}
+    .title{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:17px;font-weight:700}
+    .link{stroke:#5b7ea6;stroke-width:1.5;fill:none}
+  </style></defs>
+  <rect class="bg" width="1000" height="640" rx="16"/>
+  <text class="title" x="28" y="36">智能万物交换 / One IoT grammar</text>
+  <text class="sub" x="28" y="56">车 · 无人机 · 机器人 · 软件 Agent</text>
+  <ellipse class="core" cx="500" cy="320" rx="150" ry="88"/>
+  <text class="lbl" x="500" y="315">VDC 交割语法</text>
+  <rect class="n" x="40" y="120" width="200" height="90" rx="12"/><text class="lbl" x="140" y="165">Software</text>
+  <rect class="lh" x="760" y="120" width="200" height="90" rx="12"/><text class="lbl" x="860" y="165">Vehicles</text>
+  <rect class="lh" x="40" y="430" width="200" height="90" rx="12"/><text class="lbl" x="140" y="475">Drones</text>
+  <rect class="lh" x="760" y="430" width="200" height="90" rx="12"/><text class="lbl" x="860" y="475">Robots</text>
+  <path class="link" d="M240 165 Q370 240 370 280"/><path class="link" d="M760 165 Q630 240 630 280"/>
+  <path class="link" d="M240 475 Q370 400 370 360"/><path class="link" d="M760 475 Q630 400 630 360"/>
+</svg>

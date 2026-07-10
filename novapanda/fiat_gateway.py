@@ -2,11 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Optional
+import os
+from typing import Optional, Protocol, runtime_checkable
 
 import httpx
 
 from .http_gateway_base import HttpGatewayClient
+
+
+@runtime_checkable
+class PaymentGatewayClient(Protocol):
+    def authorize(self, exchange_id: str, amount: int, currency: str) -> str: ...
+    def capture(self, ref: str) -> dict: ...
+    def void(self, ref: str) -> dict: ...
 
 
 class HttpFiatGateway(HttpGatewayClient):
@@ -27,3 +35,23 @@ class HttpFiatGateway(HttpGatewayClient):
             max_retries=max_retries,
             rail_name="fiat",
         )
+
+
+def make_fiat_gateway(
+    *,
+    base_url: str,
+    api_key: Optional[str] = None,
+    http: Optional[httpx.Client] = None,
+    provider: Optional[str] = None,
+) -> PaymentGatewayClient:
+    """generic → HttpFiatGateway(/authorize)；stripe → PaymentIntent 适配。"""
+    kind = (provider or os.environ.get("NOVAPANDA_FIAT_PROVIDER", "generic")).lower()
+    if kind == "stripe":
+        from .stripe_gateway import StripeGateway
+
+        return StripeGateway(
+            base_url or "https://api.stripe.com/v1",
+            http=http,
+            api_key=api_key,
+        )
+    return HttpFiatGateway(base_url, http=http, api_key=api_key)

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>交换场景 · NovaPanda</title>
+  <meta name="description" content="NovaPanda 公开交换场景图谱：陌生人可验证交割的完整设想。">
+  <link rel="stylesheet" href="../site.css">
+  <style>
+    .fig { width: 100%; min-height: 120px; height: auto; display: block; border-radius: 12px; background: #0f1624; border: 1px solid var(--border); margin: .75rem 0 1.25rem; }
+    .sc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: .85rem; }
+    .sc-card h3 { margin: 0 0 .35rem; font-size: 1rem; }
+    .sc-card .tier { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: .35rem; }
+    .sc-card .tier.lh { color: #c69026; }
+    .sc-card .tier.vis { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="../index.html">首页</a>
+      <a href="../vision.html">愿景</a>
+      <a href="overview.html">场景</a>
+      <a href="ecosystem-eight-domains.html">生态八域</a>
+      <a href="../trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">节点</a>
+      <span class="lang-switch"><a href="../en/scenarios/overview.html">EN</a> · <a href="overview.html">中文</a></span>
+    </nav>
+
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Scenarios · 开源场景图谱</div>
+        <h1>我们设想的交换长什么样</h1>
+        <p class="manifesto">
+          用图回答三件事：这是什么、能换什么、和支付有何不同。
+          全部场景文案与 SVG <strong>开源在仓库</strong>
+          <code>docs/scenarios/</code>——零号节点只是同一套内容的公开展示位。
+        </p>
+      </div>
+    </header>
+
+    <h2 class="section-title">产品海报 · 一笔业务，多张收据</h2>
+    <img class="fig" src="figures/06-poster-nested.svg" alt="嵌套交割产品海报：软件尽调 vs 到场巡检">
+    <p class="section-lead">
+      左：今日可排练的软件嵌套（尽调包）。右：物联网灯塔嵌套（车·无人机·机器人）。
+      组合约定见 <a href="bundle.md">bundle.md</a>——不推倒单笔状态机。
+    </p>
+
+    <h2 class="section-title">1 · 共用语法</h2>
+    <img class="fig" src="figures/01-lifecycle.svg" alt="标准交割生命周期">
+
+    <h2 class="section-title">2 · 陌生人也能交割</h2>
+    <img class="fig" src="figures/02-strangers.svg" alt="无预建关系的双方">
+
+    <h2 class="section-title">3 · 先统一交割，再谈货币</h2>
+    <img class="fig" src="figures/03-layers.svg" alt="VDC 在上清算在下">
+
+    <h2 class="section-title">4 · 能换什么</h2>
+    <img class="fig" src="figures/04-matrix.svg" alt="交换场景矩阵：软件 Agent 与能源/机器人">
+
+    <h2 class="section-title">现在可演示</h2>
+    <div class="sc-grid">
+      <div class="card sc-card"><div class="tier">now</div><h3>结构化抽取</h3><p>陌生 Agent 交付发票 JSON，双签 VDC。</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>通用任务 / LLM 验收</h3><p>字段匹配或多裁判共识。</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>Token 用量</h3><p>推理计量进入交割，而非黑盒账单。</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>拒绝 · 超时 · 联邦</h3><p>失败路径与跨节点复验同是协议。</p></div>
+      <div class="card sc-card"><div class="tier">now</div><h3>嵌套 B · 尽调包</h3><p>三 VDC + depends_on · <code>nested_diligence.py</code></p></div>
+    </div>
+
+    <h2 class="section-title">灯塔（同一状态机）</h2>
+    <img class="fig" src="figures/05-iot-ecosystem.svg" alt="IoT 生态：车·无人机·机器人·软件 Agent" style="margin-bottom:1.25rem">
+    <div class="sc-grid">
+      <div class="card sc-card"><div class="tier lh">lighthouse</div><h3>直流电能 / 车充</h3><p>表计 kWh · 车作为 Agent 身份。</p></div>
+      <div class="card sc-card"><div class="tier lh">lighthouse</div><h3>机器人任务</h3><p>可证明动作完成并写入 VDC。</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>自动驾驶车 · V2X</h3><p>场站、路侧协同——只管交付互认，不管控制栈。</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>无人机 · 空域 · 巡检</h3><p>航线任务、起降服务、向 Owner 交付结果。</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>传感 / 边缘 IoT</h3><p>可证数据与边缘算力交割。</p></div>
+      <div class="card sc-card"><div class="tier vis">vision</div><h3>跨域编排 · 人类终审</h3><p>车·机·无人机协作；重大责任保留人。</p></div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="catalog.md">完整目录 catalog</a>
+      <a class="btn btn-dark" href="ecosystem-eight-domains.html">生态八域</a>
+      <a class="btn btn-dark" href="../trial.html">跑 Trial</a>
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/tree/main/docs/scenarios" style="background:transparent;color:var(--accent);border:1px solid var(--border)">GitHub 开源目录</a>
+    </div>
+
+    <footer>
+      数据源 <a href="catalog.json">catalog.json</a> · 许可随 docs（CC BY 4.0 叙事）· 代码 Apache-2.0
+    </footer>
+  </div>
+</body>
+</html>

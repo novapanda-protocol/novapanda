@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Developer Trial · NovaPanda</title>
+  <meta name="description" content="Reach SETTLED on node.novapanda.io in 5 minutes. Mock settlement, no real money.">
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="scenarios/overview.html">Scenarios</a>
+      <a href="constitution.html">Constitution</a>
+      <a href="faq-money.html">Money FAQ</a>
+      <a href="trial.html" class="active">Trial</a>
+      <a href="https://node.novapanda.io/">Node</a>
+      <span class="lang-switch"><a href="trial.html" class="active">EN</a> · <a href="../trial.html">中文</a></span>
+    </nav>
+
+    <h1 style="font-size:1.5rem;margin:0 0 .5rem">Developer Trial</h1>
+    <p style="color:var(--muted);max-width:38rem">
+      You are validating <strong>protocol and VDC</strong>, not payments. Read the
+      <a href="constitution.html">constitution</a> for layers and principles, then connect to the
+      <a href="https://node.novapanda.io">zero mock node</a>.
+    </p>
+
+    <div class="card" style="border-color:var(--accent);margin:1.5rem 0">
+      <strong>Mock trial boundary</strong>
+      <p style="margin-top:.5rem">✓ Full state machine + dual-signed VDC + offline reverify &nbsp;|&nbsp; ✗ Real money / stablecoin / licensed clearing</p>
+    </div>
+
+    <h2 class="section-title">Step 1 · Check the node</h2>
+    <pre><code>curl -fsS https://node.novapanda.io/health
+curl -fsS https://node.novapanda.io/.well-known/novapanda.json</code></pre>
+
+    <h2 class="section-title">Step 2 · Python one-shot SETTLED</h2>
+    <pre><code>git clone https://github.com/novapanda-protocol/novapanda.git
+cd novapanda
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -e .   # Windows
+python demo/trial_remote.py</code></pre>
+    <p style="color:var(--muted);font-size:.9rem">Two agent identities generated locally; private keys never uploaded. Output includes <code>SETTLED</code> and <code>vdc_id</code>.</p>
+
+    <h2 class="section-title">Step 3 · TypeScript</h2>
+    <pre><code>cd sdk/typescript && npm install && npm run build
+node test/plugfest_lifecycle.mjs https://node.novapanda.io</code></pre>
+
+    <h2 class="section-title">Step 4 · Other surfaces</h2>
+    <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
+      Trial scripts use Python SDK + HTTP. If your agent already supports Skill / MCP / A2A, equivalent surfaces run the same state machine — VDCs are mutually verifiable.
+      See <a href="index.html#surfaces">surface table</a> · <code>novapanda/surfaces/</code> · <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>.
+    </p>
+
+    <h2 class="section-title">Step 5 · Read the spec</h2>
+    <div class="btn-row" style="margin-top:0">
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a>
+      <a class="btn btn-dark" href="constitution.html" style="background:transparent;color:var(--accent);border:1px solid var(--border)">Constitution</a>
+      <a class="btn btn-dark" href="https://node.novapanda.io/docs" style="background:transparent;color:var(--accent);border:1px solid var(--border)">HTTP API</a>
+    </div>
+
+    <p class="note">
+      Using Trial implies agreement with <a href="../terms.html">terms (中文)</a> and <a href="../privacy.html">privacy (中文)</a>.
+    </p>
+  </div>
+</body>
+</html>

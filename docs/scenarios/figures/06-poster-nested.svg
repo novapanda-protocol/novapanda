@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img">
+  <defs><style>
+    .bg{fill:#070b14}.soft{fill:#152238;stroke:#4da3ff;stroke-width:1.6}
+    .phys{fill:#231c12;stroke:#f0b429;stroke-width:1.6}.vdc{fill:#143528;stroke:#3ecf8e;stroke-width:1.4}
+    .goal{fill:#1a2740;stroke:#e8eef6;stroke-width:1.2;stroke-dasharray:5 4}
+    .lbl{fill:#e8eef6;font-family:system-ui,sans-serif;font-weight:700}
+    .sub{fill:#8fa3bc;font-family:system-ui,sans-serif}
+    .tag{fill:#3ecf8e;font-size:11px;font-weight:700;font-family:system-ui,sans-serif}
+    .tag2{fill:#f0b429;font-size:11px;font-weight:700;font-family:system-ui,sans-serif}
+    .brand{fill:#4da3ff;font-family:system-ui,sans-serif;font-weight:800;font-size:22px}
+    .panel{fill:#121a2a;stroke:#2a3a52;stroke-width:1.5}
+  </style></defs>
+  <rect class="bg" width="1200" height="760" rx="20"/>
+  <text class="brand" x="48" y="48">NovaPanda</text>
+  <text class="lbl" x="48" y="84" style="font-size:28px">一笔业务，多张收据</text>
+  <text class="sub" x="48" y="112" style="font-size:15px">多笔 Exchange · 多张 VDC · Bundle 不推倒状态机</text>
+  <rect class="soft" x="40" y="140" width="540" height="480" rx="16"/>
+  <text class="tag" x="60" y="168">NOW · 软件排练</text>
+  <text class="lbl" x="60" y="198" style="font-size:18px">嵌套 B · 供应商尽调包</text>
+  <rect class="goal" x="70" y="245" width="480" height="44" rx="8"/>
+  <text class="lbl" x="90" y="273" style="font-size:14px">Goal · 尽调包 · correlation_id</text>
+  <rect class="vdc" x="90" y="310" width="200" height="56" rx="8"/><text class="lbl" x="110" y="340" style="font-size:13px">VDC1 抽取</text>
+  <rect class="vdc" x="320" y="310" width="200" height="56" rx="8"/><text class="lbl" x="340" y="340" style="font-size:13px">VDC2 合规</text>
+  <rect class="vdc" x="205" y="390" width="210" height="56" rx="8"/><text class="lbl" x="225" y="420" style="font-size:13px">VDC3 LLM</text>
+  <rect class="phys" x="620" y="140" width="540" height="480" rx="16"/>
+  <text class="tag2" x="640" y="168">LIGHTHOUSE · 物理灯塔</text>
+  <text class="lbl" x="640" y="198" style="font-size:18px">嵌套 A · 到场巡检闭环</text>
+  <rect class="goal" x="650" y="245" width="480" height="44" rx="8"/>
+  <text class="lbl" x="670" y="273" style="font-size:14px">Goal · 车·无人机·机器人·可选充电</text>
+  <rect class="vdc" x="660" y="310" width="130" height="50" rx="8"/><text class="lbl" x="675" y="340" style="font-size:12px">VDC1 车</text>
+  <rect class="vdc" x="810" y="310" width="130" height="50" rx="8"/><text class="lbl" x="825" y="340" style="font-size:12px">VDC2 无人机</text>
+  <rect class="vdc" x="960" y="310" width="130" height="50" rx="8"/><text class="lbl" x="975" y="340" style="font-size:12px">VDC3 机器人</text>
+  <rect class="panel" x="40" y="650" width="1120" height="80" rx="14"/>
+  <text class="lbl" x="60" y="690" style="font-size:15px">组合层 Exchange Bundle · 见 bundle.md</text>
+</svg>

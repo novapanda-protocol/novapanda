@@ -4,10 +4,14 @@
 
 环境变量（均可选）：  NOVAPANDA_AUTH=1|0              默认 1（开启请求鉴权）
   NOVAPANDA_DB=path.sqlite        SQLite 路径；不设则用内存
-  NOVAPANDA_SETTLEMENT=mock|x402|ap2|fiat  结算适配器
+  NOVAPANDA_SETTLEMENT=mock|x402|ap2|fiat|sandbox  结算适配器（单轨模式）
+  NOVAPANDA_RAILS=mock,x402,sandbox  多轨注册（逗号分隔；设后覆盖单轨展示）
+  NOVAPANDA_DEFAULT_RAIL=mock       多轨时活跃轨（escrow/settle 用）
+  NOVAPANDA_MICRO_MAX=1000          微支付档上限（最小货币单位，默认 1000 = 10.00 USD）
+  NOVAPANDA_MACRO_MIN=100000        大额档下限（最小货币单位）
   NOVAPANDA_X402_URL=http://...   x402 网关 base URL
   NOVAPANDA_AP2_URL=http://...    AP2 网关 base URL
-  NOVAPANDA_FIAT_URL=http://...   法币伙伴网关 URL
+  NOVAPANDA_FIAT_URL=http://...   法币伙伴网关 URL（sandbox 轨配置后走 S1 HTTP）
   NOVAPANDA_ONTOLOGY=path.json    本体注册表路径
   NOVAPANDA_RULES=path.json       规则注册表路径
   NOVAPANDA_REPUTATION_DB=path    信誉 SQLite（默认同 NOVAPANDA_DB 或内存）
@@ -35,6 +39,9 @@
   NOVAPANDA_ADMIN_TOKEN=secret      保护 POST /admin/sweep（生产必设）
   NOVAPANDA_AP2_API_KEY=secret      AP2 网关 Bearer（可选）
   NOVAPANDA_FIAT_API_KEY=secret     法币网关 Bearer（可选）
+  NOVAPANDA_FIAT_PROVIDER=generic|stripe  法币伙伴协议（默认 generic=/authorize）
+  NOVAPANDA_CLAIM_MODE=mock|production  Claim 登记模式（默认 mock）
+  NOVAPANDA_CLAIM_DB=path.json    生产 Claim 持久化路径（默认同 NOVAPANDA_DB 改 .claims.json）
 """
 
 from __future__ import annotations
@@ -63,6 +70,8 @@ class NodeConfig:
     auth: bool = True
     db_path: Optional[str] = None
     settlement: str = "mock"
+    settlement_rails: Optional[list[str]] = None
+    default_rail: Optional[str] = None
     x402_gateway_url: Optional[str] = None
     ontology_path: Path = DEFAULT_ONTOLOGY_PATH
     rules_path: Path = DEFAULT_RULES_PATH
@@ -87,6 +96,8 @@ class NodeConfig:
     x402_api_key: Optional[str] = None
     ap2_api_key: Optional[str] = None
     fiat_api_key: Optional[str] = None
+    claim_mode: str = "mock"
+    claim_db_path: Optional[str] = None
     default_timeouts: dict = field(default_factory=lambda: dict(DEFAULT_TIMEOUTS))
     seed: bool = True
 
@@ -117,12 +128,25 @@ class NodeConfig:
         rep_bonus_cap_raw = os.environ.get("NOVAPANDA_REP_WITNESS_BONUS_CAP")
         llm_judge = os.environ.get("NOVAPANDA_LLM_JUDGE")
         llm_consensus = os.environ.get("NOVAPANDA_LLM_CONSENSUS")
+        rails_raw = os.environ.get("NOVAPANDA_RAILS")
+        settlement_rails = None
+        if rails_raw:
+            settlement_rails = [p.strip().lower() for p in rails_raw.split(",") if p.strip()]
+        default_rail = os.environ.get("NOVAPANDA_DEFAULT_RAIL")
+        if default_rail:
+            default_rail = default_rail.strip().lower()
+        claim_mode = os.environ.get("NOVAPANDA_CLAIM_MODE", "mock").lower()
+        claim_db = os.environ.get("NOVAPANDA_CLAIM_DB")
+        if not claim_db and db:
+            claim_db = str(Path(db).with_suffix("")) + ".claims.json"
         if llm_consensus and not llm_judge:
             llm_judge = llm_consensus if llm_consensus.startswith("consensus:") else f"consensus:{llm_consensus}"
         return cls(
             auth=_env_bool("NOVAPANDA_AUTH", True),
             db_path=db,
             settlement=os.environ.get("NOVAPANDA_SETTLEMENT", "mock").lower(),
+            settlement_rails=settlement_rails,
+            default_rail=default_rail,
             x402_gateway_url=os.environ.get("NOVAPANDA_X402_URL"),
             ontology_path=Path(onto) if onto else DEFAULT_ONTOLOGY_PATH,
             rules_path=Path(rules) if rules else DEFAULT_RULES_PATH,
@@ -147,6 +171,8 @@ class NodeConfig:
             x402_api_key=os.environ.get("NOVAPANDA_X402_API_KEY"),
             ap2_api_key=os.environ.get("NOVAPANDA_AP2_API_KEY"),
             fiat_api_key=os.environ.get("NOVAPANDA_FIAT_API_KEY"),
+            claim_mode=claim_mode,
+            claim_db_path=claim_db,
             default_timeouts=timeouts,
         )
 
@@ -178,32 +204,13 @@ class NodeConfig:
             return SQLiteBlobStore(self.db_path)
         return None
 
-    def make_settlement(self):
-        from .settlement import (
-            AP2Settlement, FiatSettlement, MockSettlement, X402Settlement,
-        )
-        from .ap2_gateway import HttpAP2Gateway
-        from .fiat_gateway import HttpFiatGateway
-        from .x402_gateway import HttpX402Gateway
+    def make_rail_registry(self):
+        from .rail_registry import build_rail_registry
 
-        if self.settlement == "mock":
-            return MockSettlement()
-        if self.settlement == "x402":
-            url = self.x402_gateway_url
-            if not url:
-                raise ValueError("NOVAPANDA_SETTLEMENT=x402 时必须设置 NOVAPANDA_X402_URL")
-            return X402Settlement(HttpX402Gateway(url, api_key=self.x402_api_key))
-        if self.settlement == "ap2":
-            url = self.ap2_gateway_url
-            if not url:
-                raise ValueError("NOVAPANDA_SETTLEMENT=ap2 时必须设置 NOVAPANDA_AP2_URL")
-            return AP2Settlement(HttpAP2Gateway(url, api_key=self.ap2_api_key))
-        if self.settlement == "fiat":
-            url = self.fiat_gateway_url
-            if not url:
-                raise ValueError("NOVAPANDA_SETTLEMENT=fiat 时必须设置 NOVAPANDA_FIAT_URL")
-            return FiatSettlement(HttpFiatGateway(url, api_key=self.fiat_api_key))
-        raise ValueError(f"未知 NOVAPANDA_SETTLEMENT: {self.settlement}")
+        return build_rail_registry(self)
+
+    def make_settlement(self):
+        return self.make_rail_registry().active_adapter
 
     def make_verifier(self):
         return make_verifier(
@@ -213,3 +220,9 @@ class NodeConfig:
             llm_model=self.llm_model,
             llm_api_key=self.llm_api_key,
         )
+
+    def make_claim_store(self):
+        from .node.claim_registry import make_claim_store
+
+        rail = self.default_rail or self.settlement
+        return make_claim_store(mode=self.claim_mode, db_path=self.claim_db_path, default_rail=rail)

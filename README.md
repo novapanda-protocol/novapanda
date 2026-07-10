@@ -1,4 +1,6 @@
-# NovaPanda · 智能世界价值交割层
+# NovaPanda · 智能开放交割协议
+
+> **对外主称呼：** **NovaPanda 智能开放交割协议**（*Intelligent Open Delivery Protocol*）· 技术本质为智能世界的**开放交割语法** · 名称规范见 [`internal/ops/对外名称规范.md`](internal/ops/对外名称规范.md)
 
 > **北极星：** 让一切智能体、智能设备、大模型，在**无预建关系**下，用同一套**可验证的交割语言**彼此交换价值——**智能万物交换**。
 >
@@ -11,7 +13,7 @@
 
 **品牌：NovaPanda** · Python 包名 `novapanda` · TypeScript `@novapanda/sdk`。规范 CC BY 4.0、代码 Apache-2.0。
 
-**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）· [愿景](https://novapanda.io/vision.html) · [协议宪法](https://novapanda.io/constitution.html) · [Vision (EN)](https://novapanda.io/en/vision.html)
+**官方站点：** [https://novapanda.io](https://novapanda.io)（`novapanda.xyz` 跳转至主域）· [愿景](https://novapanda.io/vision.html) · [协议宪法](https://novapanda.io/constitution.html) · [交换场景](https://novapanda.io/scenarios/overview.html) · [Vision (EN)](https://novapanda.io/en/vision.html)
 
 <details>
 <summary><strong>English TL;DR</strong></summary>
@@ -27,9 +29,21 @@
 
 Try: [Trial](https://novapanda.io/trial.html) · mock node [`node.novapanda.io`](https://node.novapanda.io) · [SPEC](spec/SPEC.md)
 
+**Brand notice:** NovaPanda is the protocol working name. Trademark application pending in China (App. No. `________`, filed `____-__-__`); **not** a registered mark yet — do not use ® until counsel confirms. Public trial uses **mock settlement only**.
+
 </details>
 
-> **品牌筹备中**：**域名已注册**（Namecheap）；**NovaPanda 国内商标已提交**（待缴费/受理）。**对外高调发布前**请阅读 [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md)。
+> **品牌说明**：**NovaPanda** 为本项目协议工作名。主域名已注册；**国家知识产权局商标申请已提交**（申请号：`________`，申请日：`____-__-__`），**尚未核准注册**，对外请勿使用 ® 或「已注册商标」表述。高调宣传前请阅读 [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md)。
+
+## 交换场景图谱（开源）
+
+公开设想的交割场景用图表达，**文案与 SVG 均在仓库** [`docs/scenarios/`](docs/scenarios/)：
+
+- [场景总览](docs/scenarios/overview.md) · [目录 catalog](docs/scenarios/catalog.md) · [`catalog.json`](docs/scenarios/catalog.json)
+- 图：生命周期 / 陌生人 / 分层 / 矩阵（`docs/scenarios/figures/`）
+- 在线路由：<https://novapanda.io/scenarios/overview.html>
+
+零号节点将挂载同一份 `catalog.json`（控制台「场景」Tab），避免运营站与开源两套故事。
 
 ## 这是什么
 价值交换的第一公民是 **VDC（可验证交割凭证）**：结构化、Ed25519 双签、可被任何人脱离本系统独立验真。本仓库提供：
@@ -54,8 +68,9 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 .\.venv\Scripts\python.exe -m pytest -q          # 223+ tests
 .\.venv\Scripts\python.exe demo\run_demo.py      # 陌生 Agent 完整交割
+.\.venv\Scripts\python.exe demo\nested_diligence.py  # 嵌套尽调三连 Bundle
 .\.venv\Scripts\python.exe demo\plugfest.py       # 9 场景冒烟
-python -m conformance.run                         # C1–C7 一致性套件
+python -m conformance.run                         # C1–C8 一致性套件
 ```
 ```bash
 cd sdk/typescript && npm run build && npm test    # TS parity + lifecycle
@@ -115,12 +130,19 @@ tests/          pytest + 一致性向量
 
 ## 文档
 
+- [`CHARTER.md`](CHARTER.md) — 范围宪章与 Litmus
+- [`docs/IMPLEMENTER_GUIDE.md`](docs/IMPLEMENTER_GUIDE.md) — 实现者最短路径
+- [`docs/compatibility.md`](docs/compatibility.md) — 兼容实现登记（欢迎第二实现）
 - [`spec/SPEC.md`](spec/SPEC.md) — 协议规范
-- [`GOVERNANCE.md`](GOVERNANCE.md) / [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- [`conformance/CERTIFICATION.md`](conformance/CERTIFICATION.md) — Conformance C1–C7
+- [`profiles/`](profiles/) — 能力档（MIN / NODE / BUNDLE / SETTLE / …）
+- [`VERSIONING.md`](VERSIONING.md) · [`SECURITY.md`](SECURITY.md) · [`GOVERNANCE.md`](GOVERNANCE.md) · [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
+- [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- [`conformance/CERTIFICATION.md`](conformance/CERTIFICATION.md) — Conformance C1–C8
+- [`conformance/VECTORS.md`](conformance/VECTORS.md) — 黄金向量与 SPEC/Profile 挂钩
 - [`conformance/PRE_PUBLISH_CHECKLIST.md`](conformance/PRE_PUBLISH_CHECKLIST.md) — 公开发布前检查
 
 ## 许可
 
 - 代码：Apache-2.0
 - 规范：CC BY 4.0
+- 社区：[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) · 安全披露见 [`SECURITY.md`](SECURITY.md) §6

@@ -136,12 +136,21 @@ def test_dashboard_pages(ctx):
     assert home.status_code == 200
     assert "NovaPanda" in home.text
     assert "交换总数" in home.text
+    assert 'data-tab="scenarios"' in home.text
     admin = client._http.get("/admin")
     assert admin.status_code == 200
     assert "运维操作" in admin.text
     status = client._http.get("/admin/status")
     assert status.status_code == 200
     assert status.json()["service"] == "novapanda-node"
+    info = client._http.get("/node/info")
+    assert info.status_code == 200
+    body = info.json()
+    assert "status" in body and "discovery" in body
+    manifest = client._get("/.well-known/novapanda.json")
+    assert manifest["kind"] == "node"
+    assert "capabilities" in manifest
+    assert "endpoints" in manifest
 
 
 def test_sweep_admin_token(monkeypatch):

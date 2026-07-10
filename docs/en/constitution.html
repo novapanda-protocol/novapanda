@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Constitution · NovaPanda Intelligent Open Delivery Protocol</title>
+  <meta name="description" content="NovaPanda Intelligent Open Delivery Protocol — public principles: open, no minting, delivery first. Open delivery grammar and Litmus.">
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="scenarios/overview.html">Scenarios</a>
+      <a href="constitution.html" class="active">Constitution</a>
+      <a href="faq-money.html">Money FAQ</a>
+      <a href="trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">Node</a>
+      <span class="lang-switch"><a href="constitution.html" class="active">EN</a> · <a href="../constitution.html">中文</a></span>
+    </nav>
+
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Intelligent Open Delivery Protocol · Constitution</div>
+        <h1>Open delivery grammar for the intelligent world</h1>
+        <p class="manifesto">
+          Any agent and device can exchange value <strong>across organizations</strong> with
+          <strong>no pre-existing relationship</strong> — no minting, no fund custody, no protocol fee.
+          Truth in delivery is a credential (<strong>VDC</strong>) anyone can <strong>re-verify offline</strong>.
+        </p>
+        <div class="redline-strip">
+          <span>No minting</span><span>No chain lock-in</span><span>Protocol is commons</span>
+          <span>Company runs the body</span><span>Acceptance is re-verifiable</span><span>Exit with credentials</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="litmus-box">
+      <div class="label">Litmus · consistency is membership</div>
+      <p>
+        Can a stranger agent complete delivery <strong>without our proprietary stack</strong> and
+        <strong>without permission</strong>, per the public spec — and can <strong>anyone re-verify</strong>?
+        Yes → NovaPanda-compatible; no → not the same protocol.
+      </p>
+    </div>
+
+    <h2 class="section-title">What we solve</h2>
+    <p class="section-lead">Payment is downstream translation; delivery records are first-class.</p>
+    <div class="card">
+      <p style="color:var(--text);font-size:1.02rem;margin:0">
+        Autonomous agents and devices will collaborate at scale. They are strangers under different owners yet must exchange value.
+        NovaPanda does not answer “which coin to pay with” — it answers:
+        <strong>how to leave a verifiable delivery record</strong> — structured, dual-signed, offline-verifiable, independent of price, chain, or platform.
+      </p>
+      <p class="quote-soul">
+        “We may be strong, but we must be substitutable and exitable” — proof of a healthy network and open protocol.
+      </p>
+    </div>
+
+    <h2 class="section-title">Five principles</h2>
+    <p class="section-lead">The soul of the project — protection of the mission, not pedantry.</p>
+    <div class="grid-2">
+      <div class="principle-card">
+        <div class="principle-num">1</div>
+        <h3>Open and equal</h3>
+        <p>The protocol is <strong>public capability</strong> for the intelligent world — not a moat for one model vendor. Permissionless implementation, self-hosted nodes, independent VDC reverify.</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-num">2</div>
+        <h3>Never mint</h3>
+        <p>No globally tradable protocol coin. mock / x402 / fiat are <strong>pluggable settlement rails</strong> — not issuance.</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-num">3</div>
+        <h3>No protocol rent</h3>
+        <p>Norms belong to the commons. Company value is in <strong>operations, liquidity, and service</strong> — not a toll on every exchange.</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-num">4</div>
+        <h3>Prove delivery, then price</h3>
+        <p>VDC and deterministic acceptance are first-class; price and settlement follow. Trial validates <strong>delivery grammar</strong>, not payment rails.</p>
+      </div>
+      <div class="principle-card" style="grid-column:1/-1">
+        <div class="principle-num">5</div>
+        <h3>Soul vs body</h3>
+        <p>
+          <strong>Soul</strong> (spec, VDC format, state machine) is a public good, CC BY 4.0;
+          <strong>body</strong> (hosted nodes, clearing networks) is operated by the company, but
+          <strong>anyone can run an equivalent node</strong>. Nodes are substitutable; truth (VDC) is not monopolizable.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Layers</h2>
+    <p class="section-lead">Bottom up: identity → credential truth → open protocol → open node → optional settlement → operated instance.</p>
+    <div class="layer-timeline">
+      <div class="layer">
+        <div class="tag">L0 Identity</div>
+        <div>
+          <div class="name">Ed25519 · keys never uploaded</div>
+          <div class="desc">Agents hold identity locally; node verifies signatures only.</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L1 Credential</div>
+        <div>
+          <div class="name">VDC · verifiable delivery credential</div>
+          <div class="desc">Truth layer — dual-signed, canonical, anyone can <code>reverify</code> offline.</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L2 Protocol</div>
+        <div>
+          <div class="name">State machine · rules · resource ontology</div>
+          <div class="desc">Open commons (CC BY 4.0). <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a></div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L3 Node</div>
+        <div>
+          <div class="name">Exchange orchestration · reputation · API</div>
+          <div class="desc">Reference implementation Apache-2.0. Conformance C1–C7 cross-check.</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="tag">L4 Settlement</div>
+        <div>
+          <div class="name">Mock · x402 · AP2 · fiat partners</div>
+          <div class="desc">Pluggable downstream; public Trial is mock only.</div>
+        </div>
+      </div>
+      <div class="layer highlight">
+        <div class="tag">Ops</div>
+        <div>
+          <div class="name">Zero node · node.novapanda.io</div>
+          <div class="desc">One public mock instance we operate — <strong>not the protocol itself</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Access surfaces</h2>
+    <p class="section-lead">
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a> requires equivalent entry points.
+      Rule: <strong>surfaces only translate</strong> — MUST NOT change credentials, state machine, or reverify semantics.
+    </p>
+    <div class="grid-2">
+      <div class="principle-card">
+        <h3>Skill · MCP · A2A</h3>
+        <p>For agent ecosystems (Cursor, MCP hosts, A2A runtimes). Register tools or Agent Cards without mastering signing details.</p>
+      </div>
+      <div class="principle-card">
+        <h3>SDK · adapter · HTTP</h3>
+        <p>Python + TypeScript SDKs; <code>ProviderAdapter</code> for existing systems; any language via HTTP + local signatures. Plugfest uses <strong>heterogeneous stacks</strong>.</p>
+      </div>
+    </div>
+    <p class="quote-soul" style="margin-top:1rem">
+      Interop comes from following the spec, not “everyone uses our SDK”. See <a href="index.html#surfaces">surface table</a> and <code>novapanda/surfaces/</code>.
+    </p>
+
+    <h2 class="section-title">Open boundaries</h2>
+    <p class="section-lead">Public: spec and re-verifiable capability. Private: keys and commercial ops detail.</p>
+    <table class="open-table card" style="padding:0;overflow:hidden">
+      <thead><tr><th>Public (GitHub)</th><th>Not public / not promised</th></tr></thead>
+      <tbody>
+        <tr><td>SPEC + schemas</td><td>Licensed production clearing</td></tr>
+        <tr><td>Reference impl + SDK + conformance + surfaces</td><td>ADMIN_TOKEN, production secrets</td></tr>
+        <tr><td>Fork and self-host nodes</td><td>® trademark exclusivity (no ® until registered)</td></tr>
+        <tr><td>Mock trial API</td><td>Internal strategy docs</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Governance</h2>
+    <div class="card">
+      <ol style="margin:0;padding-left:1.2rem;color:var(--muted)">
+        <li>Protocol, norms, and trademark <strong>intent</strong> are public goods — not owned by one company forever.</li>
+        <li>Anyone may implement the spec, self-host nodes, and join exchange without permission.</li>
+        <li>Governance changes must not break re-verifiability or backward compatibility of existing VDCs.</li>
+      </ol>
+      <p style="margin:.85rem 0 0;font-size:.88rem">
+        Full process: <a href="https://github.com/novapanda-protocol/novapanda/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="vision.html">Vision &amp; path</a>
+      <a class="btn btn-dark" href="trial.html">Start Trial</a>
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md" style="background:transparent;color:var(--accent);border:1px solid var(--border)">SPEC</a>
+      <a class="btn btn-dark" href="index.html" style="background:transparent;color:var(--accent);border:1px solid var(--border)">Home</a>
+    </div>
+
+    <footer>
+      Beijing Qinghe Shuzhi Technology Co., Ltd. · mock trial node · not a bank/payment institution<br>
+      NovaPanda trademark pending — no ® · Spec CC BY 4.0 · code Apache-2.0
+    </footer>
+  </div>
+</body>
+</html>

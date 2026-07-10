@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>钱在哪？· NovaPanda FAQ</title>
+  <meta name="description" content="NovaPanda 不铸币、不托管、不按笔收协议税。VDC 锚交付，清算可插拔。">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">首页</a>
+      <a href="vision.html">愿景</a>
+      <a href="scenarios/overview.html">场景</a>
+      <a href="constitution.html">协议宪法</a>
+      <a href="faq-money.html" class="active">钱在哪</a>
+      <a href="trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">节点控制台</a>
+      <span class="lang-switch"><a href="en/faq-money.html">EN</a></span>
+    </nav>
+
+    <h1 style="font-size:1.5rem;margin:0 0 .5rem">钱在哪？</h1>
+    <p style="color:var(--muted);max-width:40rem">
+      伙伴与投资人最常问的三件事：收不收协议税、钱走哪、和 x402/链上什么关系。
+      本文是<strong>公开说明</strong>，非规范条文；铁律见 <a href="constitution.html">协议宪法</a>。
+    </p>
+
+    <div class="card" style="border-color:var(--accent);margin:1.25rem 0">
+      <strong>三句话</strong>
+      <ol style="margin:.75rem 0 0;padding-left:1.25rem;line-height:1.55">
+        <li><strong>协议不铸币、不托管全网资金、不按笔收协议税。</strong></li>
+        <li><strong>VDC 锚「交付已发生」</strong>；法币 / USDC / mock 是可插拔清算腿。</li>
+        <li><strong>运营公司可收服务费</strong>（节点、认证、路由、支持）——不是拥有协议。</li>
+      </ol>
+    </div>
+
+    <h2 class="section-title">常见问题</h2>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">用户付的钱经过你们吗？</h3>
+      <p style="margin:0">通常不。Trial 与零号节点默认 <strong>mock 或 sandbox</strong>。生产清算须经持牌或声明的结算伙伴；协议要求 SETTLED 绑定 <code>vdc_id</code> + 诚实的 <code>settlement_receipt</code>。</p>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">那你们赚什么？</h3>
+      <table class="open-table" style="margin:0;font-size:.92rem">
+        <thead><tr><th>收入</th><th>是</th><th>不是</th></tr></thead>
+        <tbody>
+          <tr><td>托管参考节点</td><td>运营、配额、审计</td><td>协议许可费</td></tr>
+          <tr><td>兼容认证</td><td>Steward 复核（前期可不收）</td><td>入网门票</td></tr>
+          <tr><td>清算路由 / 对账</td><td>VDC→发票/对账行</td><td>换汇抽成</td></tr>
+          <tr><td>企业支持</td><td>红帽模式</td><td>私有协议</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">和 x402 / 链上支付栈？</h3>
+      <p style="margin:0"><strong>互操作，不替代。</strong> 可用 x402 作清算一腿；差异化在可验证交付 + 跨 Agent 信誉 + 结算无关，不是又一种扣款 API。</p>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">Claim 是币吗？</h3>
+      <p style="margin:0">不是。Claim 是锚定已签 VDC 的<strong>结算权柄转让</strong>，不是流通代币。</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">为什么要写 mock / sandbox？</h3>
+      <p style="margin:0">诚实要求。宣称生产清算却仅跑 mock，会在<a href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/compatibility.md">兼容矩阵</a>中被降级或移除。</p>
+    </div>
+
+    <h2 class="section-title">一层图</h2>
+    <pre class="card" style="overflow:auto;font-size:.85rem;line-height:1.45">Client ──escrow──► 清算伙伴 / mock / sandbox
+     │
+     └── Exchange 状态机 ──► VDC（可离线 reverify）
+              ▲
+              └── 协议核心：不管钱在哪家银行，管「交付是否可证」</pre>
+
+    <p style="margin-top:1.5rem;font-size:.9rem;color:var(--muted)">
+      <a href="constitution.html">协议宪法</a> ·
+      <a href="scenarios/overview.html">交换场景</a> ·
+      <a href="trial.html">开发者 Trial</a> ·
+      <a href="faq-money.md">Markdown 版</a>
+    </p>
+  </div>
+</body>
+</html>

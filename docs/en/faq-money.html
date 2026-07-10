@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where is the money? · NovaPanda FAQ</title>
+  <meta name="description" content="NovaPanda does not mint, custody, or tax exchanges. VDC anchors delivery; settlement is pluggable.">
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="scenarios/overview.html">Scenarios</a>
+      <a href="constitution.html">Constitution</a>
+      <a href="faq-money.html" class="active">Money FAQ</a>
+      <a href="trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">Node console</a>
+      <span class="lang-switch"><a href="faq-money.html" class="active">EN</a> · <a href="../faq-money.html">中文</a></span>
+    </nav>
+
+    <h1 style="font-size:1.5rem;margin:0 0 .5rem">Where is the money?</h1>
+    <p style="color:var(--muted);max-width:40rem">
+      What partners and investors ask first: protocol fees, where funds flow, and how we relate to x402 / on-chain stacks.
+      This is a <strong>public note</strong>, not normative spec — see the <a href="../constitution.html">Constitution</a>.
+    </p>
+
+    <div class="card" style="border-color:var(--accent);margin:1.25rem 0">
+      <strong>Three sentences</strong>
+      <ol style="margin:.75rem 0 0;padding-left:1.25rem;line-height:1.55">
+        <li><strong>The protocol does not mint, custody network funds, or tax each exchange.</strong></li>
+        <li><strong>VDC anchors delivery</strong>; fiat / USDC / mock are pluggable settlement legs.</li>
+        <li><strong>The operating company may charge for services</strong> (node, certification, routing, support) — not for owning the protocol.</li>
+      </ol>
+    </div>
+
+    <h2 class="section-title">FAQ</h2>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">Does user payment flow through you?</h3>
+      <p style="margin:0">Usually not. Trial and the zero node default to <strong>mock or sandbox</strong>. Production settlement uses licensed or declared partners; the protocol requires SETTLED to bind <code>vdc_id</code> + an honest <code>settlement_receipt</code>.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">How do you make money?</h3>
+      <table class="open-table" style="margin:0;font-size:.92rem">
+        <thead><tr><th>Revenue</th><th>Is</th><th>Is not</th></tr></thead>
+        <tbody>
+          <tr><td>Hosted reference node</td><td>Ops, quota, audit</td><td>Protocol license fee</td></tr>
+          <tr><td>Compatibility certification</td><td>Steward review (may be free early)</td><td>Paywall to join</td></tr>
+          <tr><td>Settlement routing / reconcile</td><td>VDC → invoice / reconcile rows</td><td>FX spread</td></tr>
+          <tr><td>Enterprise support</td><td>Red Hat model</td><td>Private protocol</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">x402 / on-chain payment stacks?</h3>
+      <p style="margin:0"><strong>Interoperate, not replace.</strong> x402 may be one settlement leg; we differentiate on verifiable delivery + cross-agent reputation + settlement-agnostic ontology — not another charge API.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:.85rem">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">Is Claim your token?</h3>
+      <p style="margin:0">No. Claim is <strong>transfer of settlement rights anchored to a signed VDC</strong>, not a circulating token.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 .5rem;font-size:1.05rem">Why must Manifest say mock / sandbox?</h3>
+      <p style="margin:0">Honesty. Claiming production settlement while only running mock leads to downgrade or removal in the <a href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/compatibility.md">compatibility matrix</a>.</p>
+    </div>
+
+    <h2 class="section-title">One diagram</h2>
+    <pre class="card" style="overflow:auto;font-size:.85rem;line-height:1.45">Client ──escrow──► settlement partner / mock / sandbox
+     │
+     └── Exchange state machine ──► VDC (offline reverify)
+              ▲
+              └── Protocol core: provable delivery, not which bank holds funds</pre>
+
+    <p style="margin-top:1.5rem;font-size:.9rem;color:var(--muted)">
+      <a href="../constitution.html">Constitution</a> ·
+      <a href="../scenarios/overview.html">Scenarios</a> ·
+      <a href="../trial.html">Developer Trial</a> ·
+      <a href="faq-money.md">Markdown</a>
+    </p>
+  </div>
+</body>
+</html>

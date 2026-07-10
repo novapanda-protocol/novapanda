@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生态八域 · NovaPanda</title>
+  <meta name="description" content="API、MCP、Skill、工作流、OTA、P2P… 生态交付物如何挂接 NovaPanda 交割语法。">
+  <link rel="stylesheet" href="../site.css">
+  <style>
+    .layer-stack { font-family: ui-monospace, monospace; font-size: .78rem; line-height: 1.55; background: #0f1624; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; color: #c8d4e8; overflow-x: auto; }
+    .dom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: .85rem; }
+    .dom-card h3 { margin: 0 0 .5rem; font-size: 1.02rem; }
+    .dom-card ul { margin: 0; padding-left: 1.1rem; font-size: .9rem; color: var(--muted); }
+    .dom-card li { margin: .25rem 0; }
+    .st { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 4px; margin-right: .35rem; }
+    .st-ok { background: rgba(46,160,67,.2); color: #3fb950; }
+    .st-wip { background: rgba(210,153,34,.2); color: #d29922; }
+    .st-adj { background: rgba(139,148,158,.15); color: #8b949e; }
+    .st-no { background: rgba(248,81,73,.12); color: #f85149; }
+    table.comp { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    table.comp th, table.comp td { border: 1px solid var(--border); padding: .5rem .65rem; text-align: left; vertical-align: top; }
+    table.comp th { background: rgba(255,255,255,.04); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="../index.html">首页</a>
+      <a href="../vision.html">愿景</a>
+      <a href="overview.html">场景</a>
+      <a href="ecosystem-eight-domains.html" class="active">生态八域</a>
+      <a href="../trial.html">Trial</a>
+      <a href="https://node.novapanda.io/">节点</a>
+      <span class="lang-switch"><a href="../en/scenarios/ecosystem-eight-domains.html">EN</a> · <a href="ecosystem-eight-domains.html">中文</a></span>
+    </nav>
+
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="eyebrow">Ecosystem · 公开说明（非规范性）</div>
+        <h1>生态八域：交付物如何挂接</h1>
+        <p class="manifesto">
+          API、MCP、Skill、工作流、OTA、P2P… 广括生态不是把万物塞进一个状态机，
+          而是<strong>同一套可验证交割语法</strong> + 分层扩展。
+          NovaPanda 是<strong>交割互认层</strong>，不是万物操作系统。
+        </p>
+      </div>
+    </header>
+
+    <h2 class="section-title">三句话</h2>
+    <div class="grid-2">
+      <div class="card"><p><strong>统一交付事实</strong>（VDC），不统一工作流、OTA 或飞控。</p></div>
+      <div class="card"><p><strong>内核小、扩展开</strong>：Profile · 绑定 · 注册表叠能力。</p></div>
+      <div class="card" style="grid-column:1/-1"><p><strong>兼容靠向量自测</strong>，不靠「必须过某一家节点」。</p></div>
+    </div>
+
+    <h2 class="section-title">分层</h2>
+    <pre class="layer-stack">说明层（本页、场景 catalog）
+身体层（零号：配额·审计·沙箱·Operator）
+绑定层（HTTP · MCP · A2A · Skill · Proxy）
+能力层（MIN · NODE · BUNDLE · PHYS · SETTLE · DELEGATE · PRIV · LITE）
+注册表（本体 · 规则 · 批量扩展包）
+内核 CORE（身份 · VDC · 交换状态机 · 复验）</pre>
+
+    <h2 class="section-title">八域卡片</h2>
+    <div class="dom-grid">
+      <div class="card dom-card">
+        <h3>① 远程服务</h3>
+        <ul>
+          <li><span class="st st-ok">已挂接</span> HTTP API</li>
+          <li><span class="st st-ok">已挂接</span> MCP · <a href="../../spec/BINDING-MCP.md">BINDING-MCP</a></li>
+          <li><span class="st st-wip">进行中</span> ToolBundle</li>
+          <li><span class="st st-adj">邻接</span> Remote Pod · Proxy</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>② 本地执行</h3>
+        <ul>
+          <li><span class="st st-wip">进行中</span> Skill · 推理模型包</li>
+          <li><span class="st st-adj">邻接</span> Script · 固件 · 诊断探针</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>③ 编排协同</h3>
+        <ul>
+          <li><span class="st st-wip">进行中</span> 工作流（客户端 Composer）</li>
+          <li><span class="st st-adj">邻接</span> 任务分片 · 事件处理</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>④ 无代码规则</h3>
+        <ul>
+          <li><span class="st st-ok">已挂接</span> 交换状态机 · 配额</li>
+          <li><span class="st st-wip">进行中</span> 触发/审计 · 提示词模板</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>⑤ 开发工具</h3>
+        <ul>
+          <li><span class="st st-ok">已挂接</span> Schema 规范</li>
+          <li><span class="st st-wip">进行中</span> SDK · CLI（reverify）</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>⑥ 交付升级</h3>
+        <ul>
+          <li><span class="st st-no">不进内核</span> OTA（仅证据哈希）</li>
+          <li><span class="st st-wip">进行中</span> 批量扩展包</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>⑦ 安全权限</h3>
+        <ul>
+          <li><span class="st st-ok">已挂接</span> 委托凭证 NP-DELEGATE</li>
+          <li><span class="st st-wip">进行中</span> 访问控制策略包</li>
+        </ul>
+      </div>
+      <div class="card dom-card">
+        <h3>⑧ 网格协同</h3>
+        <ul>
+          <li><span class="st st-wip">进行中</span> 差分同步 NP-LITE</li>
+          <li><span class="st st-adj">邻接</span> P2P 网格 / federation</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title">ToolBundle ≠ Exchange Bundle</h2>
+    <table class="comp">
+      <tr><th></th><th>ToolBundle</th><th>Exchange Bundle</th></tr>
+      <tr><td>解决什么</td><td>多工具一次调用</td><td>一笔业务 · 多张 VDC</td></tr>
+      <tr><td>协议落点</td><td>绑定 + 客户端</td><td><a href="../../profiles/NP-BUNDLE.md">NP-BUNDLE</a></td></tr>
+      <tr><td>成功判据</td><td>工具调用正确</td><td>每笔 SETTLED + 可复验</td></tr>
+    </table>
+    <p class="section-lead">详文：<a href="bundle.md">bundle.md</a> · 完整八域表：<a href="ecosystem-eight-domains.md">ecosystem-eight-domains.md</a></p>
+
+    <h2 class="section-title">明确不做</h2>
+    <p class="section-lead">
+      全球 OTA 协议 · 飞控/交规 OS · 工作流塞进 CORE · 协议币/协议税 · 运营登录代替 Agent 签。
+      见 <a href="../../CHARTER.md">CHARTER</a>。
+    </p>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="overview.html">场景总览</a>
+      <a class="btn btn-dark" href="../IMPLEMENTER_GUIDE.md">实现者指南</a>
+      <a class="btn btn-dark" href="ecosystem-eight-domains.md">Markdown 全文</a>
+      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/scenarios/ecosystem-eight-domains.md" style="background:transparent;color:var(--accent);border:1px solid var(--border)">GitHub</a>
+    </div>
+
+    <footer>
+      非规范性说明 · MUST 以 CHARTER / spec / profiles 为准 · CC BY 4.0 叙事
+    </footer>
+  </div>
+</body>
+</html>

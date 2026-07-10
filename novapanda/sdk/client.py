@@ -55,13 +55,17 @@ class NovaPandaClient:
     # --- client 侧 ---
     def propose(self, *, provider: str, resource_type: str, quantity: int,
                 rule_id: str, price: dict, idempotency_key: str,
-                timeouts: Optional[dict] = None) -> dict:
-        return self._post("/exchanges", {
+                timeouts: Optional[dict] = None,
+                settlement: Optional[dict] = None) -> dict:
+        body = {
             "client": self.agent_id, "provider": provider,
             "resource_type": resource_type, "quantity": quantity,
             "rule_id": rule_id, "price": price, "idempotency_key": idempotency_key,
             "timeouts": timeouts,
-        })
+        }
+        if settlement is not None:
+            body["settlement"] = settlement
+        return self._post("/exchanges", body)
 
     def contract(self, exchange_id: str) -> dict:
         ex = self.get_exchange(exchange_id)

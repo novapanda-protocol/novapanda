@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>NovaPanda 智能开放交割协议 · 宣传一页纸</title>
+  <meta name="description" content="NovaPanda 智能开放交割协议对外一页纸：VDC、Litmus、开放交割语法。商标申请中，未使用 ®。">
+  <link rel="stylesheet" href="../site.css">
+  <style>
+    .draft-banner {
+      background: #fff3cd; color: #664d03; border: 1px solid #ffc107;
+      border-radius: 10px; padding: .75rem 1rem; margin-bottom: 1.25rem; font-size: .88rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .draft-banner { background: #3d3200; color: #ffe08a; border-color: #806600; }
+    }
+    .one-pager h2 { font-size: 1.1rem; margin: 1.75rem 0 .6rem; }
+    .one-pager h3 { font-size: .95rem; margin: 1.25rem 0 .45rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .one-pager p, .one-pager li { font-size: .94rem; line-height: 1.55; }
+    .one-pager ul { margin: 0 0 .85rem; padding-left: 1.2rem; }
+    .litmus-box { margin: 1rem 0; }
+    .pitch {
+      border-left: 3px solid var(--accent); padding: .75rem 1rem; margin: 1rem 0;
+      background: rgba(77,163,255,.06); border-radius: 0 8px 8px 0; font-size: .92rem;
+    }
+    .footnote {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+      font-size: .8rem; color: var(--muted);
+    }
+    .lang-divider {
+      margin: 2.5rem 0 1.5rem; padding-top: 1.5rem; border-top: 2px dashed var(--border);
+    }
+    .toolbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .brand-figure {
+      margin: 0 0 1.5rem; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border); background: #0f1624;
+    }
+    .brand-figure img { display: block; width: 100%; height: auto; }
+    .brand-figure figcaption {
+      padding: .5rem .75rem; font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    @media print {
+      .draft-banner, .toolbar, .site-nav { display: none !important; }
+      .wrap { max-width: 100%; padding: 0; }
+      .page-hero { break-after: avoid; }
+      .one-pager h2 { break-after: avoid; }
+      a[href]::after { content: " (" attr(href) ")"; font-size: .75rem; color: #666; }
+      a[href^="http"]::after, a[href^="mailto"]::after { content: " (" attr(href) ")"; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site-nav">
+      <strong>NovaPanda</strong>
+      <a href="../index.html">首页</a>
+      <a href="../vision.html">愿景</a>
+      <a href="../scenarios/overview.html">场景</a>
+      <a href="../trial.html">Trial</a>
+      <span class="lang-switch"><a href="one-pager-en.html">EN only</a></span>
+    </nav>
+
+    <div class="draft-banner">
+      <strong>宣传草稿 · 私享用</strong> — 商标申请中，<strong>未使用 ®</strong>。
+      申请号/申请日请在 footnote 填写后打印或导出 PDF（浏览器 → 打印 → 另存为 PDF）。
+      源文：<code>internal/ops/宣传一页纸.md</code>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn btn-dark" type="button" onclick="window.print()">打印 / 存 PDF</button>
+      <a class="btn btn-dark" href="../figures/brand/novapanda-intelligent-open-delivery-protocol-poster-zh.png" style="background:transparent;color:var(--accent);border:1px solid var(--border)">下载海报 PNG</a>
+      <a class="btn btn-dark" href="../figures/brand/novapanda-intelligent-open-delivery-protocol-overview-zh.png" style="background:transparent;color:var(--accent);border:1px solid var(--border)">下载概览 PNG</a>
+    </div>
+
+    <header class="page-hero" style="margin-top:0">
+      <div class="page-hero-inner">
+        <div class="eyebrow">智能开放交割协议 · One-pager</div>
+        <h1>NovaPanda</h1>
+        <p class="manifesto" style="font-size:1.05rem">
+          <strong>智能开放交割协议</strong> — 智能世界的开放交割语法；先统一交割与互认，再谈货币。
+        </p>
+      </div>
+    </header>
+
+    <figure class="brand-figure">
+      <img src="../figures/brand/novapanda-intelligent-open-delivery-protocol-poster-zh.png"
+           alt="NovaPanda 智能开放交割协议 — 主海报">
+      <figcaption>智能开放交割协议 · 海报（中文）· <code>docs/figures/brand/</code></figcaption>
+    </figure>
+
+    <article class="one-pager">
+      <h2>我们是谁</h2>
+      <p>
+        <strong>NovaPanda 智能开放交割协议</strong>：让陌生 Agent、设备与模型在
+        <strong>无预建关系</strong>下，留下<strong>任何人都能独立复验</strong>的交付记录（<strong>VDC</strong>）。
+        技术本质为<strong>开放的交割语法</strong>。
+      </p>
+      <p>不是钱包、发币项目、银行；不对每笔交换收协议税。</p>
+
+      <div class="litmus-box">
+        <div class="label">北极星</div>
+        <p style="margin:0"><strong>智能万物交换</strong> — 先统一「交割与互认」，再谈用什么币付钱。</p>
+      </div>
+
+      <div class="litmus-box">
+        <div class="label">Litmus</div>
+        <p style="margin:0">
+          陌生 Agent 能否<strong>不依赖我方专有组件</strong>、照公开规范完成交割，并被<strong>任何人离线复验</strong>？
+          能 → NovaPanda-compatible。
+        </p>
+      </div>
+
+      <h2>与支付栈什么关系</h2>
+      <table class="open-table card" style="padding:0;overflow:hidden;font-size:.9rem">
+        <thead><tr><th></th><th>x402 / 链上支付等</th><th>NovaPanda</th></tr></thead>
+        <tbody>
+          <tr><td>问题</td><td>怎么授权、怎么付钱</td><td>交付了什么、是否按规则验收</td></tr>
+          <tr><td>第一公民</td><td>支付意图</td><td><strong>VDC</strong></td></tr>
+          <tr><td>关系</td><td>可插拔清算腿</td><td>状态机 + 验收 + 信誉</td></tr>
+        </tbody>
+      </table>
+
+      <h2>今天能证明什么</h2>
+      <ul>
+        <li>规范 CC BY 4.0 + 参考实现 Apache-2.0</li>
+        <li>mock 节点 · 5 分钟 Trial → <strong>SETTLED</strong></li>
+        <li>开源场景：抽取 / 任务 / 嵌套尽调 → 能源·机器人灯塔</li>
+        <li>接入面：Skill · MCP · A2A · SDK · HTTP（等价翻译）</li>
+      </ul>
+
+      <h2>钱在哪</h2>
+      <p>运营公司可收<strong>服务费</strong>（节点、认证复核、对账、企业支持）——不是拥有协议、不是按笔抽成。
+        <a href="../faq-money.html">FAQ</a></p>
+
+      <h2>邀请谁</h2>
+      <ul>
+        <li>独立<strong>第二实现</strong>（C1–C7）</li>
+        <li>Agent / MCP 集成方 plugfest</li>
+        <li>结算伙伴 <strong>mock/sandbox 诚实</strong>登记</li>
+      </ul>
+
+      <div class="pitch">
+        <strong>30 秒口述：</strong>
+        我们在做 <strong>NovaPanda 智能开放交割协议</strong>（智能世界的开放交割语法），不是又一种支付。陌生 Agent 双签可离线验真的 VDC；
+        钱走 mock 或未来清算伙伴；协议不铸币不抽成。软件今天能跑通，明天平移到车和桩。商标申请中，欢迎独立实现跑同一套向量。
+      </div>
+
+      <div class="lang-divider">
+        <h2 style="margin-top:0">English summary</h2>
+        <p><strong>NovaPanda</strong> — open delivery grammar; strangers leave <strong>VDC</strong> receipts anyone can re-verify offline. Not a wallet, token, or protocol rent.</p>
+        <p><strong>North star:</strong> Universal machine exchange. <strong>Litmus:</strong> spec-compliant delivery + independent reverify.</p>
+        <p>Payment rails pluggable below. Shipped: open spec, mock trial, scenario map, multi-surface access.</p>
+        <p>Inviting: second implementations, framework integrators, honest sandbox settlement partners.</p>
+        <p><a href="one-pager-en.html">Full English one-pager →</a></p>
+      </div>
+
+      <p class="footnote">
+        NovaPanda 为本项目协议工作名；商标注册申请中（申请号：<strong>________</strong>，申请日：<strong>____-__-__</strong>）。
+        未使用 ®。未暗示与任何第三方清算/LLM/能源伙伴的官方背书。Mock trial only · 非银行/支付机构。
+        <br>Spec <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a> ·
+        <a href="../trial.html">Trial</a> · <a href="../scenarios/overview.html">场景</a>
+      </p>
+    </article>
+  </div>
+</body>
+</html>

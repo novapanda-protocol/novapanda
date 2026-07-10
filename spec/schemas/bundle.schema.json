@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/bundle.schema.json",
+  "title": "Delivery Bundle (NP-BUNDLE)",
+  "description": "组合交割目标：多笔 Exchange/VDC 的编排元数据。Bundle 不是 VDC；第三方复验仍针对每张 VDC。",
+  "type": "object",
+  "required": [
+    "bundle_version",
+    "goal_id",
+    "correlation_id",
+    "exchange_ids",
+    "success_rule"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "bundle_version": { "type": "string", "const": "0.1" },
+    "goal_id": { "type": "string", "minLength": 1 },
+    "correlation_id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "exchange_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "depends_on": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      }
+    },
+    "success_rule": {
+      "type": "string",
+      "minLength": 1,
+      "description": "e.g. all_settled, quorum:2"
+    },
+    "human_gate": {
+      "type": "object",
+      "required": ["required"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "agent_id": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected", "skipped"],
+          "description": "skipped = human_gate.required is false"
+        }
+      },
+      "additionalProperties": true
+    },
+    "vdc_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.io/schemas/reputation-g09.schema.json",
+  "title": "NovaPanda Reputation Aggregate (G09)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rep_version",
+    "subject_agent_id",
+    "issuer_agent_id",
+    "window",
+    "metrics",
+    "evidence",
+    "signature",
+    "signed_at"
+  ],
+  "properties": {
+    "rep_version": { "type": "string", "const": "0.1" },
+    "subject_agent_id": { "type": "string", "pattern": "^ed25519:" },
+    "issuer_agent_id": { "type": "string", "pattern": "^ed25519:" },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "type": "string", "format": "date-time" },
+        "to": { "type": "string", "format": "date-time" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "settled_count": { "type": "integer", "minimum": 0 },
+        "disputed_count": { "type": "integer", "minimum": 0 },
+        "reject_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "avg_confirm_latency_sec": { "type": "number", "minimum": 0 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vdc_sample_ids", "method"],
+      "properties": {
+        "vdc_sample_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "method": { "type": "string" }
+      }
+    },
+    "signature": { "type": "string", "minLength": 1 },
+    "signed_at": { "type": "string", "format": "date-time" }
+  }
+}

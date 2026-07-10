@@ -48,8 +48,13 @@ class MockSettlement(SettlementAdapter):
         return handle
 
     def _receipt(self, handle: str, h: dict) -> dict:
-        return {"handle": handle, "status": h["status"],
-                "amount": h["amount"], "currency": h["currency"]}
+        return {
+            "handle": handle,
+            "status": h["status"],
+            "amount": h["amount"],
+            "currency": h["currency"],
+            "rail": "mock",
+        }
 
     def _transition(self, handle: str, target: str) -> dict:
         """幂等：已是 target 直接返回回执；从 held 推进；冲突（已是另一终态）报错。
@@ -74,6 +79,72 @@ class MockSettlement(SettlementAdapter):
 
     def status(self, handle: str) -> str:
         return self._holds[handle]["status"]
+
+
+class SandboxSettlement(SettlementAdapter):
+    """S1 沙箱轨：内存网关 + 诚实 sandbox 标识（非生产到账）。"""
+
+    rail = "fiat-s1-sandbox"
+    environment = "sandbox"
+    licensed = False
+
+    def __init__(self, partner: str = "sandbox-stub") -> None:
+        self.partner = partner
+        self._inner = MockSettlement()
+
+    def escrow(self, exchange_id: str, amount: int, currency: str) -> str:
+        return self._inner.escrow(exchange_id, amount, currency)
+
+    def _wrap(self, receipt: dict) -> dict:
+        return {
+            **receipt,
+            "rail": self.rail,
+            "environment": self.environment,
+            "licensed": self.licensed,
+            "partner": self.partner,
+            "note": "sandbox success ≠ production funds",
+        }
+
+    def settle(self, handle: str) -> dict:
+        return self._wrap(self._inner.settle(handle))
+
+    def refund(self, handle: str) -> dict:
+        return self._wrap(self._inner.refund(handle))
+
+    def status(self, handle: str) -> str:
+        return self._inner.status(handle)
+
+    def manifest_rail(self) -> dict:
+        """T13 Manifest rail block (no secrets / no private api_base in public)."""
+        return {
+            "id": self.rail,
+            "currencies": ["USD"],
+            "finality": "t+1",
+            "partner": self.partner,
+            "licensed": self.licensed,
+            "environment": self.environment,
+            "capabilities": ["authorize", "capture", "void"],
+            "reconcile": {"window": "T+1", "format": ["csv", "json"]},
+            "faq": "sandbox success ≠ production funds",
+        }
+
+    @property
+    def _holds(self) -> dict:
+        return self._inner._holds
+
+
+def assert_settlement_env_gate(*, settlement_name: str, settlement_env: str | None) -> None:
+    """Refuse non-mock rails unless SETTLEMENT_ENV/NOVAPANDA_SETTLEMENT=sandbox|mock explicit."""
+    name = (settlement_name or "mock").strip().lower()
+    env = (settlement_env or "").strip().lower()
+    if name in ("mock", "sandbox"):
+        return
+    if env in ("sandbox", "mock", "dev", "test"):
+        return
+    raise ValueError(
+        f"non-mock settlement '{name}' requires NOVAPANDA_SETTLEMENT_ENV="
+        f"sandbox|mock|dev|test (got {settlement_env!r})"
+    )
 
 
 class PaymentGateway(Protocol):
@@ -130,6 +201,60 @@ class FiatSettlement(GatewaySettlement):
     """
 
     rail = "fiat"
+
+
+class S1HttpSandboxSettlement(GatewaySettlement):
+    """S1 沙箱 HTTP 轨：伙伴 authorize/capture/void，Manifest 仍诚实标 sandbox。
+
+    P4 预备：凭证就绪后 `NOVAPANDA_FIAT_URL` 指向伙伴沙箱 API。
+    """
+
+    rail = "fiat-s1-sandbox"
+    environment = "sandbox"
+    licensed = False
+
+    def __init__(self, gateway: PaymentGateway, *, partner: str = "sandbox-stub") -> None:
+        super().__init__(gateway)
+        self.partner = partner
+
+    def _wrap(self, receipt: dict, status: str) -> dict:
+        return {
+            **receipt,
+            "status": status,
+            "rail": self.rail,
+            "environment": self.environment,
+            "licensed": self.licensed,
+            "partner": self.partner,
+            "note": "sandbox success ≠ production funds",
+        }
+
+    def settle(self, handle: str) -> dict:
+        raw = self.gateway.capture(handle)
+        return self._wrap(
+            {"handle": handle, "amount": raw["amount"], "currency": raw["currency"]},
+            "settled",
+        )
+
+    def refund(self, handle: str) -> dict:
+        raw = self.gateway.void(handle)
+        return self._wrap(
+            {"handle": handle, "amount": raw["amount"], "currency": raw["currency"]},
+            "refunded",
+        )
+
+    def manifest_rail(self) -> dict:
+        return {
+            "id": self.rail,
+            "currencies": ["USD", "EUR"],
+            "finality": "t+1",
+            "partner": self.partner,
+            "licensed": self.licensed,
+            "environment": self.environment,
+            "capabilities": ["authorize", "capture", "void"],
+            "reconcile": {"window": "T+1", "format": ["csv", "json"]},
+            "faq": "sandbox success ≠ production funds",
+            "transport": "http",
+        }
 
 
 class FakeGateway:

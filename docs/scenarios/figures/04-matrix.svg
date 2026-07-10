@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" role="img">
+  <defs><style>
+    .bg{fill:#0f1624}.now{fill:#1a2740;stroke:#4da3ff;stroke-width:1.5}
+    .lh{fill:#2a2418;stroke:#f0b429;stroke-width:1.5}.core{fill:#143528;stroke:#3ecf8e;stroke-width:1.5}
+    .lbl{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:13px;font-weight:650}
+    .sub{fill:#8fa3bc;font-family:system-ui,sans-serif;font-size:11px}
+    .title{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:16px;font-weight:700}
+    .h{fill:#8fa3bc;font-family:system-ui,sans-serif;font-size:12px;font-weight:600}
+  </style></defs>
+  <rect class="bg" width="1000" height="520" rx="16"/>
+  <text class="title" x="24" y="36">场景矩阵 / Scenario matrix</text>
+  <text class="sub" x="24" y="56">蓝=现在可演示 · 金=灯塔 · 绿=共用语法</text>
+  <rect class="core" x="40" y="80" width="920" height="56" rx="10"/>
+  <text class="lbl" x="60" y="110">共用语法 · 生命周期 · 陌生人 · 接入面</text>
+  <text class="h" x="60" y="170">领域</text><text class="h" x="280" y="170">dual_signed</text><text class="h" x="640" y="170">metered</text>
+  <text class="lbl" x="60" y="215">软件 Agent</text>
+  <rect class="now" x="220" y="190" width="360" height="50" rx="8"/>
+  <text class="lbl" x="240" y="220">抽取 · 通用任务 · LLM · Token</text>
+  <text class="lbl" x="60" y="285">能源 / 机器人</text>
+  <rect class="lh" x="600" y="260" width="340" height="50" rx="8"/>
+  <text class="lbl" x="620" y="290">S-energy-dc · S-robot-task</text>
+  <text class="sub" x="40" y="490">嵌套尽调 S-nested-soft-diligence · 拒绝/超时/联邦</text>
+</svg>

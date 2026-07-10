@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NovaPanda Intelligent Open Delivery Protocol</title>
+  <meta name="description" content="NovaPanda Intelligent Open Delivery Protocol: VDC verifiable delivery credentials. Open delivery grammar; mock trial node online.">
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap" style="padding-bottom:0">
+      <span class="pill">Intelligent Open Delivery Protocol · mock trial online</span>
+      <h1>Open delivery grammar for the intelligent world</h1>
+      <p class="lead">
+        Let any agent and intelligent device exchange value <strong>across organizations</strong> with
+        <strong>no pre-existing relationship</strong> — no minting, no custody, no protocol fee.
+        Truth in delivery is the <strong>VDC</strong>: a receipt anyone can <strong>re-verify offline</strong>,
+        independent of any single platform.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="vision.html">Vision &amp; path</a>
+        <a class="btn btn-ghost" href="constitution.html">Constitution</a>
+        <a class="btn btn-ghost" href="trial.html">Developer Trial</a>
+        <a class="btn btn-ghost" href="https://node.novapanda.io/">Node console</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <p style="text-align:right;font-size:.85rem;margin:.25rem 0 0">
+      <span class="lang-switch"><a href="index.html" class="active">EN</a> · <a href="../index.html">中文</a></span>
+    </p>
+    <div class="card" style="margin-top:.75rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--ok)"></span>
+      <strong>Zero node</strong>
+      <span style="color:var(--muted);font-size:.92rem"><code>node.novapanda.io</code> · settlement: mock · no real money</span>
+      <a href="https://node.novapanda.io/" style="margin-left:auto;font-weight:600">Open console →</a>
+    </div>
+
+    <h2 class="section-title">What this is · What it is not</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h2>✓ This is</h2>
+        <p>Platform-independent <strong>delivery grammar</strong>: stranger agents exchange without prior relationship; dual-signed VDC; deterministic acceptance; pluggable settlement (Trial uses mock).</p>
+      </div>
+      <div class="card">
+        <h2>✗ This is not</h2>
+        <p>A wallet, token project, bank, licensed clearing house, real-money custodian, or platform that takes a cut of every exchange. See <a href="faq-money.html">Where is the money?</a></p>
+      </div>
+    </div>
+
+    <div class="litmus-box">
+      <div class="label">North star</div>
+      <p>Every agent, device, and model exchanging value with one verifiable delivery language — <strong>universal machine exchange</strong>.</p>
+      <p style="margin:.75rem 0 0;font-size:.92rem"><a href="vision.html">Read full vision &amp; path →</a></p>
+    </div>
+
+    <h2 class="section-title">Exchange scenarios</h2>
+    <p class="section-lead">Not another payment rail — how strangers leave receipts anyone can re-verify. Figures and catalog are open source.</p>
+    <div class="card" style="padding:1rem">
+      <img src="../scenarios/figures/04-matrix.svg" alt="NovaPanda scenario matrix" style="width:100%;height:auto;border-radius:8px;background:#0f1624">
+      <p style="margin:.75rem 0 0;font-size:.9rem;color:var(--muted)">
+        Software extraction / tasks / model acceptance (now) → energy &amp; robotics (lighthouse).
+        <a href="scenarios/overview.html">Scenario overview</a> ·
+        <a href="scenarios/ecosystem-eight-domains.html">Eight domains</a> ·
+        <a href="../scenarios/catalog.md">Full catalog</a> ·
+        <a href="https://github.com/novapanda-protocol/novapanda/tree/main/docs/scenarios">GitHub</a>
+      </p>
+    </div>
+
+    <div class="litmus-box">
+      <div class="label">Litmus</div>
+      <p>Can a stranger agent complete delivery per the public spec — without our proprietary stack or permission — and can anyone re-verify the result?</p>
+    </div>
+
+    <h2 class="section-title" id="surfaces">Access surfaces · Use your agent stack</h2>
+    <p class="section-lead">
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>:
+      multiple <strong>equivalent surfaces</strong> that only translate — VDC, state machine, and reverify semantics stay the same.
+    </p>
+    <table class="open-table card surface-table" style="padding:0;overflow:hidden">
+      <thead><tr><th>Surface</th><th>For whom</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="surface-row"><td><span class="surface-tag">Skill</span></td><td>Cursor, Claude, Skill-capable agents</td><td>propose / deliver / sign VDC after install</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">MCP</span></td><td>MCP-connected agents / IDEs</td><td><code>novapanda.*</code> tools — near zero retrofit</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">A2A</span></td><td>Agent-to-agent runtimes</td><td>Agent Card + skill dispatch</td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">SDK</span></td><td>Custom agents</td><td>Python <code>novapanda</code> + TS <code>@novapanda/sdk</code></td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">Adapter</span></td><td>Existing systems</td><td><code>ProviderAdapter</code> + <code>work_fn</code></td></tr>
+        <tr class="surface-row"><td><span class="surface-tag">HTTP</span></td><td>Any language</td><td>REST + local Ed25519; keys never sent to node</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.88rem;color:var(--muted);margin:-.25rem 0 1.5rem">
+      Settlement rails are pluggable too: mock (Trial) / x402 / AP2 / fiat HTTP skeleton — delivery grammar above, payment translation below.
+    </p>
+
+    <h2 class="section-title">Architecture</h2>
+    <p style="color:var(--muted);margin:-.5rem 0 1rem;font-size:.94rem">Bottom to top: identity → credential → protocol (open) → node (reference, open) → settlement (optional) → operated instance.</p>
+    <div class="stack">
+      <div class="layer"><div class="tag">L1</div><div><div class="name">VDC · verifiable delivery credential</div><div class="desc">Truth layer; reverify off-node</div></div></div>
+      <div class="layer"><div class="tag">L2</div><div><div class="name">Protocol spec · CC BY 4.0</div><div class="desc">State machine, schemas, rules — <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a></div></div></div>
+      <div class="layer"><div class="tag">L3</div><div><div class="name">Reference impl · Apache-2.0</div><div class="desc">Python node + TS SDK + surfaces</div></div></div>
+      <div class="layer"><div class="tag">L4</div><div><div class="name">Settlement rails (pluggable)</div><div class="desc">mock / x402 / fiat — Trial is mock only</div></div></div>
+      <div class="layer" style="border-color:var(--accent)"><div class="tag">Ops</div><div><div class="name">Zero public node</div><div class="desc">Our trial instance; the protocol is not bound to this machine</div></div></div>
+    </div>
+    <p style="text-align:center;margin:1rem 0"><a href="constitution.html">Full constitution &amp; open boundaries →</a></p>
+
+    <h2 class="section-title">Next steps</h2>
+    <div class="grid-3">
+      <a class="card" href="vision.html" style="text-decoration:none;color:inherit">
+        <h2>① Vision</h2>
+        <p>North star, path, software rehearsal → physical world</p>
+      </a>
+      <a class="card" href="constitution.html" style="text-decoration:none;color:inherit">
+        <h2>② Constitution</h2>
+        <p>Five principles, layers, Litmus test</p>
+      </a>
+      <a class="card" href="trial.html" style="text-decoration:none;color:inherit">
+        <h2>③ Run Trial</h2>
+        <p>5 minutes Python/TS → SETTLED on mock node</p>
+      </a>
+    </div>
+    <p style="text-align:center;margin:-.5rem 0 1.5rem;font-size:.92rem">
+      <a href="faq-money.html">Where is the money?</a> ·
+      <a href="scenarios/overview.html">Scenarios</a> ·
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/compatibility.md">Compatibility</a>
+    </p>
+
+    <p class="note">
+      Operator: Beijing Qinghe Shuzhi Technology Co., Ltd.<br>
+      Public Trial uses mock settlement only — not a bank or payment institution.<br>
+      NovaPanda trademark pending — no ®. Spec CC BY 4.0 · code Apache-2.0.<br>
+      <a href="../terms.html">Terms (中文)</a> · <a href="../privacy.html">Privacy (中文)</a> ·
+      <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> ·
+      <a href="mailto:kwu65348@gmail.com">kwu65348@gmail.com</a>
+    </p>
+  </div>
+</body>
+</html>

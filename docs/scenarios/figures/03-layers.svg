@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img">
+  <defs><style>
+    .bg{fill:#0f1624}.top{fill:#1a2740;stroke:#4da3ff;stroke-width:2}
+    .bot{fill:#182033;stroke:#8fa3bc;stroke-width:1.5}.chip{fill:#243044;stroke:#3a4d66}
+    .lbl{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:14px;font-weight:650;text-anchor:middle}
+    .sub{fill:#8fa3bc;font-family:system-ui,sans-serif;font-size:12px;text-anchor:middle}
+    .title{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:16px;font-weight:700}
+    .tag{fill:#3ecf8e;font-family:system-ui,sans-serif;font-size:11px;font-weight:700}
+  </style></defs>
+  <rect class="bg" width="960" height="300" rx="16"/>
+  <text class="title" x="24" y="36">先统一交割，再谈货币 / VDC above settlement</text>
+  <rect class="top" x="60" y="80" width="840" height="90" rx="14"/>
+  <text class="tag" x="90" y="108">L1 FIRST CITIZEN</text>
+  <text class="lbl" x="480" y="125">VDC · 可验证交付 · 开放语法</text>
+  <rect class="bot" x="60" y="190" width="840" height="80" rx="14"/>
+  <text class="tag" x="90" y="218" style="fill:#8fa3bc">L4 PLUGGABLE</text>
+  <text class="sub" x="200" y="244">mock</text><text class="sub" x="320" y="244">x402</text>
+  <text class="sub" x="440" y="244">AP2</text><text class="sub" x="560" y="244">法币伙伴</text>
+</svg>

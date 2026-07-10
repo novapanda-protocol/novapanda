@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/claim.schema.json",
+  "title": "Settlement Claim (NP-CLAIM-XFER)",
+  "description": "锚定 VDC 的结算权柄转让对象。非协议代币；无 vdc_id 的 Claim MUST NOT 可转。",
+  "type": "object",
+  "required": [
+    "claim_version",
+    "claim_id",
+    "vdc_id",
+    "rail",
+    "holder_agent_id",
+    "amount",
+    "currency",
+    "status",
+    "issued_at"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "claim_version": { "type": "string", "const": "0.1" },
+    "claim_id": { "type": "string", "minLength": 1 },
+    "vdc_id": { "type": "string", "minLength": 1 },
+    "rail": { "type": "string", "minLength": 1 },
+    "holder_agent_id": {
+      "type": "string",
+      "pattern": "^ed25519:[0-9a-f]{64}$"
+    },
+    "amount": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]{1,8})?$"
+    },
+    "currency": { "type": "string", "minLength": 3, "maxLength": 8 },
+    "status": {
+      "type": "string",
+      "enum": ["open", "reserved", "spent", "expired", "frozen"]
+    },
+    "issued_at": { "$ref": "#/$defs/iso8601" },
+    "expires_at": {
+      "oneOf": [
+        { "$ref": "#/$defs/iso8601" },
+        { "type": "null" }
+      ]
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "at"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "at": { "$ref": "#/$defs/iso8601" },
+          "sig": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "iso8601": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

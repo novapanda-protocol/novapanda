@@ -68,9 +68,12 @@ class Exchange:
     verify_result: Optional[dict] = None
     settlement_receipt: Optional[dict] = None
     settlement_intent: Optional[dict] = None
+    settlement_terms: Optional[dict] = None
+    settlement_binding: Optional[dict] = None
     dispute_info: Optional[dict] = None
     terms_hash: Optional[str] = None
     contract_acks: dict = field(default_factory=dict)
+    trace_context: Optional[dict] = None
 
 
 class ExchangeEngine:
@@ -81,12 +84,50 @@ class ExchangeEngine:
         reputation=None,
         store=None,
         blob_store=None,
+        rail_registry=None,
     ) -> None:
         self._store = store if store is not None else InMemoryStore()
         self._blobs = blob_store
         self._settlement = settlement
+        self._rail_registry = rail_registry
         self._verifier: Verifier = verifier or AcceptAllVerifier()
         self._reputation = reputation
+
+    def _adapter_for(self, ex: Exchange) -> SettlementAdapter:
+        binding = ex.settlement_binding or {}
+        rail_id = binding.get("rail")
+        if self._rail_registry is not None and rail_id:
+            return self._rail_registry.adapter_for_rail_id(str(rail_id))
+        return self._settlement
+
+    def _finalize_binding(self, ex: Exchange) -> None:
+        if self._rail_registry is None:
+            ex.settlement_binding = {
+                "rail": getattr(self._settlement, "rail", "mock"),
+                "chosen_at": "contract",
+            }
+            return
+        from .rail_registry import SettlementBindingError, finalize_settlement_binding
+
+        st = ex.settlement_terms or {}
+        ex.settlement_binding = finalize_settlement_binding(
+            settlement_terms=st,
+            price=ex.price,
+            node_rails=self._rail_registry.manifest_rails(),
+            client_rails=st.get("client_rails"),
+            provider_rails=st.get("provider_rails"),
+        )
+
+    def _assert_receipt_rail(self, ex: Exchange, receipt: dict) -> None:
+        binding = ex.settlement_binding or {}
+        expected = binding.get("rail")
+        if not expected:
+            return
+        actual = receipt.get("rail")
+        if actual and actual != expected:
+            raise ExchangeError(
+                f"settlement receipt rail 与 binding 不一致: {actual!r} != {expected!r}"
+            )
 
     @staticmethod
     def _idem_key(client: str, idempotency_key: str) -> str:
@@ -167,6 +208,8 @@ class ExchangeEngine:
         price: dict,
         idempotency_key: str,
         timeouts: Optional[dict] = None,
+        settlement_terms: Optional[dict] = None,
+        trace_context: Optional[dict] = None,
     ) -> Exchange:
         idem_key = self._idem_key(client, idempotency_key)
         existing = self._store.idem_get(idem_key)
@@ -187,6 +230,8 @@ class ExchangeEngine:
             created_at=now,
             updated_at=now,
             timeouts=timeouts or {},
+            settlement_terms=settlement_terms,
+            trace_context=trace_context,
         )
         ex.terms_hash = terms_hash_from_exchange(ex)
         self._set_deadline(ex, "contract")
@@ -212,6 +257,8 @@ class ExchangeEngine:
             raise ExchangeError("contract 签名无效")
         ex.contract_acks[party] = {"signature": signature, "at": _now_iso()}
         if ex.client in ex.contract_acks and ex.provider in ex.contract_acks:
+            if ex.settlement_binding is None:
+                self._finalize_binding(ex)
             self._transition(ex, sm.CONTRACTED)
             self._set_deadline(ex, "escrow")
         else:
@@ -224,7 +271,8 @@ class ExchangeEngine:
         ex = self.get(exchange_id)
         if (amount, currency) != (ex.price["amount"], ex.price["currency"]):
             raise ExchangeError("escrow 金额/币种与条款不符")
-        handle = self._settlement.escrow(exchange_id, amount, currency)
+        adapter = self._adapter_for(ex)
+        handle = adapter.escrow(exchange_id, amount, currency)
         ex.escrow_handle = handle
         self._transition(ex, sm.ESCROWED)
         self._set_deadline(ex, "deliver")
@@ -468,23 +516,45 @@ class ExchangeEngine:
             return
         handle = ex.escrow_handle
         self._capture_intent(ex, {"action": action, "handle": handle, "status": "pending"})
-        fn = self._settlement.settle if action == "settle" else self._settlement.refund
-        ex.settlement_receipt = fn(handle)  # 幂等
+        adapter = self._adapter_for(ex)
+        fn = adapter.settle if action == "settle" else adapter.refund
+        receipt = fn(handle)  # 幂等
+        self._assert_receipt_rail(ex, receipt)
+        ex.settlement_receipt = receipt
         ex.settlement_intent = {"action": action, "handle": handle, "status": "done"}
 
     def _refund_if_held(self, ex: Exchange) -> None:
         self._settle_with_capture(ex, "refund")
 
     def recover(self) -> list[Exchange]:
-        """崩溃恢复：重放所有 pending 结算意图（幂等），并补齐未完成的终态。"""
+        """崩溃恢复：重放所有 pending 结算意图（幂等），并补齐未完成的终态。
+
+        适配器失败时 MUST NOT 假推进 SETTLED；intent 保持 pending 并记 last_error。
+        """
+        from .settlement import SettlementError
+
         recovered: list[Exchange] = []
         for ex in self._store.values():
             intent = ex.settlement_intent
             if not intent or intent.get("status") != "pending":
                 continue
             action, handle = intent["action"], intent["handle"]
-            fn = self._settlement.settle if action == "settle" else self._settlement.refund
-            ex.settlement_receipt = fn(handle)
+            adapter = self._adapter_for(ex)
+            fn = adapter.settle if action == "settle" else adapter.refund
+            try:
+                receipt = fn(handle)
+                self._assert_receipt_rail(ex, receipt)
+                ex.settlement_receipt = receipt
+            except SettlementError as exc:
+                ex.settlement_intent = {
+                    **intent,
+                    "status": "pending",
+                    "last_error": str(exc),
+                }
+                ex.version += 1
+                ex.updated_at = _now_iso()
+                self._store.save(ex)
+                continue
             ex.settlement_intent = {**intent, "status": "done"}
             target = sm.SETTLED if action == "settle" else sm.EXPIRED_REFUNDED
             if ex.state not in sm.TERMINAL_STATES and sm.can_transition(ex.state, target):
@@ -604,6 +674,8 @@ class ExchangeEngine:
             "vdc": ex.vdc,
             "verify_result": ex.verify_result,
             "settlement_receipt": ex.settlement_receipt,
+            "settlement_terms": ex.settlement_terms,
+            "settlement_binding": ex.settlement_binding,
             "terms_hash": ex.terms_hash,
         }
         if include_deliverable:

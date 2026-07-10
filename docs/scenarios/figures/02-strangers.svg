@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img">
+  <defs><style>
+    .bg{fill:#0f1624}.agent{fill:#1a2740;stroke:#4da3ff;stroke-width:2}
+    .node{fill:#182033;stroke:#8fa3bc;stroke-width:1.5;stroke-dasharray:5 4}
+    .vdc{fill:#143528;stroke:#3ecf8e;stroke-width:2}
+    .lbl{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:14px;font-weight:650;text-anchor:middle}
+    .sub{fill:#8fa3bc;font-family:system-ui,sans-serif;font-size:12px;text-anchor:middle}
+    .title{fill:#e8eef6;font-family:system-ui,sans-serif;font-size:16px;font-weight:700}
+    .arrow{stroke:#5b7ea6;stroke-width:2;fill:none;marker-end:url(#m)}
+  </style><marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#5b7ea6"/></marker></defs>
+  <rect class="bg" width="960" height="320" rx="16"/>
+  <text class="title" x="24" y="36">陌生人也能交割 / Strangers can settle</text>
+  <text class="sub" x="24" y="58">无共用账号 · 无预建关系</text>
+  <ellipse class="agent" cx="160" cy="160" rx="110" ry="70"/>
+  <text class="lbl" x="160" y="155">Client Agent</text>
+  <ellipse class="agent" cx="800" cy="160" rx="110" ry="70"/>
+  <text class="lbl" x="800" y="155">Provider Agent</text>
+  <rect class="node" x="380" y="100" width="200" height="120" rx="14"/>
+  <text class="lbl" x="480" y="145">兼容节点</text>
+  <text class="sub" x="480" y="168">可替代 · 非闸门</text>
+  <path class="arrow" d="M270 145 H375"/><path class="arrow" d="M585 145 H690"/>
+  <rect class="vdc" x="355" y="250" width="250" height="48" rx="10"/>
+  <text class="lbl" x="480" y="280">双签 VDC · reverify</text>
+</svg>

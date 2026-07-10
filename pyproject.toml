@@ -19,8 +19,14 @@ dev = ["pytest>=8"]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
+[project.scripts]
+np = "novapanda.cli:main"
+
 [tool.setuptools.packages.find]
 include = ["novapanda*"]
+
+[tool.setuptools.package-data]
+"novapanda.node" = ["static/brand/*.png"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

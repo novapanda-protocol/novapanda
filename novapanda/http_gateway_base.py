@@ -47,7 +47,12 @@ class HttpGatewayClient:
         last_exc: Optional[Exception] = None
         for attempt in range(self.max_retries + 1):
             try:
-                r = self._http.request(method, path, json=json, headers=self._extra_headers or None)
+                r = self._http.request(
+                    method,
+                    path,
+                    json=json,
+                    headers={**(self._extra_headers or {}), **self._trace_headers()},
+                )
                 if r.status_code >= 500 and attempt < self.max_retries:
                     time.sleep(self.retry_backoff * (attempt + 1))
                     continue
@@ -66,6 +71,11 @@ class HttpGatewayClient:
                     continue
                 raise SettlementError(f"{self.rail_name} 网络错误: {exc}") from exc
         raise SettlementError(f"{self.rail_name} 请求失败: {last_exc}")
+
+    def _trace_headers(self) -> dict[str, str]:
+        from .trace import outbound_headers
+
+        return outbound_headers()
 
     def authorize(self, exchange_id: str, amount: int, currency: str) -> str:
         data = self._request_json(
