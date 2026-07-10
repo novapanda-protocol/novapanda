@@ -17,7 +17,7 @@
       <a href="constitution.html">Constitution</a>
       <a href="faq-money.html">Money FAQ</a>
       <a href="trial.html" class="active">Trial</a>
-      <a href="https://node.novapanda.io/">Node</a>
+      <a href="https://node.novapanda.io/">Trial node ↗</a>
       <span class="lang-switch"><a href="trial.html" class="active">EN</a> · <a href="../trial.html">中文</a></span>
     </nav>
 
@@ -32,6 +32,22 @@
       <strong>Mock trial boundary</strong>
       <p style="margin-top:.5rem">✓ Full state machine + dual-signed VDC + offline reverify &nbsp;|&nbsp; ✗ Real money / stablecoin / licensed clearing</p>
     </div>
+
+    <div class="card" style="margin:1.5rem 0">
+      <strong>Site vs zero-node console</strong>
+      <p style="margin-top:.5rem;color:var(--muted);font-size:.94rem">
+        <a href="index.html">novapanda.io</a> is for intro, figures, and integration docs — <strong>no signup</strong>.
+        Use <code>node.novapanda.io</code> to try the API; <strong>operator registration</strong> only inside the console when you need quota or “my exchanges”.
+      </p>
+    </div>
+
+    <h2 class="section-title">Step 0 · Cursor / Codex / MCP (optional)</h2>
+    <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
+      On Cursor, Codex, Windsurf, Cline, or other MCP IDEs: add NovaPanda <code>novapanda.*</code> tools pointing at
+      <code>https://node.novapanda.io</code>. Reads via MCP; writes still require local agent signatures.
+      See <a href="index.html#ide">coding agents</a> ·
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/BINDING-MCP.md">BINDING-MCP</a>.
+    </p>
 
     <h2 class="section-title">Step 1 · Check the node</h2>
     <pre><code>curl -fsS https://node.novapanda.io/health
@@ -51,8 +67,10 @@ node test/plugfest_lifecycle.mjs https://node.novapanda.io</code></pre>
 
     <h2 class="section-title">Step 4 · Other surfaces</h2>
     <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
-      Trial scripts use Python SDK + HTTP. If your agent already supports Skill / MCP / A2A, equivalent surfaces run the same state machine — VDCs are mutually verifiable.
-      See <a href="index.html#surfaces">surface table</a> · <code>novapanda/surfaces/</code> · <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>.
+      Trial scripts use Python SDK + HTTP. The same state machine works via <strong>Skill</strong> (Cursor Agent Skills) or
+      <strong>MCP</strong> (Cursor / Codex / Windsurf / Cline) — mutually verifiable VDCs.
+      See <a href="index.html#surfaces">surface table</a> · <a href="index.html#ide">IDE integration</a> ·
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>.
     </p>
 
     <h2 class="section-title">Step 5 · Read the spec</h2>

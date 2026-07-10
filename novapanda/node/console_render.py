@@ -300,7 +300,7 @@ def _layout(
     <header>
       <div>
         <h1>{_esc(title)}</h1>
-        {'' if admin else '<p class="tagline">智能世界的开放交割语法 · 零号节点</p>'}
+        {'' if admin else '<p class="tagline">mock 试用 · 运营注册仅在本站 · 介绍与看图见 <a href="https://novapanda.io/">novapanda.io</a></p>'}
       </div>
       <span class="badge">{_esc(badge)}</span>
       {_nav(admin=admin)}
@@ -402,26 +402,25 @@ def _frail_outage_banner() -> str:
 </div>"""
 
 
-def _brand_poster_section(*, compact: bool = False) -> str:
-    poster = "/static/brand/novapanda-intelligent-open-delivery-protocol-poster-zh.png"
-    overview = "/static/brand/novapanda-intelligent-open-delivery-protocol-overview-zh.png"
-    poster_en = "/static/brand/novapanda-intelligent-open-delivery-protocol-poster-en.png"
+def _site_promo_banner(*, compact: bool = False) -> str:
     if compact:
         return (
-            f'<p class="muted"><a href="{poster}" target="_blank" rel="noopener">协议海报</a>'
-            f' · <a href="{overview}" target="_blank" rel="noopener">一页概览图</a></p>'
+            '<p class="muted">'
+            '<a href="https://novapanda.io/" rel="noopener">官网介绍与品牌图</a>'
+            ' · <a href="https://novapanda.io/trial.html" rel="noopener">Trial</a>'
+            '</p>'
         )
-    return f"""
-  <section class="card brand-block">
-    <h2>NovaPanda 智能开放交割协议</h2>
-    <p class="muted" style="margin-top:0">智能世界的开放交割语法 · 先统一交割与互认，再谈货币</p>
-    <a href="{poster}" target="_blank" rel="noopener">
-      <img class="brand-poster" src="{poster}" alt="NovaPanda 智能开放交割协议" loading="lazy" />
-    </a>
-    <p class="muted small" style="margin-top:.75rem">
-      <a href="{overview}" target="_blank" rel="noopener">一页概览图</a>
-      · <a href="https://novapanda.io/drafts/one-pager.html" rel="noopener">宣传一页纸</a>
-      · EN: <a href="{poster_en}" target="_blank" rel="noopener">poster</a>
+    return """
+  <section class="card">
+    <h2>官网 · 介绍与看图</h2>
+    <p class="muted" style="margin-top:0">
+      海报、场景图、Cursor/Codex/MCP 对接说明在 <strong>novapanda.io</strong>。
+      本页是 mock 试用控制台；<strong>运营注册</strong>仅在需要提额或「我的交换」时使用。
+    </p>
+    <p class="muted">
+      <a href="https://novapanda.io/" rel="noopener">打开官网 →</a>
+      · <a href="https://novapanda.io/drafts/one-pager.html" rel="noopener">一张图看懂</a>
+      · <a href="https://novapanda.io/trial.html" rel="noopener">开发者 Trial</a>
     </p>
   </section>"""
 
@@ -438,7 +437,7 @@ def _panel_overview(profile: dict[str, Any]) -> str:
     auth_on = bool(caps.get("auth", status.get("auth_enabled")))
     return f"""
 <section class="tab-panel" id="panel-overview">
-  {_brand_poster_section()}
+  {_site_promo_banner()}
   {_settlement_honesty_banner(profile)}
   {_hard_boundary_banner()}
   <div class="grid">
@@ -972,7 +971,7 @@ def _panel_trial(profile: dict[str, Any]) -> str:
       <li>在「交换」页查看 VDC 与状态流转</li>
     </ol>
     <ul class="link-list">{link_items}</ul>
-    {_brand_poster_section(compact=True)}
+    {_site_promo_banner(compact=True)}
   </section>
   <section class="card">
     <h2>条款</h2>
@@ -1124,7 +1123,7 @@ def render_console(profile: dict[str, Any], *, admin: bool = False) -> str:
         title = "NovaPanda 零号节点 · 运维"
         return _layout(title, _admin_body(), admin=True)
 
-    title = "NovaPanda 智能开放交割协议"
+    title = "NovaPanda 零号节点"
     panels = "".join([
         _panel_overview(profile),
         _panel_discover(profile),

@@ -17,7 +17,7 @@
       <a href="scenarios/ecosystem-eight-domains.html">生态八域</a>
       <a href="constitution.html">协议宪法</a>
       <a href="trial.html" class="active">Trial</a>
-      <a href="https://node.novapanda.io/">节点控制台</a>
+      <a href="https://node.novapanda.io/">试用节点 ↗</a>
       <a href="terms.html">用户协议</a>
       <span class="lang-switch"><a href="en/trial.html">EN</a> · <a href="trial.html">中文</a></span>
     </nav>
@@ -33,6 +33,23 @@
       <strong>mock 试用边界</strong>
       <p style="margin-top:.5rem">✓ 完整状态机 + 双签 VDC + 离线复验 &nbsp;|&nbsp; ✗ 真钱 / 稳定币 / 持牌清算</p>
     </div>
+
+    <div class="card" style="margin:1.5rem 0">
+      <strong>官网 vs 零号控制台</strong>
+      <p style="margin-top:.5rem;color:var(--muted);font-size:.94rem">
+        <a href="index.html">novapanda.io</a> 负责介绍、看图、接入说明 — <strong>无需注册</strong>。
+        动手试 API 用 <code>node.novapanda.io</code>；只有需要提额或「我的交换」时，才在<strong>控制台内</strong>注册运营账户。
+      </p>
+    </div>
+
+    <h2 class="section-title">Step 0 · Cursor / Codex / MCP（可选）</h2>
+    <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
+      若你已在用 Cursor、Codex、Windsurf、Cline 等 MCP IDE：在 MCP 配置中加入 NovaPanda 工具集（<code>novapanda.*</code>），
+      指向 <code>https://node.novapanda.io</code>。读工具走 MCP；写路径（propose / deliver 等）仍须本地 Agent 签名。
+      见 <a href="index.html#ide">智能开发工具对接</a> ·
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/BINDING-MCP.md">BINDING-MCP</a> ·
+      <code>novapanda/bindings/mcp_tools.py</code>。
+    </p>
 
     <h2 class="section-title">Step 1 · 检查节点</h2>
     <pre><code>curl -fsS https://node.novapanda.io/health
@@ -52,8 +69,10 @@ node test/plugfest_lifecycle.mjs https://node.novapanda.io</code></pre>
 
     <h2 class="section-title">Step 4 · 其他接入面</h2>
     <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
-      Trial 脚本走 Python SDK + HTTP。若你的 Agent 已支持 Skill / MCP / A2A，可用等价接入面完成同一状态机——产出 VDC 完全互验。
-      见 <a href="index.html#surfaces">接入面对照</a> · <code>novapanda/surfaces/</code> · <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>。
+      Trial 脚本走 Python SDK + HTTP。同一状态机也可用 <strong>Skill</strong>（Cursor Agent Skills）或
+      <strong>MCP</strong>（Cursor / Codex / Windsurf / Cline）完成 — 产出 VDC 完全互验。
+      见 <a href="index.html#surfaces">接入面对照</a> · <a href="index.html#ide">IDE 对接</a> ·
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>。
     </p>
 
     <h2 class="section-title">Step 5 · 读规范</h2>

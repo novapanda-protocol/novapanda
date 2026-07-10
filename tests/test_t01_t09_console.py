@@ -14,8 +14,9 @@ def test_verify_and_me_tabs_present():
     assert "panel-verify" in home.text
     assert 'data-tab="me"' in home.text
     assert "Trial 硬边界" in home.text
-    assert "智能开放交割协议" in home.text
-    assert "/static/brand/novapanda-intelligent-open-delivery-protocol-poster-zh.png" in home.text
+    assert "novapanda.io" in home.text
+    assert "NovaPanda 零号节点" in home.text
+    assert "novapanda.io" in home.text
 
 
 def test_brand_static_assets():

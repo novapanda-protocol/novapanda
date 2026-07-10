@@ -82,6 +82,30 @@ a { color: var(--accent); }
 .btn-primary { background: #fff; color: var(--accent); }
 .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); }
 .btn-dark { background: var(--accent); color: #fff; }
+.brand-figure {
+  margin: 0 0 1.5rem; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--border); background: #0f1624; box-shadow: var(--shadow);
+}
+.brand-figure img { display: block; width: 100%; height: auto; }
+.brand-figure figcaption {
+  padding: .55rem .85rem; font-size: .82rem; color: var(--muted);
+  border-top: 1px solid var(--border); background: var(--card);
+}
+.dev-tool-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: .85rem; margin-bottom: 1rem;
+}
+.dev-tool-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem 1.1rem; box-shadow: var(--shadow);
+}
+.dev-tool-card h3 { margin: 0 0 .35rem; font-size: .98rem; }
+.dev-tool-card p { margin: 0; font-size: .88rem; color: var(--muted); }
+.dev-tool-card .surface-tag { margin-bottom: .5rem; }
+.node-strip {
+  font-size: .9rem; color: var(--muted);
+}
+.node-strip a { font-weight: 600; }
 .section-title { font-size: 1.2rem; margin: 2rem 0 1rem; }
 .note {
   font-size: .88rem; color: var(--muted); border-left: 3px solid var(--border);
