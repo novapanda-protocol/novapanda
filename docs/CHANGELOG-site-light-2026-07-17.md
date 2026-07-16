@@ -58,10 +58,11 @@
 
 | 项 | 状态 |
 |----|------|
-| 本地 commit | ✅ `cb2387d` · `e869b64` |
-| `git push origin main` | ✅ 已到 GitHub（`main` tip = `e869b64`） |
-| 零号 EC2 升级 | ⏳ 本机无 AWS CLI / SSH；请 Instance Connect 跑 `update-node.sh` |
-| 线上零号 UI | ⏳ 仍为深色旧壳（`--bg: #0f…`）；升级后应为 Light 试用台 |
+| 本地 commit | ✅ `cb2387d` · `e869b64` · `bc83a57` |
+| `git push origin main` | ✅ |
+| 零号 EC2 升级 | ✅ 用户确认 · 外网 Light 试用台 |
+| 官网 novapanda.io | ✅ 外网已见新 IA |
+| 官网是否拆出公开仓 | ⏸ 下次再定（现状：`docs/` 已在公开仓） |
 
 ### 网络恢复后：推送
 
