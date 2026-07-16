@@ -54,8 +54,43 @@
 
 ---
 
-## 四、验收清单
+## 四、发布状态（2026-07-17）
+
+| 项 | 状态 |
+|----|------|
+| 本地 commit | ✅ `cb2387d` `feat(site,node): light-mode IA, vision/scenario figures, unattended exchange narrative` |
+| `git push origin main` | ⏳ 本机连 GitHub 443 失败（`Could not connect`），需网络恢复后执行 `git push` |
+| 零号 EC2 升级 | ⏳ 依赖 push；本机无 AWS CLI / SSH 公钥（安全组关 22）→ 用 Instance Connect |
+| 线上零号 UI | 当前仍为深色旧壳（`--bg: #0f…`），升级后应为 Light 试用台 |
+
+### 网络恢复后：推送
+
+```bash
+git push origin main
+```
+
+### Instance Connect：零号升级（push 成功后）
+
+```bash
+sudo bash /opt/novapanda/src/deploy/scripts/update-node.sh
+```
+
+或：
+
+```bash
+sudo git -C /opt/novapanda/src fetch origin main
+sudo git -C /opt/novapanda/src reset --hard origin/main
+cd /opt/novapanda/src/deploy/docker
+sudo docker compose --env-file ../env/production.env build
+sudo docker compose --env-file ../env/production.env up -d
+sleep 8
+curl -fsS https://node.novapanda.io/health
+git -C /opt/novapanda/src log -1 --oneline   # 期望 cb2387d 或更新
+```
+
+### 验收清单
 
 - [ ] 本地：`docs/index.html` · `vision.html` · `scenarios/overview.html` · `trial.html`
-- [ ] 零号：`https://node.novapanda.io/health` 200；控制台为 Light 试用台
-- [ ] 官网生产：刷新后顶栏与新图生效（部署后）
+- [ ] `git push` 成功，`origin/main` 含 `cb2387d`
+- [ ] 零号：`health` 200；首页为 Light 试用台（非深色旧壳）
+- [ ] 官网生产：同步 `docs/` 后顶栏与新图生效
