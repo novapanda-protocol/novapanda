@@ -58,10 +58,10 @@
 
 | 项 | 状态 |
 |----|------|
-| 本地 commit | ✅ `cb2387d` `feat(site,node): light-mode IA, vision/scenario figures, unattended exchange narrative` |
-| `git push origin main` | ⏳ 本机连 GitHub 443 失败（`Could not connect`），需网络恢复后执行 `git push` |
-| 零号 EC2 升级 | ⏳ 依赖 push；本机无 AWS CLI / SSH 公钥（安全组关 22）→ 用 Instance Connect |
-| 线上零号 UI | 当前仍为深色旧壳（`--bg: #0f…`），升级后应为 Light 试用台 |
+| 本地 commit | ✅ `cb2387d` · `e869b64` |
+| `git push origin main` | ✅ 已到 GitHub（`main` tip = `e869b64`） |
+| 零号 EC2 升级 | ⏳ 本机无 AWS CLI / SSH；请 Instance Connect 跑 `update-node.sh` |
+| 线上零号 UI | ⏳ 仍为深色旧壳（`--bg: #0f…`）；升级后应为 Light 试用台 |
 
 ### 网络恢复后：推送
 
