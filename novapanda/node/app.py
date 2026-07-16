@@ -50,6 +50,9 @@ from .dashboard import (
     list_exchanges,
     render_console,
     render_exchange_detail,
+    render_tools_page,
+    render_register_page,
+    render_login_page,
     render_operator_claims,
     render_claim_detail,
     render_operator_reconcile,
@@ -579,6 +582,18 @@ def create_app(
     def dashboard_home(request: Request):
         return render_console(_node_profile(request), admin=False)
 
+    @app.get("/tools", response_class=HTMLResponse, include_in_schema=False)
+    def dashboard_tools(request: Request):
+        return render_tools_page(_node_profile(request))
+
+    @app.get("/register", response_class=HTMLResponse, include_in_schema=False)
+    def dashboard_register(request: Request):
+        return render_register_page(_node_profile(request))
+
+    @app.get("/login", response_class=HTMLResponse, include_in_schema=False)
+    def dashboard_login():
+        return render_login_page()
+
     @app.get("/admin", response_class=HTMLResponse, include_in_schema=False)
     def dashboard_admin(request: Request):
         return render_console(_node_profile(request), admin=True)
@@ -662,6 +677,13 @@ def create_app(
             "session_token": token,
             "note": "Session 仅用于运营面；exchange 仍须 Agent 签名",
         }
+
+    @app.post("/operator/logout")
+    def operator_logout(request: Request):
+        auth = request.headers.get("Authorization") or ""
+        token = auth[7:].strip() if auth.lower().startswith("bearer ") else None
+        ok = app.state.operators.logout(token)
+        return {"ok": ok}
 
     @app.get("/operator/me")
     def operator_me(request: Request):

@@ -1,154 +1,111 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生态八域 · NovaPanda</title>
-  <meta name="description" content="API、MCP、Skill、工作流、OTA、P2P… 生态交付物如何挂接 NovaPanda 交割语法。">
+  <meta name="color-scheme" content="light">
+  <title>生态角色 · NovaPanda</title>
+  <meta name="description" content="NovaPanda 生态中的 4 大核心角色与 4 大基础支撑。">
   <link rel="stylesheet" href="../site.css">
-  <style>
-    .layer-stack { font-family: ui-monospace, monospace; font-size: .78rem; line-height: 1.55; background: #0f1624; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; color: #c8d4e8; overflow-x: auto; }
-    .dom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: .85rem; }
-    .dom-card h3 { margin: 0 0 .5rem; font-size: 1.02rem; }
-    .dom-card ul { margin: 0; padding-left: 1.1rem; font-size: .9rem; color: var(--muted); }
-    .dom-card li { margin: .25rem 0; }
-    .st { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 4px; margin-right: .35rem; }
-    .st-ok { background: rgba(46,160,67,.2); color: #3fb950; }
-    .st-wip { background: rgba(210,153,34,.2); color: #d29922; }
-    .st-adj { background: rgba(139,148,158,.15); color: #8b949e; }
-    .st-no { background: rgba(248,81,73,.12); color: #f85149; }
-    table.comp { width: 100%; border-collapse: collapse; font-size: .88rem; }
-    table.comp th, table.comp td { border: 1px solid var(--border); padding: .5rem .65rem; text-align: left; vertical-align: top; }
-    table.comp th { background: rgba(255,255,255,.04); }
-  </style>
 </head>
-<body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <strong>NovaPanda</strong>
-      <a href="../index.html">首页</a>
-      <a href="../vision.html">愿景</a>
-      <a href="overview.html">场景</a>
-      <a href="ecosystem-eight-domains.html" class="active">生态八域</a>
-      <a href="../trial.html">Trial</a>
-      <a href="https://node.novapanda.io/">节点</a>
-      <span class="lang-switch"><a href="../en/scenarios/ecosystem-eight-domains.html">EN</a> · <a href="ecosystem-eight-domains.html">中文</a></span>
-    </nav>
-
-    <header class="page-hero">
-      <div class="page-hero-inner">
-        <div class="eyebrow">Ecosystem · 公开说明（非规范性）</div>
-        <h1>生态八域：交付物如何挂接</h1>
-        <p class="manifesto">
-          API、MCP、Skill、工作流、OTA、P2P… 广括生态不是把万物塞进一个状态机，
-          而是<strong>同一套可验证交割语法</strong> + 分层扩展。
-          NovaPanda 是<strong>交割互认层</strong>，不是万物操作系统。
-        </p>
+<body class="landing cap-page">
+  <nav class="landing-nav">
+    <div class="landing-nav-inner wrap-wide">
+      <a class="brand" href="../index.html">
+        <strong>NovaPanda</strong>
+        <span class="brand-tag">· Ecosystem</span>
+      </a>
+      <div class="nav-links">
+        <a href="../vision.html">协议愿景</a>
+        <a href="overview.html">应用场景</a>
+        <a href="ecosystem-eight-domains.html" class="active">生态架构</a>
+        <a href="../constitution.html">协议宪法</a>
+        <a href="../trial.html">Quickstart</a>
       </div>
-    </header>
-
-    <h2 class="section-title">三句话</h2>
-    <div class="grid-2">
-      <div class="card"><p><strong>统一交付事实</strong>（VDC），不统一工作流、OTA 或飞控。</p></div>
-      <div class="card"><p><strong>内核小、扩展开</strong>：Profile · 绑定 · 注册表叠能力。</p></div>
-      <div class="card" style="grid-column:1/-1"><p><strong>兼容靠向量自测</strong>，不靠「必须过某一家节点」。</p></div>
-    </div>
-
-    <h2 class="section-title">分层</h2>
-    <pre class="layer-stack">说明层（本页、场景 catalog）
-身体层（零号：配额·审计·沙箱·Operator）
-绑定层（HTTP · MCP · A2A · Skill · Proxy）
-能力层（MIN · NODE · BUNDLE · PHYS · SETTLE · DELEGATE · PRIV · LITE）
-注册表（本体 · 规则 · 批量扩展包）
-内核 CORE（身份 · VDC · 交换状态机 · 复验）</pre>
-
-    <h2 class="section-title">八域卡片</h2>
-    <div class="dom-grid">
-      <div class="card dom-card">
-        <h3>① 远程服务</h3>
-        <ul>
-          <li><span class="st st-ok">已挂接</span> HTTP API</li>
-          <li><span class="st st-ok">已挂接</span> MCP · <a href="../../spec/BINDING-MCP.md">BINDING-MCP</a></li>
-          <li><span class="st st-wip">进行中</span> ToolBundle</li>
-          <li><span class="st st-adj">邻接</span> Remote Pod · Proxy</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>② 本地执行</h3>
-        <ul>
-          <li><span class="st st-wip">进行中</span> Skill · 推理模型包</li>
-          <li><span class="st st-adj">邻接</span> Script · 固件 · 诊断探针</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>③ 编排协同</h3>
-        <ul>
-          <li><span class="st st-wip">进行中</span> 工作流（客户端 Composer）</li>
-          <li><span class="st st-adj">邻接</span> 任务分片 · 事件处理</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>④ 无代码规则</h3>
-        <ul>
-          <li><span class="st st-ok">已挂接</span> 交换状态机 · 配额</li>
-          <li><span class="st st-wip">进行中</span> 触发/审计 · 提示词模板</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑤ 开发工具</h3>
-        <ul>
-          <li><span class="st st-ok">已挂接</span> Schema 规范</li>
-          <li><span class="st st-wip">进行中</span> SDK · CLI（reverify）</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑥ 交付升级</h3>
-        <ul>
-          <li><span class="st st-no">不进内核</span> OTA（仅证据哈希）</li>
-          <li><span class="st st-wip">进行中</span> 批量扩展包</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑦ 安全权限</h3>
-        <ul>
-          <li><span class="st st-ok">已挂接</span> 委托凭证 NP-DELEGATE</li>
-          <li><span class="st st-wip">进行中</span> 访问控制策略包</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑧ 网格协同</h3>
-        <ul>
-          <li><span class="st st-wip">进行中</span> 差分同步 NP-LITE</li>
-          <li><span class="st st-adj">邻接</span> P2P 网格 / federation</li>
-        </ul>
+      <div class="nav-actions">
+        <span class="lang-switch"><a href="../en/scenarios/ecosystem-eight-domains.html">EN</a></span>
+        <a class="btn btn-ink" href="https://node.novapanda.io/">立即前往零号试用台 →</a>
       </div>
     </div>
+  </nav>
 
-    <h2 class="section-title">ToolBundle ≠ Exchange Bundle</h2>
-    <table class="comp">
-      <tr><th></th><th>ToolBundle</th><th>Exchange Bundle</th></tr>
-      <tr><td>解决什么</td><td>多工具一次调用</td><td>一笔业务 · 多张 VDC</td></tr>
-      <tr><td>协议落点</td><td>绑定 + 客户端</td><td><a href="../../profiles/NP-BUNDLE.md">NP-BUNDLE</a></td></tr>
-      <tr><td>成功判据</td><td>工具调用正确</td><td>每笔 SETTLED + 可复验</td></tr>
-    </table>
-    <p class="section-lead">详文：<a href="bundle.md">bundle.md</a> · 完整八域表：<a href="ecosystem-eight-domains.md">ecosystem-eight-domains.md</a></p>
-
-    <h2 class="section-title">明确不做</h2>
-    <p class="section-lead">
-      全球 OTA 协议 · 飞控/交规 OS · 工作流塞进 CORE · 协议币/协议税 · 运营登录代替 Agent 签。
-      见 <a href="../../CHARTER.md">CHARTER</a>。
+  <header class="cap-hero wrap-wide">
+    <p class="cap-eyebrow">Ecosystem · 生态角色与边界</p>
+    <h1>谁在里面扮演什么角色</h1>
+    <p class="cap-lead">
+      NovaPanda 生态中的 <strong>4 大核心角色</strong>与 <strong>4 大基础支撑</strong>——统一交付事实，不统一操作系统。
     </p>
+  </header>
 
-    <div class="btn-row">
-      <a class="btn btn-dark" href="overview.html">场景总览</a>
-      <a class="btn btn-dark" href="../IMPLEMENTER_GUIDE.md">实现者指南</a>
-      <a class="btn btn-dark" href="ecosystem-eight-domains.md">Markdown 全文</a>
-      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/scenarios/ecosystem-eight-domains.md" style="background:transparent;color:var(--accent);border:1px solid var(--border)">GitHub</a>
+  <section class="cap-section wrap-wide">
+    <h2 class="cap-section-label">核心角色</h2>
+    <div class="eco-mesh">
+      <article class="eco-cell">
+        <span class="eco-idx">1</span>
+        <h3>交换主体 · Agent</h3>
+        <p>持有 Ed25519 身份，propose / deliver / 双签的真正主体。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">2</span>
+        <h3>运营实例 · Node</h3>
+        <p>编排交换、配额与 API；可替代，不是协议本身。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">3</span>
+        <h3>可信存证 · Registry</h3>
+        <p>规则、本体与扩展包的公开登记，支撑互认向量。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">4</span>
+        <h3>承兑商 · Settler</h3>
+        <p>可选清算轨（mock / x402 / 法币伙伴）——下游翻译层。</p>
+      </article>
     </div>
+  </section>
 
-    <footer>
-      非规范性说明 · MUST 以 CHARTER / spec / profiles 为准 · CC BY 4.0 叙事
-    </footer>
-  </div>
+  <section class="cap-section wrap-wide">
+    <h2 class="cap-section-label">基础支撑</h2>
+    <div class="eco-mesh">
+      <article class="eco-cell">
+        <span class="eco-idx">5</span>
+        <h3>协议规范 · SPEC</h3>
+        <p>状态机与语义的唯一真相源，CC BY 4.0 公共物。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">6</span>
+        <h3>发现协议 · Manifest</h3>
+        <p><code>/.well-known/novapanda.json</code>——陌生 Agent 瞬间识别能力。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">7</span>
+        <h3>凭证格式 · VDC</h3>
+        <p>可验证交割凭证：双签、canonical、可离线复验。</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">8</span>
+        <h3>验证工具 · Verifier</h3>
+        <p>本地 / 任意实现均可 reverify——兼容靠向量，不靠域名。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="cap-section wrap-wide">
+    <div class="final-cta">
+      <h2>角色清楚了，去验证交割语法</h2>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-ink" href="../trial.html">5 分钟 Trial</a>
+        <a class="btn btn-text" href="../constitution.html">设计承诺 →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer wrap-wide">
+    <div class="footer-links">
+      <a href="../index.html">首页</a>
+      <a href="overview.html">场景</a>
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC</a>
+    </div>
+    <p>本页为公开说明，非规范性条文 · 规范以 SPEC 为准</p>
+  </footer>
 </body>
 </html>

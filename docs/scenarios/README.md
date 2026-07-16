@@ -6,7 +6,9 @@
 
 ## 这是什么
 
-NovaPanda 不规定「用什么币付钱」，而规定：**陌生智能体 / 设备如何留下一张可独立复验的交付收据（VDC）**。
+NovaPanda 不规定「用什么币付钱」，而规定：**陌生智能体 / 智能 IoT 如何留下一张可独立复验的交付收据（VDC）**。
+
+北极星表述：**一切智能体与智能 IoT，无需人参与也能自主交割。人制定规则与终审 · 交换过程可由机器对机器完成。**
 
 下面所有场景共用同一套状态机：
 
@@ -25,6 +27,8 @@ PROPOSED → CONTRACTED → ESCROWED → DELIVERED → VERIFIED → SETTLED
 | 矩阵 | [`figures/04-matrix.svg`](figures/04-matrix.svg) | 场景 × 证据形态 |
 | IoT 生态 | [`figures/05-iot-ecosystem.svg`](figures/05-iot-ecosystem.svg) | 车·无人机·机器人·软件 Agent |
 | 嵌套海报 | [`figures/06-poster-nested.svg`](figures/06-poster-nested.svg) | 一笔业务 · 多张收据 |
+| 智能万物交换 | [`../figures/brand/novapanda-intelligent-everything-exchange-zh.webp`](../figures/brand/novapanda-intelligent-everything-exchange-zh.webp) | 官网愿景页主视觉 · 横向 |
+| 交付与清算 | [`figures/novapanda-exchange-layers-settlement-zh.webp`](figures/novapanda-exchange-layers-settlement-zh.webp) | 官网场景页 · 交割怎么叠、钱在哪一层 |
 
 组合约定（开源草案）：[`bundle.md`](bundle.md) · 旗舰：`S-nested-soft-diligence` / `S-nested-site-patrol`
 
@@ -44,14 +48,14 @@ PROPOSED → CONTRACTED → ESCROWED → DELIVERED → VERIFIED → SETTLED
 - **拒绝退款 / 超时清扫** — 异常路径同样是协议的一部分  
 - **多节点与见证** — 换节点仍可验；可选 witness/stake  
 
-### 灯塔 · 物联网经济（同一语法）
+### 灯塔 · 智能 IoT（同一语法 · 可无人值守）
 
-- **机器人** — 任务完成、机队分账  
-- **能源 / 车充** — 表计 kWh；车作为 Agent  
+- **机器人** — 任务完成、机队分账；设备侧可自动签收  
+- **能源 / 车充** — 表计 kWh；车↔桩自动交割  
 - **自动驾驶车** — 场站、V2X 交付层（不管控制栈）  
 - **无人机** — 航线、空域/起降、巡检交付  
 - **传感 / 边缘** — 可证数据与边缘算力  
-- **跨域编排 + 人类终审** — 车·机·无人机协作；重大责任保留人  
+- **跨域编排** — 车·机·无人机协作；**交换过程可无人参与**，人保留规则与重大终审  
 
 总图：[`figures/05-iot-ecosystem.svg`](figures/05-iot-ecosystem.svg)。
 

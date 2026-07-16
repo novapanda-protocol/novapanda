@@ -84,196 +84,298 @@ def _exchange_table_rows(items: list[dict[str, Any]]) -> str:
 
 _CSS = """
 :root {
-  --bg: #0f1419;
-  --card: #1a2332;
-  --text: #e7ecf3;
-  --muted: #8b9cb3;
-  --accent: #3d9cf5;
-  --ok: #3ecf8e;
-  --warn: #ffb347;
-  --border: #2a3544;
+  --bg: #f8fafc;
+  --bg-elev: #ffffff;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --muted-soft: #64748b;
+  --accent: #0ea5e9;
+  --accent-dim: rgba(14, 165, 233, .1);
+  --ok: #10b981;
+  --warn: #d97706;
+  --warn-bg: #fef3c7;
+  --border: #e2e8f0;
+  --term: #0f172a;
+  --term-chrome: #1e293b;
+  --table-head: #f8fafc;
+  --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .06);
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0; font-family: "Segoe UI", "PingFang SC", system-ui, sans-serif;
-  background: linear-gradient(160deg, #0b1020 0%, #121a28 40%, #0f1419 100%);
-  color: var(--text); line-height: 1.55; min-height: 100vh;
+  margin: 0;
+  font-family: "IBM Plex Sans", "Segoe UI", "PingFang SC", system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.55; min-height: 100vh;
 }
-.wrap { max-width: 980px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
-header { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-h1 { font-size: 1.35rem; margin: 0; font-weight: 600; }
-h2 { font-size: .95rem; margin: 0 0 .75rem; color: var(--muted); font-weight: 500; }
-h3 { font-size: .88rem; margin: 1rem 0 .5rem; color: var(--muted); font-weight: 500; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+.site-header {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem;
+  padding: 1.1rem 0; margin-bottom: .85rem;
+  border-bottom: 1px solid var(--border);
+}
+.brand-block { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; min-width: 0; }
+.brand-block .brand-name { font-size: 1.05rem; font-weight: 650; letter-spacing: -.01em; margin: 0; color: var(--text); }
+.brand-block .brand-sub { font-size: .78rem; color: var(--muted-soft); margin: .15rem 0 0; }
 .badge {
   display: inline-flex; align-items: center; gap: .4rem;
-  background: rgba(62, 207, 142, .15); color: var(--ok);
-  border: 1px solid rgba(62, 207, 142, .35); border-radius: 999px;
-  padding: .25rem .75rem; font-size: .85rem;
+  color: var(--ok); font-size: .8rem; font-weight: 600;
+  background: transparent; border: 0; padding: 0;
 }
 .badge::before {
   content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok);
+  animation: live-pulse 2s ease-in-out infinite;
 }
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, .45); }
+  50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+.notice-bar {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem .65rem;
+  background: var(--warn-bg); color: var(--warn);
+  border-radius: 8px; padding: .55rem .9rem; margin-bottom: 1.15rem;
+  font-size: .84rem; border: 0;
+}
+.notice-bar a { color: #b45309; font-weight: 600; text-decoration: none; }
+.notice-bar a:hover { text-decoration: underline; }
+.notice-bar .notice-ico { flex-shrink: 0; }
 .banner-hard {
-  background: rgba(255, 179, 71, .1); border: 1px solid rgba(255, 179, 71, .35);
-  border-radius: 10px; padding: .75rem 1rem; margin-bottom: 1rem; font-size: .88rem;
+  background: var(--warn-bg); border: 1px solid #fde68a;
+  border-radius: 10px; padding: .75rem 1rem; margin-bottom: 1rem; font-size: .88rem; color: var(--warn);
 }
-.banner-hard strong { color: var(--warn); }
-.banner-sandbox { border-color: rgba(61, 156, 245, .45); background: rgba(61, 156, 245, .08); }
-.banner-live { border-color: rgba(255, 107, 107, .45); background: rgba(255, 107, 107, .08); }
-.banner-mock { border-color: rgba(255, 179, 71, .35); }
-.banner-dispute { border-color: rgba(255, 107, 107, .5); }
-.banner-frail { border-color: rgba(255, 107, 107, .55); }
+.banner-hard strong { color: #b45309; }
+.banner-sandbox { border-color: #bae6fd; background: #e0f2fe; color: #0369a1; }
+.banner-live { border-color: #fecaca; background: #fef2f2; color: #b91c1c; }
+.banner-mock { border-color: #fde68a; }
+.banner-dispute { border-color: #fecaca; background: #fef2f2; }
+.banner-frail { border-color: #fecaca; }
 .banner-claims-risk { font-size: .85rem; margin-bottom: .75rem; }
 .claim-mock { color: var(--warn); font-weight: 600; }
 textarea.tool, input.tool {
-  width: 100%; background: #0d1218; color: var(--text); border: 1px solid var(--border);
-  border-radius: 8px; padding: .55rem .7rem; font-family: ui-monospace, monospace; font-size: .82rem;
+  width: 100%; background: #fff; color: var(--text); border: 1px solid var(--border);
+  border-radius: 8px; padding: .55rem .7rem;
+  font-family: ui-monospace, "IBM Plex Mono", monospace; font-size: .82rem;
 }
+textarea.tool:focus, input.tool:focus { outline: 2px solid rgba(14,165,233,.25); border-color: var(--accent); }
 button.tool {
-  background: var(--accent); color: #061018; border: 0; border-radius: 8px;
+  background: var(--accent); color: #fff; border: 0; border-radius: 8px;
   padding: .45rem .9rem; font-weight: 600; cursor: pointer; margin-right: .5rem; margin-top: .5rem;
+  box-shadow: var(--shadow);
 }
-button.tool.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-nav.top { margin-left: auto; font-size: .9rem; }
-nav.top a { color: var(--accent); text-decoration: none; margin-left: 1rem; }
-nav.top a:hover { text-decoration: underline; }
-.tab-nav {
-  display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1rem;
-  border-bottom: 1px solid var(--border); padding-bottom: .65rem;
+button.tool.secondary { background: #fff; color: var(--accent); border: 1px solid var(--border); box-shadow: none; }
+nav.top {
+  margin-left: auto; display: flex; flex-wrap: wrap; align-items: center;
+  gap: .1rem .05rem; font-size: .88rem;
 }
-.tab-nav a {
-  color: var(--muted); text-decoration: none; font-size: .88rem;
-  padding: .35rem .75rem; border-radius: 8px;
+nav.top a {
+  color: var(--muted); text-decoration: none; padding: .4rem .7rem; border-radius: 8px;
 }
-.tab-nav a:hover { color: var(--accent); background: rgba(61, 156, 245, .08); }
-.tab-nav a.active { color: var(--accent); background: rgba(61, 156, 245, .15); }
-.tab-panel[hidden] { display: none !important; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+nav.top a:hover { color: var(--text); background: #f1f5f9; }
+nav.top a.active { color: var(--accent); background: var(--accent-dim); font-weight: 600; }
+nav.top a.btn-ghost {
+  border: 0; color: var(--muted); margin-left: .35rem; background: transparent;
+}
+nav.top a.btn-ghost:hover { color: var(--text); background: #f1f5f9; }
+nav.top a.cta {
+  background: var(--accent); color: #fff; font-weight: 650; margin-left: .35rem;
+  box-shadow: var(--shadow); padding: .45rem .95rem;
+}
+nav.top a.cta:hover { filter: brightness(1.05); color: #fff; }
+nav.top a.nav-muted { color: var(--muted-soft); font-size: .8rem; }
+.auth-shell { max-width: 440px; margin: 1.5rem auto 0; }
+.auth-hint {
+  background: var(--warn-bg); color: var(--warn); border-radius: 8px;
+  padding: .65rem .85rem; margin-bottom: 1rem; font-size: .84rem;
+}
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .85rem; margin-bottom: .75rem; }
 .card {
   background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1rem;
+  border-radius: 12px; padding: 1.15rem 1.25rem; margin-bottom: 1rem;
+  box-shadow: var(--shadow);
 }
-.stat { font-size: 1.65rem; font-weight: 700; }
+.card h2 {
+  font-size: .78rem; margin: 0 0 .85rem; color: var(--muted-soft); font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.card h2.card-title {
+  font-size: 1.05rem; color: var(--text); text-transform: none; letter-spacing: -.01em; font-weight: 700;
+}
+h1 { font-size: 1.35rem; margin: 0; font-weight: 600; color: var(--text); }
+h3 { font-size: .88rem; margin: 1rem 0 .5rem; color: var(--muted); font-weight: 500; }
+.stat { font-size: 1.55rem; font-weight: 700; letter-spacing: -.02em; color: var(--text); }
+.stat-row { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: .85rem; }
+.stat-row .stat-item .label { font-size: .75rem; color: var(--muted-soft); margin-bottom: .2rem; }
 .muted { color: var(--muted); font-size: .9rem; }
-.mono { font-family: ui-monospace, "Cascadia Code", monospace; }
-.small { font-size: .78rem; }
+.mono { font-family: ui-monospace, "IBM Plex Mono", "Cascadia Code", monospace; }
+.small { font-size: .78rem; color: var(--muted-soft); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .chip {
-  background: #243044; border-radius: 8px; padding: .35rem .6rem; font-size: .82rem;
+  background: #f1f5f9; border-radius: 8px; padding: .35rem .6rem; font-size: .82rem; color: var(--text);
 }
-.state-chip.state-SETTLED { background: rgba(62,207,142,.2); color: var(--ok); }
+.state-chip.state-SETTLED { background: #d1fae5; color: #047857; }
 .state-chip.state-PROPOSED,
 .state-chip.state-CONTRACTED,
 .state-chip.state-ESCROWED,
 .state-chip.state-DELIVERED,
-.state-chip.state-VERIFIED { background: rgba(61,156,245,.15); color: var(--accent); }
+.state-chip.state-VERIFIED { background: #e0f2fe; color: #0369a1; }
 .state-chip.state-EXPIRED_REFUNDED,
 .state-chip.state-REJECTED,
-.state-chip.state-DISPUTED { background: rgba(255,120,120,.12); color: #ff9a9a; }
+.state-chip.state-DISPUTED { background: #fee2e2; color: #b91c1c; }
 table { width: 100%; border-collapse: collapse; font-size: .85rem; }
-th, td { text-align: left; padding: .55rem .4rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-th { color: var(--muted); font-weight: 500; }
-.table-wrap { overflow-x: auto; }
+th, td { text-align: left; padding: .65rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th {
+  color: #64748b; font-weight: 500; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .04em; background: var(--table-head);
+}
+tbody tr:hover { background: #f8fafc; }
+.table-wrap { overflow-x: auto; border-radius: 8px; }
+.table-empty { text-align: center; color: var(--muted-soft); padding: 1.5rem .5rem !important; }
 .op-nav { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 1rem; }
 .op-nav a {
   color: var(--accent); text-decoration: none; font-size: .88rem;
-  padding: .35rem .7rem; border: 1px solid var(--border); border-radius: 8px;
+  padding: .35rem .7rem; border: 1px solid var(--border); border-radius: 8px; background: #fff;
 }
-.op-nav a:hover { background: rgba(61, 156, 245, .1); }
+.op-nav a:hover { background: var(--accent-dim); }
 .json {
-  background: #0f1419; border: 1px solid var(--border); border-radius: 8px;
+  background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
   padding: .75rem 1rem; overflow-x: auto; font-size: .78rem; line-height: 1.45;
-  max-height: 28rem; overflow-y: auto;
+  max-height: 14rem; overflow-y: auto; color: var(--text);
 }
 .kv { display: grid; grid-template-columns: 9rem 1fr; gap: .35rem .75rem; font-size: .88rem; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; word-break: break-all; }
-.field { display: block; margin: .75rem 0; }
+.field { display: block; margin: .75rem 0; color: var(--muted); font-size: .88rem; }
 .field input {
   display: block; width: 100%; max-width: 420px; margin-top: .35rem;
   padding: .5rem .65rem; border-radius: 8px; border: 1px solid var(--border);
-  background: #0f1419; color: var(--text);
+  background: #fff; color: var(--text);
 }
 button {
   background: var(--accent); color: #fff; border: none; border-radius: 8px;
-  padding: .55rem 1rem; font-size: .9rem; cursor: pointer;
+  padding: .55rem 1rem; font-size: .9rem; cursor: pointer; font-weight: 600;
+  box-shadow: var(--shadow);
 }
-button:hover { filter: brightness(1.08); }
+button:hover { filter: brightness(1.05); }
 button.secondary {
-  background: transparent; color: var(--accent); border: 1px solid var(--border);
+  background: #fff; color: var(--accent); border: 1px solid var(--border); box-shadow: none;
 }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: .5rem; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: .65rem; }
 .link-list { list-style: none; padding: 0; margin: 0; }
-.link-list li { margin: .45rem 0; }
-footer { margin-top: 2rem; font-size: .8rem; color: var(--muted); }
+.link-list li { margin: .55rem 0; font-size: .9rem; }
+.link-list a { color: var(--text); text-decoration: none; }
+.link-list a:hover { color: var(--accent); }
+.link-list .ico { margin-right: .35rem; opacity: .85; }
+footer {
+  margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  font-size: .78rem; color: var(--muted-soft);
+}
 footer a { color: var(--accent); }
 .pill-row { display: flex; flex-wrap: wrap; gap: .4rem; }
 .pill {
-  display: inline-block; background: #243044; border-radius: 999px;
-  padding: .2rem .55rem; font-size: .78rem;
+  display: inline-block; background: #f1f5f9; border-radius: 999px;
+  padding: .2rem .55rem; font-size: .78rem; color: var(--muted);
 }
-.brand-block .brand-poster {
-  width: 100%; max-width: 720px; border-radius: 10px;
-  border: 1px solid var(--border); display: block; margin-top: .5rem;
+.desk-grid {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem; margin-bottom: 1rem;
+  align-items: start;
 }
-header .tagline { margin: .15rem 0 0; font-size: .88rem; color: var(--muted); }
+@media (max-width: 860px) { .desk-grid { grid-template-columns: 1fr; } }
+.quota-line { font-size: .9rem; margin: 0 0 .75rem; color: var(--muted); }
+.quota-cta {
+  display: inline-block; font-size: .88rem; font-weight: 700; color: var(--accent);
+  text-decoration: none;
+}
+.quota-cta:hover { text-decoration: underline; }
+.term-window {
+  background: var(--term); border: 1px solid #1e293b; border-radius: 10px;
+  overflow: hidden; margin: .45rem 0 .9rem;
+}
+.term-chrome {
+  display: flex; align-items: center; gap: .4rem; padding: .45rem .75rem;
+  background: var(--term-chrome); border-bottom: 1px solid #334155;
+  font-size: .72rem; color: #94a3b8;
+}
+.term-dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
+.term-dot.r { background: #f87171; }
+.term-dot.y { background: #fbbf24; }
+.term-dot.g { background: #34d399; }
+pre.cmd {
+  margin: 0; padding: .95rem 1rem; overflow-x: auto;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: .82rem; line-height: 1.7; color: #e2e8f0;
+}
+pre.cmd .prompt { color: #34d399; user-select: none; }
+pre.cmd .cmd-hl { color: #38bdf8; }
+.card-stack { display: flex; flex-direction: column; gap: 1rem; }
+.card-stack .card { margin-bottom: 0; }
+.card a { color: var(--accent); }
+code { font-size: .88em; background: #f1f5f9; padding: .1rem .35rem; border-radius: 4px; color: #0f172a; }
+.term-window code { background: transparent; color: inherit; padding: 0; }
 """
 
 
-_TAB_SCRIPT = """
-(function () {
-  const panels = document.querySelectorAll('.tab-panel');
-  const links = document.querySelectorAll('.tab-nav a[data-tab]');
-  function activate() {
-    const hash = (location.hash || '#overview').slice(1);
-    panels.forEach(function (p) { p.hidden = p.id !== 'panel-' + hash; });
-    links.forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('data-tab') === hash);
-    });
-  }
-  window.addEventListener('hashchange', activate);
-  links.forEach(function (a) {
-    a.addEventListener('click', function () {
-      location.hash = a.getAttribute('data-tab');
-    });
-  });
-  activate();
-})();
-"""
-
-
-def _nav(*, admin: bool = False) -> str:
+def _nav(*, admin: bool = False, active: str = "home") -> str:
     if admin:
         return (
             '<nav class="top">'
-            '<a href="/">控制台</a>'
-            '<a href="/admin">运维</a>'
-            '<a href="/docs">API 文档</a>'
-            '<a href="https://novapanda.io">官网</a>'
+            '<a href="/">试用台</a>'
+            '<a href="/admin" class="active">运维</a>'
+            '<a href="/docs">API Docs</a>'
+            '<a href="https://novapanda.io/">官网</a>'
+            '<a href="https://github.com/novapanda-protocol/novapanda">GitHub</a>'
             "</nav>"
         )
-    tabs = [
-        ("overview", "概览"),
-        ("discover", "发现"),
-        ("scenarios", "场景"),
-        ("verify", "验证"),
-        ("exchanges", "交换"),
-        ("reputation", "信誉"),
-        ("trial", "试用"),
-        ("api", "API"),
-        ("me", "我的"),
-    ]
-    links = "".join(
-        f'<a href="#{tid}" data-tab="{tid}">{label}</a>' for tid, label in tabs
-    )
-    top = (
+
+    def link(href: str, key: str, label: str, *extra_cls: str) -> str:
+        cls = [c for c in extra_cls if c]
+        if key == active:
+            cls.append("active")
+        attr = f' class="{" ".join(cls)}"' if cls else ""
+        return f'<a href="{href}"{attr}>{label}</a>'
+
+    return (
         '<nav class="top">'
-        '<a href="/admin">运维</a>'
-        '<a href="/docs">API 文档</a>'
-        '<a href="https://novapanda.io">官网</a>'
-        "</nav>"
+        + link("/", "home", "试用台")
+        + link("/tools", "tools", "调试工具")
+        + link("/docs", "docs", "API Docs")
+        + '<a href="https://novapanda.io/">官网</a>'
+        + '<a href="https://github.com/novapanda-protocol/novapanda">GitHub</a>'
+        + link("/login", "login", "登录", "btn-ghost")
+        + link("/register", "register", "注册提额", "cta")
+        + "</nav>"
     )
-    return top + f'<nav class="tab-nav">{links}</nav>'
+
+
+def _quiet_notice_bar(profile: Optional[dict[str, Any]] = None) -> str:
+    """首页诚实条：浅黄温暖 Notice，非刺眼警示。"""
+    caps = (profile or {}).get("capabilities") or {}
+    status = (profile or {}).get("status") or {}
+    env = (
+        caps.get("settlement_environment")
+        or status.get("settlement_environment")
+        or "mock"
+    )
+    if env == "sandbox":
+        main = (
+            "沙箱结算：伙伴测试环境；勿用于生产账务。VDC 与交割流程为真。"
+            " Operator 登录仅用于配额与运营对账，不替代 Agent 签名。"
+        )
+    elif env in ("live", "production"):
+        partner = caps.get("settlement_partner") or status.get("settlement_partner") or "partner"
+        main = (
+            f"真钱轨：资金由 {_esc(partner)} 处理；协议不保管资金。"
+            " Operator 登录不替代 Agent 签名。"
+        )
+    else:
+        main = (
+            "本站为协议 Mock 试用实例，无真实资金移动。VDC 离线复验为真。"
+            " Operator 登录账户仅用于配额与运营对账，不替代 Agent 签名做协议交割。"
+        )
+    return f"""
+<div class="notice-bar" role="note">
+  <span class="notice-ico" aria-hidden="true">ℹ️</span>
+  <span>{main}</span>
+  <a href="https://novapanda.io/constitution.html">了解边界说明 →</a>
+</div>"""
 
 
 def _layout(
@@ -281,35 +383,44 @@ def _layout(
     body: str,
     *,
     admin: bool = False,
+    active: str = "home",
     extra_head: str = "",
     extra_script: str = "",
 ) -> str:
     script_block = f"<script>{extra_script}</script>" if extra_script else ""
-    badge = "运行中 · mock 试用" if not admin else "运维面板"
+    brand_title = "NovaPanda 零号节点" if not admin else "NovaPanda 零号节点 · 运维"
+    brand_sub = "Developer Playground · mock 试用" if not admin else "Admin"
+    live = (
+        ""
+        if admin
+        else '<span class="badge" title="节点存活">运行中</span>'
+    )
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>{_esc(title)}</title>
   <style>{_CSS}</style>
   {extra_head}
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div>
-        <h1>{_esc(title)}</h1>
-        {'' if admin else '<p class="tagline">mock 试用 · 运营注册仅在本站 · 介绍与看图见 <a href="https://novapanda.io/">novapanda.io</a></p>'}
+    <header class="site-header">
+      <div class="brand-block">
+        <div>
+          <p class="brand-name">{_esc(brand_title)} {live}</p>
+          <p class="brand-sub">{_esc(brand_sub)}</p>
+        </div>
       </div>
-      <span class="badge">{_esc(badge)}</span>
-      {_nav(admin=admin)}
+      {_nav(admin=admin, active=active)}
     </header>
     {body}
     <footer>
       北京青合数智科技有限公司 · NovaPanda 零号节点 ·
-      <a href="https://novapanda.io/trial.html">开发者 Quickstart</a> ·
-      非银行/支付机构，不托管资金
+      <a href="https://novapanda.io/trial.html">开发者 Trial</a> ·
+      场景图与叙事见官网 · 非银行/支付机构，不托管资金
     </footer>
   </div>
   {script_block}
@@ -1117,26 +1228,258 @@ def _admin_body() -> str:
 </script>"""
 
 
-def render_console(profile: dict[str, Any], *, admin: bool = False) -> str:
-    """渲染零号节点控制台 HTML。"""
-    if admin:
-        title = "NovaPanda 零号节点 · 运维"
-        return _layout(title, _admin_body(), admin=True)
+def _trial_desk_body(profile: dict[str, Any]) -> str:
+    status = profile.get("status") or {}
+    pol = profile.get("operator_policy") or {}
+    recent = status.get("recent") or []
+    rows = "".join(
+        "<tr>"
+        f'<td><a href="/console/exchanges/{_esc(ex.get("exchange_id", ""))}">'
+        f'<code>{_esc(_short(str(ex.get("exchange_id", "")), 16))}</code></a></td>'
+        f'<td class="mono small muted" title="{_esc(ex.get("client", ""))}">'
+        f'{_esc(_short(str(ex.get("client", "")), 18))}</td>'
+        f'<td class="mono small muted" title="{_esc(ex.get("provider", ""))}">'
+        f'{_esc(_short(str(ex.get("provider", "")), 18))}</td>'
+        f"<td>{_state_chip(ex.get('state', ''))}</td>"
+        f'<td class="mono small muted">{_esc(_short(str(ex.get("updated_at", "")), 22))}</td>'
+        "</tr>"
+        for ex in recent[:15]
+    ) or (
+        '<tr><td colspan="5" class="table-empty">'
+        "尚无交换 — 本地跑完 Trial 脚本后自动呈现在此"
+        "</td></tr>"
+    )
+    anon_limit = pol.get("anonymous_propose_per_day", 20)
+    verified_limit = pol.get("verified_propose_per_day", 200)
+    settle = status.get("settlement", "mock")
+    return f"""
+{_quiet_notice_bar(profile)}
+<div class="desk-grid">
+  <section class="card">
+    <h2 class="card-title">5 分钟跑通 SETTLED 交割</h2>
+    <div class="term-window">
+      <div class="term-chrome">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span>terminal · trial</span>
+      </div>
+      <pre class="cmd"><span class="prompt">$</span> <span class="cmd-hl">curl</span> -fsS https://node.novapanda.io/health
+<span class="prompt">$</span> <span class="cmd-hl">git</span> clone https://github.com/novapanda-protocol/novapanda.git
+<span class="prompt">$</span> <span class="cmd-hl">cd</span> novapanda &amp;&amp; python -m venv .venv &amp;&amp; pip install -e .
+<span class="prompt">$</span> <span class="cmd-hl">python</span> demo/trial_remote.py</pre>
+    </div>
+    <p class="muted" style="margin:0">
+      私钥仅在本地。输出含 <code>SETTLED</code> 与 VDC。
+      <a href="https://novapanda.io/trial.html">完整集成指引</a>
+      （Cursor / Codex / MCP）→
+    </p>
+  </section>
+  <div class="card-stack">
+    <section class="card" id="status-strip">
+      <h2>节点状态 &amp; 匿名配额</h2>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="label">交换总数</div>
+          <div class="stat">{_esc(status.get("exchange_total", 0))}</div>
+        </div>
+        <div class="stat-item">
+          <div class="label">已结算</div>
+          <div class="stat">{_esc(status.get("settled_total", 0))}</div>
+        </div>
+        <div class="stat-item">
+          <div class="label">结算</div>
+          <div class="stat" style="font-size:1.1rem">{_esc(settle)}</div>
+        </div>
+      </div>
+      <p class="quota-line" id="quota-line">
+        今日匿名配额：<strong id="quota-live">加载中…</strong>
+        <span class="small">（默认 {_esc(anon_limit)}/日 · 验邮 {_esc(verified_limit)}/日）</span>
+      </p>
+      <a class="quota-cta" href="/register">去注册提额至 {_esc(verified_limit)}/日 →</a>
+    </section>
+    <section class="card">
+      <h2>机器发现</h2>
+      <ul class="link-list">
+        <li><a href="/.well-known/novapanda.json"><span class="ico">📄</span>Manifest <code>/.well-known/novapanda.json</code></a></li>
+        <li><a href="/docs"><span class="ico">🛠️</span>OpenAPI Swagger Docs</a></li>
+        <li><a href="/tools"><span class="ico">🔌</span>调试工具（canonical / Bundle / claim mock）</a></li>
+        <li><a href="https://novapanda.io/scenarios/overview.html"><span class="ico">🎨</span>场景图（去官网 →）</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+<section class="card">
+  <h2>最近交换记录</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Exchange ID</th>
+          <th>Client</th>
+          <th>Provider</th>
+          <th>State</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  </div>
+</section>
+<script>
+(function(){{
+  fetch('/operator/quota').then(function(r){{ return r.json(); }}).then(function(j){{
+    var q = j.quota || j;
+    var el = document.getElementById('quota-live');
+    if(el) el.textContent = (q.remaining != null ? q.remaining : '—')
+      + ' / ' + (q.limit != null ? q.limit : '—') + ' (可用)';
+  }}).catch(function(){{
+    var el = document.getElementById('quota-live');
+    if(el) el.textContent = '暂不可用';
+  }});
+}})();
+</script>
+"""
 
-    title = "NovaPanda 零号节点"
-    panels = "".join([
-        _panel_overview(profile),
-        _panel_discover(profile),
-        _panel_scenarios(profile),
-        _panel_verify(profile),
-        _panel_exchanges(profile),
-        _panel_reputation(profile),
-        _panel_trial(profile),
-        _panel_api(profile),
-        _panel_me(profile),
-    ])
-    body = panels
-    return _layout(title, body, admin=False, extra_script=_TAB_SCRIPT)
+
+def render_tools_page(profile: dict[str, Any]) -> str:
+    """调试工具页（原验证 Tab）。"""
+    raw = _panel_verify(profile)
+    raw = raw.replace(
+        '<section class="tab-panel" id="panel-verify" hidden>',
+        '<div id="tools-root">',
+        1,
+    )
+    # Close the outer wrapper (last </section> before <script>)
+    idx = raw.rfind("</section>\n<script>")
+    if idx >= 0:
+        raw = raw[:idx] + "</div>\n<script>" + raw[idx + len("</section>\n<script>") :]
+    raw = raw.replace(
+        '<li><a href="#scenarios">场景 Tab</a> — 开源 catalog</li>',
+        '<li><a href="https://novapanda.io/scenarios/overview.html">场景图 → 官网</a></li>',
+    )
+    return _layout("NovaPanda 零号 · 调试", raw, active="tools")
+
+
+def render_register_page(profile: Optional[dict[str, Any]] = None) -> str:
+    pol = (profile or {}).get("operator_policy") or {}
+    anon = _esc(pol.get("anonymous_propose_per_day", 20))
+    verified = _esc(pol.get("verified_propose_per_day", 200))
+    body = f"""
+<div class="auth-shell">
+  <div class="auth-hint">
+    ⚠️ 零号节点不托管任何 Agent 私钥。此注册仅用于提升你的 IP 调用配额
+    （{_esc(anon)} 次 → {_esc(verified)} 次）并提供对账视图。
+  </div>
+  <section class="card">
+    <h2 class="card-title">注册运营账户</h2>
+    <p class="muted">不替代 Agent Ed25519 签名。介绍与看图请回
+      <a href="https://novapanda.io/">官网</a>。</p>
+    <label class="field">邮箱 <input class="tool" id="reg-email" type="email" autocomplete="email" /></label>
+    <label class="field">密码 <input class="tool" id="reg-pass" type="password" autocomplete="new-password" /></label>
+    <label class="field">显示名 <input class="tool" id="reg-name" autocomplete="nickname" /></label>
+    <label class="field" style="display:flex;align-items:center;gap:.5rem">
+      <input type="checkbox" id="reg-terms" /> 同意
+      <a href="https://novapanda.io/terms.html">用户协议</a> 与
+      <a href="https://novapanda.io/privacy.html">隐私政策</a>
+    </label>
+    <button type="button" class="tool" id="reg-btn">注册</button>
+    <pre class="json" id="reg-out">—</pre>
+    <h3>验邮 OTP</h3>
+    <p class="muted">Trial 环境在响应中返回 <code>otp_dev</code>（生产发邮件）。</p>
+    <input class="tool" id="reg-otp" placeholder="6 位 OTP" />
+    <button type="button" class="tool" id="verify-btn">验证邮箱</button>
+    <pre class="json" id="verify-out">—</pre>
+    <p class="muted">验证后请 <a href="/login">登录</a> → Operator 门户绑定 Agent。</p>
+  </section>
+</div>
+<script>
+(function(){{
+  async function jpost(url, body){{
+    const r = await fetch(url, {{method:'POST', headers:{{'Content-Type':'application/json'}}, body: JSON.stringify(body)}});
+    return {{ok:r.ok, body: await r.json().catch(()=>({{}}))}};
+  }}
+  document.getElementById('reg-btn').onclick = async ()=>{{
+    if(!document.getElementById('reg-terms').checked){{
+      document.getElementById('reg-out').textContent = '请勾选同意条款';
+      return;
+    }}
+    const res = await jpost('/operator/register', {{
+      email: document.getElementById('reg-email').value,
+      password: document.getElementById('reg-pass').value,
+      display_name: document.getElementById('reg-name').value,
+      accept_terms: true
+    }});
+    document.getElementById('reg-out').textContent = JSON.stringify(res.body, null, 2);
+    if(res.body.otp_dev) document.getElementById('reg-otp').value = res.body.otp_dev;
+  }};
+  document.getElementById('verify-btn').onclick = async ()=>{{
+    const res = await jpost('/operator/verify', {{
+      email: document.getElementById('reg-email').value,
+      otp: document.getElementById('reg-otp').value
+    }});
+    document.getElementById('verify-out').textContent = JSON.stringify(res.body, null, 2);
+  }};
+}})();
+</script>
+"""
+    return _layout("NovaPanda 零号 · 注册", body, active="register")
+
+
+def render_login_page() -> str:
+    body = """
+<div class="auth-shell">
+  <div class="auth-hint">
+    ⚠️ 零号节点不托管任何 Agent 私钥。此登录仅用于提升配额与对账视图，不替代 Agent 签名。
+  </div>
+  <section class="card">
+    <h2 class="card-title">登录运营账户</h2>
+    <p class="muted">Session 仅用于运营面；exchange 仍须 Agent 签名。
+      无账号？<a href="/register">注册提额</a></p>
+    <label class="field">邮箱 <input class="tool" id="login-email" type="email" autocomplete="username" /></label>
+    <label class="field">密码 <input class="tool" id="login-pass" type="password" autocomplete="current-password" /></label>
+    <button type="button" class="tool" id="login-btn">登录</button>
+    <pre class="json" id="login-out">—</pre>
+  </section>
+</div>
+<script>
+(function(){
+  const tokKey = 'novapanda_operator_token';
+  document.getElementById('login-btn').onclick = async ()=>{
+    const r = await fetch('/operator/login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        email: document.getElementById('login-email').value,
+        password: document.getElementById('login-pass').value
+      })
+    });
+    const body = await r.json().catch(()=>({}));
+    document.getElementById('login-out').textContent = JSON.stringify(body, null, 2);
+    if(body.session_token){
+      sessionStorage.setItem(tokKey, body.session_token);
+      location.href = '/operator/dashboard';
+    }
+  };
+})();
+</script>
+"""
+    return _layout("NovaPanda 零号 · 登录", body, active="login")
+
+
+def render_console(profile: dict[str, Any], *, admin: bool = False) -> str:
+    """渲染零号节点：试用台（IA v2）或运维页。"""
+    if admin:
+        return _layout(
+            "NovaPanda 零号节点 · 运维",
+            _admin_body(),
+            admin=True,
+            active="admin",
+        )
+    return _layout(
+        "NovaPanda 零号节点",
+        _trial_desk_body(profile),
+        admin=False,
+        active="home",
+    )
 
 
 def render_exchange_detail(detail: dict[str, Any]) -> str:
@@ -1178,8 +1521,9 @@ def render_exchange_detail(detail: dict[str, Any]) -> str:
 def _operator_layout(title: str, active: str, inner: str) -> str:
     return _layout(
         title,
-        f'<p><a href="/">← 控制台</a> · <a href="/#me">我的 Tab</a></p>{_operator_nav(active)}{inner}',
+        f'<p><a href="/">← 试用台</a> · <a href="/login">换账号</a></p>{_operator_nav(active)}{inner}',
         admin=False,
+        active="operator",
     )
 
 
@@ -1319,7 +1663,7 @@ def render_operator_agents_ui(bindings: list[dict[str, Any]]) -> str:
     inner = f"""
 <section class="card">
   <h2>绑定 Agent（UC-31）</h2>
-  <p class="muted">须在 Agent 本地对 <code>novapanda.operator_claim</code> payload 签名。快捷入口见控制台「我的」Tab。</p>
+  <p class="muted">须在 Agent 本地对 <code>novapanda.operator_claim</code> payload 签名。先 <a href="/login">登录</a> 再绑定。</p>
   <table class="data">
     <thead><tr><th>agent_id</th><th>label</th><th>bound_at</th><th>verified</th></tr></thead>
     <tbody>{rows}</tbody>

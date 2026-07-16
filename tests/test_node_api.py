@@ -136,7 +136,8 @@ def test_dashboard_pages(ctx):
     assert home.status_code == 200
     assert "NovaPanda" in home.text
     assert "交换总数" in home.text
-    assert 'data-tab="scenarios"' in home.text
+    assert "5 分钟跑通 SETTLED" in home.text
+    assert "最近交换" in home.text
     admin = client._http.get("/admin")
     assert admin.status_code == 200
     assert "运维操作" in admin.text

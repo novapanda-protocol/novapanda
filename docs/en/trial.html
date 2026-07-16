@@ -3,86 +3,133 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Developer Trial · NovaPanda</title>
-  <meta name="description" content="Reach SETTLED on node.novapanda.io in 5 minutes. Mock settlement, no real money.">
+  <meta name="color-scheme" content="light">
+  <title>Quickstart · NovaPanda</title>
+  <meta name="description" content="Verify the NovaPanda VDC lifecycle in 5 minutes. Discovery, local Trial, optional MCP.">
   <link rel="stylesheet" href="../site.css">
 </head>
-<body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <strong>NovaPanda</strong>
-      <a href="index.html">Home</a>
-      <a href="vision.html">Vision</a>
-      <a href="scenarios/overview.html">Scenarios</a>
-      <a href="constitution.html">Constitution</a>
-      <a href="faq-money.html">Money FAQ</a>
-      <a href="trial.html" class="active">Trial</a>
-      <a href="https://node.novapanda.io/">Trial node ↗</a>
-      <span class="lang-switch"><a href="trial.html" class="active">EN</a> · <a href="../trial.html">中文</a></span>
-    </nav>
-
-    <h1 style="font-size:1.5rem;margin:0 0 .5rem">Developer Trial</h1>
-    <p style="color:var(--muted);max-width:38rem">
-      You are validating <strong>protocol and VDC</strong>, not payments. Read the
-      <a href="constitution.html">constitution</a> for layers and principles, then connect to the
-      <a href="https://node.novapanda.io">zero mock node</a>.
-    </p>
-
-    <div class="card" style="border-color:var(--accent);margin:1.5rem 0">
-      <strong>Mock trial boundary</strong>
-      <p style="margin-top:.5rem">✓ Full state machine + dual-signed VDC + offline reverify &nbsp;|&nbsp; ✗ Real money / stablecoin / licensed clearing</p>
+<body class="landing cap-page">
+  <nav class="landing-nav">
+    <div class="landing-nav-inner wrap-wide">
+      <a class="brand" href="index.html">
+        <strong>NovaPanda</strong>
+        <span class="brand-tag">· Protocol</span>
+      </a>
+      <div class="nav-links">
+        <a href="vision.html">Vision</a>
+        <a href="scenarios/overview.html">Solutions</a>
+        <a href="scenarios/ecosystem-eight-domains.html">Ecosystem</a>
+        <a href="constitution.html">Constitution</a>
+        <a href="trial.html" class="active">Quickstart</a>
+      </div>
+      <div class="nav-actions">
+        <span class="lang-switch"><a href="trial.html" class="active">EN</a> · <a href="../trial.html">中文</a></span>
+        <a class="btn btn-ink" href="https://node.novapanda.io/">Open Zero Node →</a>
+      </div>
     </div>
+  </nav>
 
-    <div class="card" style="margin:1.5rem 0">
-      <strong>Site vs zero-node console</strong>
-      <p style="margin-top:.5rem;color:var(--muted);font-size:.94rem">
-        <a href="index.html">novapanda.io</a> is for intro, figures, and integration docs — <strong>no signup</strong>.
-        Use <code>node.novapanda.io</code> to try the API; <strong>operator registration</strong> only inside the console when you need quota or “my exchanges”.
+  <header class="cap-hero wrap-wide">
+    <p class="cap-eyebrow">Developer Quickstart</p>
+    <h1>Developer Quickstart</h1>
+    <p class="cap-lead">
+      This guide helps you verify the NovaPanda Verifiable Delivery Claim (VDC) lifecycle in five minutes.
+    </p>
+  </header>
+
+  <section class="cap-section wrap-wide">
+    <div class="cap-compare qs-bounds">
+      <article class="cap-card">
+        <p class="cap-kicker accent">Card A · Trial boundary</p>
+        <h2>Available vs limited</h2>
+        <ul>
+          <li><strong class="ok-text">Available</strong>: full state machine, dual-signed VDC, offline reverify</li>
+          <li><strong class="warn-text">Limited</strong>: no real money, no tokens, no licensed clearing</li>
+        </ul>
+      </article>
+      <article class="cap-card">
+        <p class="cap-kicker accent">Card B · Topology</p>
+        <h2>Site vs Zero Node</h2>
+        <ul>
+          <li><strong>Site</strong>: whitepaper, architecture, specs</li>
+          <li><strong>Zero Node</strong>: mock API, debug console, quotas</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="cap-section wrap-wide">
+    <article class="qs-phase">
+      <h2><span class="qs-phase-num">Phase 1</span> Node health &amp; discovery</h2>
+      <div class="mac-terminal">
+        <div class="mac-bar">
+          <span class="mac-dot red"></span>
+          <span class="mac-dot yellow"></span>
+          <span class="mac-dot green"></span>
+          <span class="mac-title">discovery</span>
+        </div>
+        <pre class="mac-body"><code><span class="t-cmd">$</span> curl -fS https://node.novapanda.io/health
+<span class="t-cmd">$</span> curl -fS https://node.novapanda.io/.well-known/novapanda.json</code></pre>
+      </div>
+    </article>
+
+    <article class="qs-phase">
+      <h2><span class="qs-phase-num">Phase 2</span> Run the reference implementation</h2>
+      <div class="mac-terminal">
+        <div class="mac-bar">
+          <span class="mac-dot red"></span>
+          <span class="mac-dot yellow"></span>
+          <span class="mac-dot green"></span>
+          <span class="mac-title">trial_remote</span>
+        </div>
+        <pre class="mac-body"><code><span class="t-cmd">$</span> git clone https://github.com/novapanda-protocol/novapanda.git
+<span class="t-cmd">$</span> cd novapanda &amp;&amp; python -m venv .venv &amp;&amp; source .venv/bin/activate
+<span class="t-cmd">$</span> pip install -e . &amp;&amp; python demo/trial_remote.py</code></pre>
+      </div>
+      <p class="qs-note">On Windows, use <code>.\.venv\Scripts\Activate.ps1</code>. Keys stay local — never uploaded.</p>
+    </article>
+
+    <article class="qs-phase">
+      <h2><span class="qs-phase-num">Phase 3</span> AI tooling (optional)</h2>
+      <div class="cap-grid-3">
+        <article class="cap-card">
+          <h2>MCP tools</h2>
+          <p>Mount <code>novapanda.*</code> in Cursor / Codex; point at Zero Node.</p>
+        </article>
+        <article class="cap-card">
+          <h2>Cursor Rules / Skill</h2>
+          <p>Install Skill; agents propose / deliver / sign VDC per contract.</p>
+        </article>
+        <article class="cap-card">
+          <h2>Equivalent surfaces</h2>
+          <p>Surfaces only translate grammar — never alter VDC cryptography.</p>
+        </article>
+      </div>
+      <p class="qs-note">
+        See
+        <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/BINDING-MCP.md">BINDING-MCP</a> ·
+        <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/BINDING-SKILL.md">BINDING-SKILL</a> ·
+        <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC</a>
       </p>
+    </article>
+  </section>
+
+  <section class="cap-section wrap-wide">
+    <div class="final-cta">
+      <h2>Need a visual VDC console?</h2>
+      <p>Exchange tables and debugging live on Zero Node — not this site.</p>
+      <a class="btn btn-sky" href="https://node.novapanda.io/">Open Zero Node →</a>
     </div>
+  </section>
 
-    <h2 class="section-title">Step 0 · Cursor / Codex / MCP (optional)</h2>
-    <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
-      On Cursor, Codex, Windsurf, Cline, or other MCP IDEs: add NovaPanda <code>novapanda.*</code> tools pointing at
-      <code>https://node.novapanda.io</code>. Reads via MCP; writes still require local agent signatures.
-      See <a href="index.html#ide">coding agents</a> ·
-      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/BINDING-MCP.md">BINDING-MCP</a>.
-    </p>
-
-    <h2 class="section-title">Step 1 · Check the node</h2>
-    <pre><code>curl -fsS https://node.novapanda.io/health
-curl -fsS https://node.novapanda.io/.well-known/novapanda.json</code></pre>
-
-    <h2 class="section-title">Step 2 · Python one-shot SETTLED</h2>
-    <pre><code>git clone https://github.com/novapanda-protocol/novapanda.git
-cd novapanda
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .   # Windows
-python demo/trial_remote.py</code></pre>
-    <p style="color:var(--muted);font-size:.9rem">Two agent identities generated locally; private keys never uploaded. Output includes <code>SETTLED</code> and <code>vdc_id</code>.</p>
-
-    <h2 class="section-title">Step 3 · TypeScript</h2>
-    <pre><code>cd sdk/typescript && npm install && npm run build
-node test/plugfest_lifecycle.mjs https://node.novapanda.io</code></pre>
-
-    <h2 class="section-title">Step 4 · Other surfaces</h2>
-    <p style="color:var(--muted);font-size:.94rem;max-width:40rem">
-      Trial scripts use Python SDK + HTTP. The same state machine works via <strong>Skill</strong> (Cursor Agent Skills) or
-      <strong>MCP</strong> (Cursor / Codex / Windsurf / Cline) — mutually verifiable VDCs.
-      See <a href="index.html#surfaces">surface table</a> · <a href="index.html#ide">IDE integration</a> ·
-      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md#7-接入面access-surfaces">SPEC §7</a>.
-    </p>
-
-    <h2 class="section-title">Step 5 · Read the spec</h2>
-    <div class="btn-row" style="margin-top:0">
-      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC.md</a>
-      <a class="btn btn-dark" href="constitution.html" style="background:transparent;color:var(--accent);border:1px solid var(--border)">Constitution</a>
-      <a class="btn btn-dark" href="https://node.novapanda.io/docs" style="background:transparent;color:var(--accent);border:1px solid var(--border)">HTTP API</a>
+  <footer class="landing-footer wrap-wide">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="constitution.html">Constitution</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
     </div>
-
-    <p class="note">
-      Using Trial implies agreement with <a href="../terms.html">terms (中文)</a> and <a href="../privacy.html">privacy (中文)</a>.
-    </p>
-  </div>
+    <p>Public Trial is mock settlement only · not a bank/payment institution</p>
+  </footer>
 </body>
 </html>

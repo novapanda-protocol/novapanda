@@ -5,18 +5,29 @@ from fastapi.testclient import TestClient
 from novapanda.node import create_app
 
 
-def test_verify_and_me_tabs_present():
+def test_trial_desk_ia_v2():
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
     home = tc.get("/")
     assert home.status_code == 200
-    assert 'data-tab="verify"' in home.text
-    assert "panel-verify" in home.text
-    assert 'data-tab="me"' in home.text
-    assert "Trial 硬边界" in home.text
+    assert "5 分钟跑通 SETTLED" in home.text
+    assert "最近交换" in home.text
+    assert "Mock" in home.text or "mock" in home.text
     assert "novapanda.io" in home.text
-    assert "NovaPanda 零号节点" in home.text
-    assert "novapanda.io" in home.text
+    assert "零号节点" in home.text
+    assert "注册提额" in home.text
+    assert "#F8FAFC" in home.text or "f8fafc" in home.text.lower()
+    assert 'data-tab="scenarios"' not in home.text
+    assert 'data-tab="me"' not in home.text
+    tools = tc.get("/tools")
+    assert tools.status_code == 200
+    assert "规范化" in tools.text or "canonical" in tools.text.lower() or "Bundle" in tools.text
+    reg = tc.get("/register")
+    assert reg.status_code == 200
+    assert "注册运营账户" in reg.text
+    login = tc.get("/login")
+    assert login.status_code == 200
+    assert "登录运营账户" in login.text
 
 
 def test_brand_static_assets():

@@ -1,156 +1,111 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eight domains · NovaPanda ecosystem</title>
-  <meta name="description" content="How API, MCP, Skill, workflows, OTA, P2P… attach to NovaPanda delivery grammar.">
+  <meta name="color-scheme" content="light">
+  <title>Ecosystem · NovaPanda</title>
+  <meta name="description" content="Four core roles and four foundations in the NovaPanda ecosystem.">
   <link rel="stylesheet" href="../../site.css">
-  <style>
-    .layer-stack { font-family: ui-monospace, monospace; font-size: .78rem; line-height: 1.55; background: #0f1624; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; color: #c8d4e8; overflow-x: auto; }
-    .dom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: .85rem; }
-    .dom-card h3 { margin: 0 0 .5rem; font-size: 1.02rem; }
-    .dom-card ul { margin: 0; padding-left: 1.1rem; font-size: .9rem; color: var(--muted); }
-    .dom-card li { margin: .25rem 0; }
-    .st { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 4px; margin-right: .35rem; }
-    .st-ok { background: rgba(46,160,67,.2); color: #3fb950; }
-    .st-wip { background: rgba(210,153,34,.2); color: #d29922; }
-    .st-adj { background: rgba(139,148,158,.15); color: #8b949e; }
-    .st-no { background: rgba(248,81,73,.12); color: #f85149; }
-    table.comp { width: 100%; border-collapse: collapse; font-size: .88rem; }
-    table.comp th, table.comp td { border: 1px solid var(--border); padding: .5rem .65rem; text-align: left; vertical-align: top; }
-    table.comp th { background: rgba(255,255,255,.04); }
-  </style>
 </head>
-<body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <strong>NovaPanda</strong>
-      <a href="../index.html">Home</a>
-      <a href="../vision.html">Vision</a>
-      <a href="overview.html">Scenarios</a>
-      <a href="ecosystem-eight-domains.html" class="active">Eight domains</a>
-      <a href="../constitution.html">Constitution</a>
-      <a href="../faq-money.html">Money FAQ</a>
-      <a href="../trial.html">Trial</a>
-      <a href="https://node.novapanda.io/">Node</a>
-      <span class="lang-switch"><a href="ecosystem-eight-domains.html" class="active">EN</a> · <a href="../../scenarios/ecosystem-eight-domains.html">中文</a></span>
-    </nav>
-
-    <header class="page-hero">
-      <div class="page-hero-inner">
-        <div class="eyebrow">Ecosystem · public note (non-normative)</div>
-        <h1>Eight domains: how deliverables attach</h1>
-        <p class="manifesto">
-          API, MCP, Skill, workflows, OTA, P2P… a broad ecosystem does not cram everything into one state machine —
-          it uses <strong>one verifiable delivery grammar</strong> with layered extensions.
-          NovaPanda is a <strong>delivery recognition layer</strong>, not an OS for everything.
-        </p>
+<body class="landing cap-page">
+  <nav class="landing-nav">
+    <div class="landing-nav-inner wrap-wide">
+      <a class="brand" href="../index.html">
+        <strong>NovaPanda</strong>
+        <span class="brand-tag">· Ecosystem</span>
+      </a>
+      <div class="nav-links">
+        <a href="../vision.html">Vision</a>
+        <a href="overview.html">Solutions</a>
+        <a href="ecosystem-eight-domains.html" class="active">Ecosystem</a>
+        <a href="../constitution.html">Constitution</a>
+        <a href="../trial.html">Quickstart</a>
       </div>
-    </header>
-
-    <h2 class="section-title">Three sentences</h2>
-    <div class="grid-2">
-      <div class="card"><p><strong>Unify delivery facts</strong> (VDC), not workflows, OTA, or flight control.</p></div>
-      <div class="card"><p><strong>Small core, wide extensions</strong>: Profiles · bindings · registries stack capability.</p></div>
-      <div class="card" style="grid-column:1/-1"><p><strong>Compatibility by vectors</strong>, not “must pass our node.”</p></div>
-    </div>
-
-    <h2 class="section-title">Layers</h2>
-    <pre class="layer-stack">Narrative (this page, scenario catalog)
-Body (zero node: quota · audit · sandbox · Operator)
-Bindings (HTTP · MCP · A2A · Skill · Proxy)
-Capabilities (MIN · NODE · BUNDLE · PHYS · SETTLE · DELEGATE · PRIV · LITE)
-Registries (ontology · rules · extension packs)
-CORE (identity · VDC · exchange state machine · reverify)</pre>
-
-    <h2 class="section-title">Eight domain cards</h2>
-    <div class="dom-grid">
-      <div class="card dom-card">
-        <h3>① Remote services</h3>
-        <ul>
-          <li><span class="st st-ok">wired</span> HTTP API</li>
-          <li><span class="st st-ok">wired</span> MCP · <a href="../../../spec/BINDING-MCP.md">BINDING-MCP</a></li>
-          <li><span class="st st-wip">in progress</span> ToolBundle</li>
-          <li><span class="st st-adj">adjacent</span> Remote Pod · Proxy</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>② Local execution</h3>
-        <ul>
-          <li><span class="st st-wip">in progress</span> Skill · inference packs</li>
-          <li><span class="st st-adj">adjacent</span> Script · firmware · diagnostic probes</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>③ Orchestration</h3>
-        <ul>
-          <li><span class="st st-wip">in progress</span> Workflows (client-side Composer)</li>
-          <li><span class="st st-adj">adjacent</span> Task sharding · event handling</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>④ No-code rules</h3>
-        <ul>
-          <li><span class="st st-ok">wired</span> Exchange state machine · quota</li>
-          <li><span class="st st-wip">in progress</span> Triggers/audit · prompt templates</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑤ Developer tools</h3>
-        <ul>
-          <li><span class="st st-ok">wired</span> Schema spec</li>
-          <li><span class="st st-wip">in progress</span> SDK · CLI (reverify)</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑥ Delivery upgrades</h3>
-        <ul>
-          <li><span class="st st-no">not in core</span> OTA (evidence hash only)</li>
-          <li><span class="st st-wip">in progress</span> Extension packs</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑦ Security &amp; access</h3>
-        <ul>
-          <li><span class="st st-ok">wired</span> Delegation NP-DELEGATE</li>
-          <li><span class="st st-wip">in progress</span> Access policy packs</li>
-        </ul>
-      </div>
-      <div class="card dom-card">
-        <h3>⑧ Mesh collaboration</h3>
-        <ul>
-          <li><span class="st st-wip">in progress</span> Delta sync NP-LITE</li>
-          <li><span class="st st-adj">adjacent</span> P2P mesh / federation</li>
-        </ul>
+      <div class="nav-actions">
+        <span class="lang-switch"><a href="ecosystem-eight-domains.html" class="active">EN</a> · <a href="../../scenarios/ecosystem-eight-domains.html">中文</a></span>
+        <a class="btn btn-ink" href="https://node.novapanda.io/">Zero Node →</a>
       </div>
     </div>
+  </nav>
 
-    <h2 class="section-title">ToolBundle ≠ Exchange Bundle</h2>
-    <table class="comp card" style="padding:0;overflow:hidden">
-      <tr><th></th><th>ToolBundle</th><th>Exchange Bundle</th></tr>
-      <tr><td>Problem</td><td>Many tools, one call</td><td>One business · many VDCs</td></tr>
-      <tr><td>Protocol home</td><td>Binding + client</td><td><a href="../../../profiles/NP-BUNDLE.md">NP-BUNDLE</a></td></tr>
-      <tr><td>Success</td><td>Tools invoked correctly</td><td>Each leg SETTLED + re-verifiable</td></tr>
-    </table>
-    <p class="section-lead">More: <a href="../../scenarios/bundle.md">bundle.md</a> · full table: <a href="../../scenarios/ecosystem-eight-domains.md">ecosystem-eight-domains.md</a></p>
-
-    <h2 class="section-title">Explicitly out of scope</h2>
-    <p class="section-lead">
-      Global OTA protocol · flight/traffic OS · workflows in CORE · protocol coin/tax · operator login replacing agent signatures.
-      See <a href="../../../CHARTER.md">CHARTER</a>.
+  <header class="cap-hero wrap-wide">
+    <p class="cap-eyebrow">Ecosystem · Roles &amp; boundaries</p>
+    <h1>Who plays which role</h1>
+    <p class="cap-lead">
+      <strong>Four core roles</strong> and <strong>four foundations</strong> — unify delivery facts, not operating systems.
     </p>
+  </header>
 
-    <div class="btn-row">
-      <a class="btn btn-dark" href="overview.html">Scenario overview</a>
-      <a class="btn btn-dark" href="../../IMPLEMENTER_GUIDE.md">Implementer guide</a>
-      <a class="btn btn-dark" href="../../scenarios/ecosystem-eight-domains.md">Markdown</a>
-      <a class="btn btn-dark" href="https://github.com/novapanda-protocol/novapanda/blob/main/docs/scenarios/ecosystem-eight-domains.md" style="background:transparent;color:var(--accent);border:1px solid var(--border)">GitHub</a>
+  <section class="cap-section wrap-wide">
+    <h2 class="cap-section-label">Core roles</h2>
+    <div class="eco-mesh">
+      <article class="eco-cell">
+        <span class="eco-idx">1</span>
+        <h3>Agent · exchange party</h3>
+        <p>Holds Ed25519 identity; the real subject of propose / deliver / dual-sign.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">2</span>
+        <h3>Node · operated instance</h3>
+        <p>Orchestrates exchanges, quotas, APIs — substitutable, not the protocol.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">3</span>
+        <h3>Registry · trust registry</h3>
+        <p>Public registration of rules, ontologies, and extension packs.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">4</span>
+        <h3>Settler · clearing partner</h3>
+        <p>Optional rails (mock / x402 / fiat) — downstream translation only.</p>
+      </article>
     </div>
+  </section>
 
-    <footer>
-      Non-normative · MUST follow CHARTER / spec / profiles · narrative CC BY 4.0
-    </footer>
-  </div>
+  <section class="cap-section wrap-wide">
+    <h2 class="cap-section-label">Foundations</h2>
+    <div class="eco-mesh">
+      <article class="eco-cell">
+        <span class="eco-idx">5</span>
+        <h3>SPEC</h3>
+        <p>Single source of truth for state machine &amp; semantics — CC BY 4.0 commons.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">6</span>
+        <h3>Manifest</h3>
+        <p><code>/.well-known/novapanda.json</code> — stranger agents discover capabilities instantly.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">7</span>
+        <h3>VDC</h3>
+        <p>Verifiable Delivery Credential — dual-signed, canonical, offline re-verifiable.</p>
+      </article>
+      <article class="eco-cell">
+        <span class="eco-idx">8</span>
+        <h3>Verifier</h3>
+        <p>Local or any impl can reverify — compatibility by vectors, not domains.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="cap-section wrap-wide">
+    <div class="final-cta">
+      <h2>Roles clear — verify the grammar</h2>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-ink" href="../trial.html">5-minute Trial</a>
+        <a class="btn btn-text" href="../constitution.html">Design commitments →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer wrap-wide">
+    <div class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="overview.html">Solutions</a>
+      <a href="https://github.com/novapanda-protocol/novapanda/blob/main/spec/SPEC.md">SPEC</a>
+    </div>
+    <p>Public explanation, non-normative · SPEC is authoritative</p>
+  </footer>
 </body>
 </html>

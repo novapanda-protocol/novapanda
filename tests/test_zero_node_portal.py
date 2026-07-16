@@ -82,6 +82,12 @@ def test_operator_portal_pages(portal_client):
     assert del_cancel.status_code == 200
     assert del_cancel.json()["operator"]["deletion_requested_at"] is None
 
+    logged_out = tc.post("/operator/logout", headers=headers)
+    assert logged_out.status_code == 200
+    assert logged_out.json()["ok"] is True
+    me = tc.get("/operator/me", headers=headers)
+    assert me.status_code == 401
+
 
 def test_steward_page(portal_client):
     tc, _app = portal_client

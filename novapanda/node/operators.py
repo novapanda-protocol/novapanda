@@ -130,6 +130,13 @@ class OperatorRegistry:
             return None
         return self._by_id.get(oid)
 
+    def logout(self, token: Optional[str]) -> bool:
+        if not token or token not in self._sessions:
+            return False
+        del self._sessions[token]
+        self._maybe_persist()
+        return True
+
     def public_view(self, op: Operator) -> dict:
         return {
             "operator_id": op.operator_id,

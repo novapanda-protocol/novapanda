@@ -45,13 +45,15 @@ def test_operator_register_verify_login_me():
     assert me.json()["operator"]["email"] == "dev@example.com"
 
 
-def test_dashboard_has_scenarios_tab():
+def test_dashboard_ia_v2_and_scenarios_api():
     app = create_app(seed=True, auth=False)
     tc = TestClient(app)
     home = tc.get("/")
     assert home.status_code == 200
-    assert 'data-tab="scenarios"' in home.text
-    assert "panel-scenarios" in home.text
+    assert "5 分钟跑通 SETTLED" in home.text
+    assert "场景图" in home.text
+    assert "novapanda.io/scenarios" in home.text
+    assert 'data-tab="scenarios"' not in home.text
     sc = tc.get("/node/scenarios")
     assert sc.status_code == 200
     data = sc.json()
