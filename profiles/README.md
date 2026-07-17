@@ -13,8 +13,9 @@
 | **NP-DELEGATE** | [NP-DELEGATE.md](NP-DELEGATE.md) | 临时委托 + 支付约束域（限价/周期/轨白名单；非资金账户） |
 | **NP-PRIV** | [NP-PRIV.md](NP-PRIV.md) | 隐私姿态（hash_only·地理分级·跨境/留存标签；非合规证书） |
 | **NP-LITE** | [NP-LITE.md](NP-LITE.md) | 弱网/边缘姿态（**勿撕 C1**；lite/edge/full 叙述映射） |
+| **NP-REP** | [NP-REP.md](NP-REP.md) | 服务发现市场 + 动态声誉（默认关 · `NOVAPANDA_MARKETPLACE`） |
 
-规划中：`NP-REP` · `NP-WITNESS`。
+规划中：`NP-WITNESS`。
 
 结算旁路现行：[`NP-SETTLE.md`](NP-SETTLE.md)（钩子层；显式禁止二清资金池）。  
 Claim mock vs 生产边界：内部 `T03a-Claim-mock边界.md`。  

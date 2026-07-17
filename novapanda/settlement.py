@@ -12,7 +12,28 @@ from typing import Protocol
 
 
 class SettlementError(Exception):
-    pass
+    """Settlement adapter failure with optional Agent-oriented metadata.
+
+    Attributes ``code``, ``recovery``, ``retryable``, ``hint`` are read by
+    ``novapanda.agent_skill.classify_exception`` for LLM-friendly tool errors.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        code: str = "SETTLEMENT_ERROR",
+        recovery: str = "escalate_human",
+        retryable: bool = False,
+        hint: str = "",
+        details: dict | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.code = code
+        self.recovery = recovery
+        self.retryable = retryable
+        self.hint = hint
+        self.details = details or {}
 
 
 class SettlementAdapter(ABC):
@@ -63,11 +84,23 @@ class MockSettlement(SettlementAdapter):
         """
         h = self._holds.get(handle)
         if h is None:
-            raise SettlementError(f"未知 escrow handle: {handle}")
+            raise SettlementError(
+                f"未知 escrow handle: {handle}",
+                code="SETTLEMENT_UNKNOWN_HANDLE",
+                recovery="escalate_human",
+                retryable=False,
+                hint="Verify handle from escrow response; do not invent handles.",
+            )
         if h["status"] == target:
             return self._receipt(handle, h)
         if h["status"] != "held":
-            raise SettlementError(f"escrow 状态冲突：{h['status']} -> {target}")
+            raise SettlementError(
+                f"escrow 状态冲突：{h['status']} -> {target}",
+                code="SETTLEMENT_CONFLICT",
+                recovery="escalate_human",
+                retryable=False,
+                hint="Inspect handle status; do not blind-retry settle/refund.",
+            )
         h["status"] = target
         return self._receipt(handle, h)
 

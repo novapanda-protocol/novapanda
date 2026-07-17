@@ -1,0 +1,532 @@
+{
+  "manifest_version": "1.0.0",
+  "skill": "NovaPandaAgentSkill",
+  "package": "novapanda.agent_skill",
+  "invoke": {
+    "method": "NovaPandaAgentSkill.invoke",
+    "signature": "invoke(name: str, arguments: dict | None) -> {ok, result|fault}",
+    "ok_shape": {
+      "ok": true,
+      "result": "object"
+    },
+    "error_shape": {
+      "ok": false,
+      "fault": {
+        "code": "string",
+        "message": "string",
+        "recovery": [
+          "retry_same",
+          "retry_adjust",
+          "switch_provider",
+          "switch_rail",
+          "escalate_human"
+        ],
+        "retryable": "boolean",
+        "hint": "string",
+        "details": "object"
+      }
+    }
+  },
+  "conventions": {
+    "no_raw_tx_hex": true,
+    "amounts_are_integers": true,
+    "default_views_are_token_compact": true,
+    "publication": "ready-but-not-public"
+  },
+  "tool_names": [
+    "novapanda_list_tools",
+    "novapanda_quote_price",
+    "novapanda_hold_auction",
+    "novapanda_split_task",
+    "novapanda_run_supply_chain",
+    "novapanda_settlement_escrow",
+    "novapanda_settlement_settle",
+    "novapanda_settlement_refund",
+    "novapanda_compact_terminal",
+    "novapanda_classify_error",
+    "novapanda_discover_providers",
+    "novapanda_estimate_gas",
+    "novapanda_paymaster_sponsor",
+    "novapanda_verify_proof"
+  ],
+  "tools": [
+    {
+      "name": "novapanda_list_tools",
+      "description": "List NovaPanda Skill tool names available to this Agent. Call first when unsure which autonomy or settlement action to use.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_quote_price",
+      "description": "Get a structured service price quote from DynamicPricingEngine. Inputs are plain numbers (amount, load_ratio, token_estimate)—never raw hex. Use before bidding or raising a TaskSpec.budget.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "type": "string",
+            "description": "Capability type, e.g. compute.pipeline"
+          },
+          "benchmark_amount": {
+            "type": "integer",
+            "description": "Market benchmark price in minor units (integer)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO currency, default USD"
+          },
+          "load_ratio": {
+            "type": "number",
+            "description": "Provider load in [0,1]"
+          },
+          "token_estimate": {
+            "type": "integer"
+          },
+          "step_estimate": {
+            "type": "integer"
+          },
+          "reputation": {
+            "type": "number",
+            "description": "Optional effective reputation [0,1]"
+          },
+          "grid_load_ratio": {
+            "type": "number",
+            "description": "DePIN grid load [0,1] for charger pricing"
+          },
+          "queue_length": {
+            "type": "integer",
+            "description": "Physical queue length at charger / bay"
+          }
+        },
+        "required": [
+          "resource_type",
+          "benchmark_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_hold_auction",
+      "description": "Hold a parameterized auction for a goal (e.g. EV truck vs chargers). Splits via dispatcher then MarketplaceAuctioneer.hold_auction. Returns compact awards — never raw tx hex.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "goal_id": {
+            "type": "string"
+          },
+          "resource_type": {
+            "type": "string"
+          },
+          "client_agent_id": {
+            "type": "string"
+          },
+          "budget_amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "payload": {
+            "description": "Task payload"
+          },
+          "required_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "max_response_ms": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "goal_id",
+          "resource_type",
+          "client_agent_id",
+          "budget_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_split_task",
+      "description": "Split a goal into a compact DAG of subtasks (chain or parallel). Returns dependency edges and resource types without bulky payloads by default.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "goal_id": {
+            "type": "string"
+          },
+          "resource_type": {
+            "type": "string"
+          },
+          "client_agent_id": {
+            "type": "string",
+            "description": "Client agent id (ed25519:…); full id OK"
+          },
+          "budget_amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "payload": {
+            "description": "Task body: object, list (parallel parts), or omit if using steps"
+          },
+          "steps": {
+            "type": "array",
+            "description": "Optional ordered steps → chained depends_on",
+            "items": {
+              "type": "object"
+            }
+          },
+          "include_payloads": {
+            "type": "boolean",
+            "description": "If true, include clipped payloads (costs tokens)"
+          }
+        },
+        "required": [
+          "goal_id",
+          "resource_type",
+          "client_agent_id",
+          "budget_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_run_supply_chain",
+      "description": "Run the full autonomy loop: split → auction → execute DAG legs → aggregate. Returns a TOKEN-COMPACT orchestration report (phase, awards, leg states). On failure returns structured AgentFault with recovery hint (retry_adjust / switch_provider / escalate_human)—not a stack trace.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "goal_id": {
+            "type": "string"
+          },
+          "resource_type": {
+            "type": "string"
+          },
+          "client_agent_id": {
+            "type": "string"
+          },
+          "budget_amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "payload": {
+            "description": "Task payload"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "required_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "include_results": {
+            "type": "boolean",
+            "description": "Include clipped leg results (default false)"
+          }
+        },
+        "required": [
+          "goal_id",
+          "resource_type",
+          "client_agent_id",
+          "budget_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_settlement_escrow",
+      "description": "Escrow funds on the configured settlement adapter (default mock). Pass integer amount + currency + exchange_id — never raw chain hex.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "exchange_id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Non-negative integer"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "exchange_id",
+          "amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_settlement_settle",
+      "description": "Capture/settle an escrow handle returned by novapanda_settlement_escrow. On state conflict returns SETTLEMENT_CONFLICT → escalate_human (do not blind-retry).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string",
+            "description": "Opaque escrow handle from escrow call"
+          }
+        },
+        "required": [
+          "handle"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_settlement_refund",
+      "description": "Refund an escrow handle. Same structured-error contract as settle.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "handle"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_compact_terminal",
+      "description": "Shrink an exchange terminal snapshot to a token-cheap dict (ids shortened, no logs). Use when feeding Sink/reputation events to an LLM.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "exchange_id": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "resource_type": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "vdc_id": {
+            "type": "string"
+          },
+          "price_amount": {
+            "type": "integer"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "outcome_hint": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "exchange_id",
+          "state",
+          "client",
+          "provider",
+          "resource_type",
+          "quantity",
+          "price_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_classify_error",
+      "description": "Map a raw error message (from RPC/Paymaster/Stripe/settlement) into AgentFault: code, retryable, recovery action, and hint. Call when a low-level API threw a stringy exception.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Raw error text"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_discover_providers",
+      "description": "Discover and rank marketplace providers for a resource_type (MatchRouter: price × SLA × reputation × tags). Returns a compact winner + ranked shortlist — never raw tx hex. Use before novapanda_run_supply_chain to validate supply exists.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "type": "string"
+          },
+          "max_price_amount": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "max_response_ms": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "required_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "min_reputation": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "client_agent_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "resource_type",
+          "max_price_amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_estimate_gas",
+      "description": "Estimate native gas for a structured transfer on a wired chain adapter. Pass integer amount and addresses as plain strings — never signed-tx hex. If estimate is degraded (RPC fallback), retry_same or proceed cautiously.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "from_address": {
+            "type": "string"
+          },
+          "to_address": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Native amount in minor units"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Asset symbol, default ETH"
+          }
+        },
+        "required": [
+          "from_address",
+          "to_address",
+          "amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_paymaster_sponsor",
+      "description": "Simulate ERC-4337-style Paymaster sponsorship: quote fee-token cost and sponsor a UserOp reference. Integer gas + fee token only; never paste raw calldata hex into the LLM context.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "payer_address": {
+            "type": "string"
+          },
+          "gas_native": {
+            "type": "integer"
+          },
+          "fee_token_symbol": {
+            "type": "string",
+            "description": "e.g. USDC"
+          },
+          "fee_token_decimals": {
+            "type": "integer"
+          },
+          "user_op_ref": {
+            "type": "string",
+            "description": "Opaque UserOp id"
+          }
+        },
+        "required": [
+          "payer_address",
+          "gas_native",
+          "user_op_ref"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "novapanda_verify_proof",
+      "description": "Submit a deliverable to the Verification Gateway (schema/TEE/docker backends). On pass, returns a compact credential summary for VDC verify stage. Pass structured deliverable JSON — never hex blobs.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "exchange_id": {
+            "type": "string"
+          },
+          "vdc_id": {
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "deliverable": {
+            "type": "object",
+            "description": "JSON deliverable matching the verify schema"
+          },
+          "result_hash": {
+            "type": "string",
+            "description": "Optional; computed if omitted"
+          },
+          "device_id": {
+            "type": "string",
+            "description": "Hardware device id for TPM PoD"
+          },
+          "tpm_signature": {
+            "type": "string",
+            "description": "Simulated TPM signature string (tpm:…)"
+          }
+        },
+        "required": [
+          "exchange_id",
+          "vdc_id",
+          "deliverable"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "suggested_workflow": [
+    "novapanda_list_tools",
+    "novapanda_discover_providers",
+    "novapanda_quote_price",
+    "novapanda_hold_auction",
+    "novapanda_split_task",
+    "novapanda_estimate_gas",
+    "novapanda_paymaster_sponsor",
+    "novapanda_run_supply_chain",
+    "novapanda_verify_proof",
+    "novapanda_settlement_escrow",
+    "novapanda_settlement_settle",
+    "novapanda_compact_terminal"
+  ]
+}

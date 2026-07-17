@@ -85,6 +85,7 @@ class ExchangeEngine:
         store=None,
         blob_store=None,
         rail_registry=None,
+        terminal_observers: Optional[list] = None,
     ) -> None:
         self._store = store if store is not None else InMemoryStore()
         self._blobs = blob_store
@@ -92,6 +93,24 @@ class ExchangeEngine:
         self._rail_registry = rail_registry
         self._verifier: Verifier = verifier or AcceptAllVerifier()
         self._reputation = reputation
+        # 市场/风控旁路观察者：终态后通知，不得改 TRANSITIONS（见 marketplace.sink）
+        self._terminal_observers: list = list(terminal_observers or [])
+
+    def add_terminal_observer(self, observer) -> None:
+        """注册 ``on_terminal(ExchangeTerminalSnapshot)`` 或 ``on_exchange(ex)``。"""
+        self._terminal_observers.append(observer)
+
+    def _notify_terminal(self, ex: Exchange) -> None:
+        if not self._terminal_observers:
+            return
+        from .marketplace.sink import snapshot_from_exchange
+
+        snap = snapshot_from_exchange(ex)
+        for obs in self._terminal_observers:
+            if hasattr(obs, "on_exchange"):
+                obs.on_exchange(ex)
+            elif hasattr(obs, "on_terminal"):
+                obs.on_terminal(snap)
 
     def _adapter_for(self, ex: Exchange) -> SettlementAdapter:
         binding = ex.settlement_binding or {}
@@ -382,6 +401,7 @@ class ExchangeEngine:
         self._store.save(ex)
         if self._reputation:
             self._reputation.record_settlement(ex)
+        self._notify_terminal(ex)
         return ex
 
     def _enrich_verify_result(self, result: dict, ex: Exchange,
@@ -420,6 +440,7 @@ class ExchangeEngine:
                 self._reputation.record_outcome(
                     ex, agent_id=ex.provider, role="provider", outcome="rejected"
                 )
+            self._notify_terminal(ex)
         return ex
 
     def confirm(self, exchange_id: str, client_identity: Identity) -> Exchange:
@@ -437,6 +458,7 @@ class ExchangeEngine:
         self._store.save(ex)
         if self._reputation:
             self._reputation.record_settlement(ex)
+        self._notify_terminal(ex)
         return ex
 
     def dispute(self, exchange_id: str, *, by: str, reason: str) -> Exchange:
@@ -480,6 +502,7 @@ class ExchangeEngine:
                 self._reputation.record_outcome(
                     ex, agent_id=ex.provider, role="provider", outcome="rejected"
                 )
+        self._notify_terminal(ex)
         return ex
 
     def cancel(self, exchange_id: str) -> Exchange:
@@ -489,6 +512,7 @@ class ExchangeEngine:
         self._transition(ex, sm.CANCELLED)
         self._set_deadline(ex, None)
         self._store.save(ex)
+        self._notify_terminal(ex)
         return ex
 
     def expire(self, exchange_id: str) -> Exchange:
@@ -498,6 +522,7 @@ class ExchangeEngine:
         self._transition(ex, sm.EXPIRED_REFUNDED)
         self._set_deadline(ex, None)
         self._store.save(ex)
+        self._notify_terminal(ex)
         return ex
 
     def _capture_intent(self, ex: Exchange, intent: dict) -> None:

@@ -30,3 +30,24 @@ deploy/NEXT_ACTIONS_CN.md
 deploy/env/production.env
 deploy/env/node.local.env
 deploy/logs/
+
+# Local secrets / production credentials (never commit)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+**/secrets/
+*.secret
+*STRIPE_LIVE*
+*SIGNER_BROADCAST*
+# Operator / host-local env copies (keep *.example)
+deploy/env/*.local.env
+deploy/env/*secret*
+# Accidental dumps of live operator DB paths outside *.sqlite
+data/novapanda.operator.*
+!data/.gitkeep

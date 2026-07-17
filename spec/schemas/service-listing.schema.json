@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/service-listing.schema.json",
+  "title": "Service Listing",
+  "description": "NP-REP 服务挂牌：能力 + SLA + 基准价。不进 CORE 状态机。",
+  "type": "object",
+  "required": [
+    "listing_id",
+    "agent_id",
+    "resource_type",
+    "capability_tags",
+    "sla",
+    "price",
+    "endpoints",
+    "status"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "listing_id": { "type": "string", "minLength": 1 },
+    "agent_id": {
+      "type": "string",
+      "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$"
+    },
+    "resource_type": { "type": "string", "minLength": 1 },
+    "capability_tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sla": {
+      "type": "object",
+      "required": ["max_response_ms"],
+      "properties": {
+        "max_response_ms": { "type": "integer", "minimum": 0 },
+        "min_throughput_qps": { "type": "integer", "minimum": 0 },
+        "availability_bips": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "verify_backend_hint": { "type": ["string", "null"] }
+      }
+    },
+    "price": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "integer", "minimum": 0 },
+        "currency": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string" }
+      }
+    },
+    "endpoints": {
+      "type": "object",
+      "required": ["exchange"],
+      "properties": {
+        "exchange": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "paused", "revoked", "expired"]
+    },
+    "rule_id_hint": { "type": ["string", "null"] },
+    "content_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "ttl_sec": { "type": "integer", "minimum": 0 },
+    "metadata": { "type": "object" }
+  }
+}

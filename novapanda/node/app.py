@@ -248,6 +248,29 @@ class LiteRoundtripBody(BaseModel):
     value: Any
 
 
+class MarketplaceListingBody(BaseModel):
+    listing_id: str
+    agent_id: str
+    resource_type: str
+    capability_tags: list[str] = []
+    max_response_ms: int = 5000
+    price_amount: int
+    price_currency: str = "USD"
+    exchange_endpoint: str = ""
+    rule_id_hint: Optional[str] = None
+    content_hash: Optional[str] = None
+    ttl_sec: int = 3600
+
+
+class MarketplaceManifestSyncBody(BaseModel):
+    manifest: dict[str, Any]
+    default_sla_ms: int = 5000
+
+
+class MarketplaceListingBundleBody(BaseModel):
+    bundle: dict[str, Any]
+
+
 class ReconcileExportQuery(BaseModel):
     format: str = "json"
     rail: Optional[str] = None
@@ -333,6 +356,7 @@ def create_app(
     federation_v2_enabled: bool = False,
     claim_store=None,
     claim_production: Optional[bool] = None,
+    marketplace_enabled: bool = False,
 ) -> FastAPI:
     node_identity = node_identity or Identity.generate()
     store = store if store is not None else InMemoryStore()
@@ -361,6 +385,20 @@ def create_app(
         store=store, blob_store=blob_store,
         rail_registry=rail_registry,
     )
+
+    marketplace_rt = None
+    if marketplace_enabled:
+        from ..marketplace.bootstrap import build_marketplace_runtime
+        from ..marketplace.policy import ReputationMatchPolicy
+
+        marketplace_rt = build_marketplace_runtime(
+            reputation,
+            policy=ReputationMatchPolicy(
+                min_score=reputation_min_score,
+                strict_no_history=reputation_gate_strict,
+            ),
+        )
+        engine.add_terminal_observer(marketplace_rt.sink)
 
     if hasattr(store, "nonce_check_and_add"):
         nonce_store = store
@@ -393,6 +431,8 @@ def create_app(
     app.state.admin_token = os.environ.get("NOVAPANDA_ADMIN_TOKEN")
     app.state.witness_v2_enabled = witness_v2_enabled
     app.state.federation_v2_enabled = federation_v2_enabled
+    app.state.marketplace_enabled = bool(marketplace_enabled)
+    app.state.marketplace = marketplace_rt
     app.state.operators = load_operator_registry()
     app.state.access_policy = "open_quota"
     if claim_store is None:
@@ -422,6 +462,8 @@ def create_app(
         "NP-PRIV",
         "NP-LITE",
     ]
+    if app.state.marketplace_enabled:
+        app.state.node_profiles.append("NP-REP")
     if app.state.claim_production:
         app.state.node_profiles.append("NP-CLAIM-XFER")
     strict_profiles = os.environ.get("NOVAPANDA_STRICT_PROFILES", "").strip().lower() in (
@@ -1172,6 +1214,203 @@ def create_app(
             parsed.update(json.loads(weights))
         return app.state.reputation.weighted_score(agent_id, weights=parsed)
 
+    def _require_marketplace():
+        if not getattr(app.state, "marketplace_enabled", False) or app.state.marketplace is None:
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "code": "E_MARKETPLACE_DISABLED",
+                    "msg": "set NOVAPANDA_MARKETPLACE=1 or create_app(marketplace_enabled=True)",
+                },
+            )
+        return None
+
+    @app.get("/marketplace/discover")
+    def marketplace_discover(
+        resource_type: str,
+        max_amount: int,
+        currency: str = "USD",
+        max_response_ms: int = 60_000,
+        min_reputation: float = 0.0,
+        quantity: int = 1,
+        tags: Optional[str] = None,
+        preferred_tags: Optional[str] = None,
+        limit: int = 10,
+    ):
+        """参数化发现+撮合（NP-REP）；返回 MatchDecision JSON。"""
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        from ..marketplace.types import MatchQuery, PriceQuote
+
+        req_tags = tuple(t for t in (tags or "").split(",") if t.strip())
+        pref_tags = tuple(t for t in (preferred_tags or "").split(",") if t.strip())
+        query = MatchQuery(
+            resource_type=resource_type,
+            quantity=quantity,
+            max_price=PriceQuote(amount=max_amount, currency=currency),
+            max_response_ms=max_response_ms,
+            min_reputation=min_reputation,
+            required_tags=req_tags,
+            preferred_tags=pref_tags,
+            limit=limit,
+        )
+        decision = app.state.marketplace.facade.find_providers(query)
+        ranked = []
+        for c in decision.ranked:
+            ranked.append(
+                {
+                    "listing_id": c.listing.listing_id,
+                    "agent_id": c.listing.agent_id,
+                    "price": {
+                        "amount": c.listing.price.amount,
+                        "currency": c.listing.price.currency,
+                    },
+                    "sla_ms": c.listing.sla.max_response_ms,
+                    "tags": list(c.listing.capability_tags),
+                    "rule_id_hint": c.listing.rule_id_hint,
+                    "endpoints": c.listing.endpoints,
+                    "reputation": {
+                        "score": c.reputation.score,
+                        "effective_score": c.reputation.effective_score,
+                        "risk_penalty": c.reputation.risk_penalty,
+                        "entry_count": c.reputation.entry_count,
+                    },
+                    "breakdown": {
+                        "total": c.breakdown.total,
+                        "price_score": c.breakdown.price_score,
+                        "sla_score": c.breakdown.sla_score,
+                        "reputation_score": c.breakdown.reputation_score,
+                        "tag_score": c.breakdown.tag_score,
+                        "risk_penalty": c.breakdown.risk_penalty,
+                    },
+                }
+            )
+        winner = ranked[0] if ranked else None
+        return {
+            "reason": decision.reason,
+            "winner": winner,
+            "ranked": ranked,
+            "profile": "NP-REP",
+        }
+
+    @app.post("/marketplace/listings")
+    def marketplace_register_listing(body: MarketplaceListingBody):
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        from ..marketplace.types import ListingStatus, PriceQuote, ServiceListing, SlaOffer
+
+        listing = ServiceListing(
+            listing_id=body.listing_id,
+            agent_id=body.agent_id,
+            resource_type=body.resource_type,
+            capability_tags=tuple(body.capability_tags),
+            sla=SlaOffer(max_response_ms=body.max_response_ms),
+            price=PriceQuote(amount=body.price_amount, currency=body.price_currency),
+            endpoints={"exchange": body.exchange_endpoint},
+            status=ListingStatus.ACTIVE,
+            rule_id_hint=body.rule_id_hint,
+            content_hash=body.content_hash,
+            ttl_sec=body.ttl_sec,
+        )
+        app.state.marketplace.registry.register(listing)
+        return {"ok": True, "listing_id": listing.listing_id, "status": listing.status.value}
+
+    @app.post("/marketplace/listings/from-manifest")
+    def marketplace_sync_manifest(body: MarketplaceManifestSyncBody):
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        from ..marketplace.manifest_sync import sync_manifest_to_registry
+
+        try:
+            listings = sync_manifest_to_registry(
+                app.state.marketplace.registry,
+                body.manifest,
+                default_sla_ms=body.default_sla_ms,
+            )
+        except ValueError as exc:
+            return JSONResponse(
+                status_code=400,
+                content={"code": "E_MANIFEST_INVALID", "msg": str(exc)},
+            )
+        return {
+            "ok": True,
+            "count": len(listings),
+            "listing_ids": [x.listing_id for x in listings],
+        }
+
+    @app.get("/marketplace/listings/export")
+    def marketplace_export_listings():
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        from ..marketplace.federation import build_listing_bundle
+        from ..marketplace.types import ListingStatus
+
+        cache = app.state.marketplace.registry.cache
+        active = [
+            lst
+            for lst in cache._by_id.values()
+            if lst.status == ListingStatus.ACTIVE
+        ]
+        return build_listing_bundle(
+            source_node_id=app.state.node_id,
+            listings=active,
+        )
+
+    @app.post("/marketplace/listings/import")
+    def marketplace_import_listings(body: MarketplaceListingBundleBody):
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        from ..marketplace.federation import import_listing_bundle, validate_listing_bundle
+
+        errs = validate_listing_bundle(body.bundle)
+        if errs:
+            return JSONResponse(
+                status_code=400,
+                content={"code": "E_LISTING_BUNDLE_INVALID", "errors": errs},
+            )
+        try:
+            imported = import_listing_bundle(
+                app.state.marketplace.registry, body.bundle
+            )
+        except ValueError as exc:
+            return JSONResponse(
+                status_code=400,
+                content={"code": "E_LISTING_BUNDLE_INVALID", "msg": str(exc)},
+            )
+        return {"ok": True, "count": len(imported), "listing_ids": [x.listing_id for x in imported]}
+
+    @app.get("/marketplace/listings/{listing_id}")
+    def marketplace_get_listing(listing_id: str):
+        disabled = _require_marketplace()
+        if disabled is not None:
+            return disabled
+        listing = app.state.marketplace.registry.get(listing_id)
+        if listing is None:
+            return JSONResponse(
+                status_code=404,
+                content={"code": "E_NOT_FOUND", "msg": listing_id},
+            )
+        return {
+            "listing_id": listing.listing_id,
+            "agent_id": listing.agent_id,
+            "resource_type": listing.resource_type,
+            "capability_tags": list(listing.capability_tags),
+            "sla": {"max_response_ms": listing.sla.max_response_ms},
+            "price": {
+                "amount": listing.price.amount,
+                "currency": listing.price.currency,
+            },
+            "endpoints": listing.endpoints,
+            "status": listing.status.value,
+            "rule_id_hint": listing.rule_id_hint,
+            "content_hash": listing.content_hash,
+        }
+
     @app.get("/health")
     def health():
         """负载均衡 / 容器探活。"""
@@ -1899,13 +2138,15 @@ def create_app(
 def create_app_from_config(cfg=None) -> FastAPI:
     """从 NodeConfig / 环境变量创建生产节点（uvicorn --factory 入口）。"""
     from ..config import NodeConfig
+    from ..hardening import validate_startup_environ
 
     cfg = cfg or NodeConfig.from_env()
     cfg.apply_feature_flags()
+    env_issues = validate_startup_environ()
     store = cfg.make_store()
     registry = cfg.make_rail_registry()
     claim_store, claim_production = cfg.make_claim_store()
-    return create_app(
+    app = create_app(
         store=store,
         auth=cfg.auth,
         reputation_store=cfg.make_reputation_store(),
@@ -1927,5 +2168,26 @@ def create_app_from_config(cfg=None) -> FastAPI:
         federation_v2_enabled=cfg.federation_v2,
         claim_store=claim_store,
         claim_production=claim_production,
+        marketplace_enabled=cfg.marketplace,
         seed=True,
     )
+    app.state.env_validation = [
+        {"code": i.code, "severity": i.severity, "message": i.message} for i in env_issues
+    ]
+    try:
+        from ..autonomy.inject import build_chain_injection_from_env, env_wants_real_rails
+
+        if env_wants_real_rails():
+            app.state.chain_injection = build_chain_injection_from_env()
+        else:
+            app.state.chain_injection = None
+    except Exception as exc:  # noqa: BLE001
+        app.state.chain_injection = None
+        app.state.env_validation.append(
+            {
+                "code": "W_CHAIN_INJECT",
+                "severity": "warn",
+                "message": f"chain injection skipped: {exc}",
+            }
+        )
+    return app

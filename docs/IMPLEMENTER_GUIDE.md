@@ -25,6 +25,7 @@
 | 3 | [`spec/README.md`](../spec/README.md) → [`CORE.md`](../spec/CORE.md) | 分卷规范；兼容入口 [`SPEC.md`](../spec/SPEC.md) |
 | 4 | [`conformance/VECTORS.md`](../conformance/VECTORS.md) | 你必须能对上的 Case（含 C10–C12） |
 | 5 | （可选）[`profiles/NP-NODE.md`](../profiles/NP-NODE.md) 等 | 仅当你宣告对应 Profile |
+| — | （可选）[`docs/marketplace-flow.md`](marketplace-flow.md) | NP-REP：发现 → propose → 终态 Sink |
 
 说明层（非 MUST）：[`docs/scenarios/`](scenarios/) · 含 [`生态八域`](scenarios/ecosystem-eight-domains.md) 公开登记。
 

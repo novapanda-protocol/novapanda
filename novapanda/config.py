@@ -42,6 +42,10 @@
   NOVAPANDA_FIAT_PROVIDER=generic|stripe  法币伙伴协议（默认 generic=/authorize）
   NOVAPANDA_CLAIM_MODE=mock|production  Claim 登记模式（默认 mock）
   NOVAPANDA_CLAIM_DB=path.json    生产 Claim 持久化路径（默认同 NOVAPANDA_DB 改 .claims.json）
+  NOVAPANDA_MARKETPLACE=1|0       启用 NP-REP 服务发现市场（默认 0）
+  NOVAPANDA_EVM_RPC_URL=https://...  EVM JSON-RPC（钱包 EvmRpcChainAdapter）
+  NOVAPANDA_SOLANA_RPC_URL=https://...  Solana JSON-RPC
+  NOVAPANDA_FIAT_COMPLIANCE=stub|stripe|licensed  法币合规网关模式（默认 stub）
 """
 
 from __future__ import annotations
@@ -98,6 +102,7 @@ class NodeConfig:
     fiat_api_key: Optional[str] = None
     claim_mode: str = "mock"
     claim_db_path: Optional[str] = None
+    marketplace: bool = False
     default_timeouts: dict = field(default_factory=lambda: dict(DEFAULT_TIMEOUTS))
     seed: bool = True
 
@@ -173,6 +178,7 @@ class NodeConfig:
             fiat_api_key=os.environ.get("NOVAPANDA_FIAT_API_KEY"),
             claim_mode=claim_mode,
             claim_db_path=claim_db,
+            marketplace=_env_bool("NOVAPANDA_MARKETPLACE", False),
             default_timeouts=timeouts,
         )
 

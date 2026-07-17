@@ -1254,6 +1254,11 @@ def _trial_desk_body(profile: dict[str, Any]) -> str:
     settle = status.get("settlement", "mock")
     return f"""
 {_quiet_notice_bar(profile)}
+<p class="muted small" style="margin:0 0 0.75rem">
+  <span class="pill">NP-DELEGATE · NP-PRIV · NP-LITE</span>
+  <span class="pill">Claim=mock only</span>
+  <span class="pill">结算={_esc(settle)}</span>
+</p>
 <div class="desk-grid">
   <section class="card">
     <h2 class="card-title">5 分钟跑通 SETTLED 交割</h2>

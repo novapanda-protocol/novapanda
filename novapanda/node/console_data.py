@@ -293,6 +293,7 @@ def build_node_manifest(
             "reputation_gate": app_state.reputation_min_score is not None,
             "witness_v2": bool(getattr(app_state, "witness_v2_enabled", False)),
             "federation_v2": bool(getattr(app_state, "federation_v2_enabled", False)),
+            "marketplace": bool(getattr(app_state, "marketplace_enabled", False)),
             "did_registry": True,
             "iso15118_adapter": True,
             "scenarios_catalog": True,
