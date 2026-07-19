@@ -26,9 +26,11 @@ def _free_port() -> int:
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")
 @pytest.mark.skipif(not SCRIPT.is_file(), reason="plugfest_lifecycle.mjs missing")
+@pytest.mark.skipif(
+    not (TS_ROOT / "dist" / "index.js").is_file(),
+    reason="TS SDK dist missing — covered by ts-plugfest CI job after npm run build",
+)
 def test_ts_sdk_auth_lifecycle_against_uvicorn():
-    assert (TS_ROOT / "dist" / "index.js").is_file(), "run npm run build in sdk/typescript first"
-
     port = _free_port()
     app = create_app(seed=True, auth=True)
     config = uvicorn.Config(app, host="127.0.0.1", port=port, log_level="warning")
