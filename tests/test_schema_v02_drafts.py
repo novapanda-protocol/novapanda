@@ -63,3 +63,12 @@ def test_second_impl_checklist_json_well_formed():
     assert doc["checklist_version"]
     assert len(doc["must"]) >= 5
     assert "SI-01" in {x["id"] for x in doc["must"]}
+
+
+def test_lite_embedded_checklist_json_well_formed():
+    doc = json.loads(
+        (ROOT / "conformance" / "lite_embedded_checklist.json").read_text(encoding="utf-8")
+    )
+    assert doc["profile"] == "NP-LITE"
+    assert "LE-01" in {x["id"] for x in doc["must"]}
+    assert (ROOT / "docs" / "lite-embedded-boundary.md").is_file()

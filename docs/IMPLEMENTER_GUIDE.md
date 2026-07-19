@@ -69,7 +69,9 @@ python -m novapanda manifest validate path/to/manifest.json
 | **L3+** | 额外 Profile | 各档自洽：如 NP-BUNDLE→**C8**；NP-SETTLE→**C10**；NP-DELEGATE→**C12** |
 
 公开实现登记表：[`compatibility.md`](compatibility.md)（欢迎 PR 自报，Steward 可复核）。  
-第二实现征集：[`conformance/CALL_FOR_SECOND_IMPL.md`](../conformance/CALL_FOR_SECOND_IMPL.md) · 起步包：[`SECOND_IMPL_STARTER.md`](../conformance/SECOND_IMPL_STARTER.md) · plugfest：[`EXTERNAL_PLUGFEST.md`](../conformance/EXTERNAL_PLUGFEST.md)。
+第二实现征集：[`conformance/CALL_FOR_SECOND_IMPL.md`](../conformance/CALL_FOR_SECOND_IMPL.md) · 起步包：[`SECOND_IMPL_STARTER.md`](../conformance/SECOND_IMPL_STARTER.md) · plugfest：[`EXTERNAL_PLUGFEST.md`](../conformance/EXTERNAL_PLUGFEST.md)。  
+机器人 / 无人机边缘：[`lite-embedded-boundary.md`](lite-embedded-boundary.md)（签验·CBOR·Outbox；禁止 MCU 上假 SETTLED）。  
+车 + OpenClaw 本周真跑：[`openclaw-adopter-checklist.md`](openclaw-adopter-checklist.md)。
 
 认证标识流程草案：[`conformance/CERTIFICATION.md`](../conformance/CERTIFICATION.md)。  
 **自测通过 ≠ 必须向青合付费**；正式认证标另议，且不作入网闸。

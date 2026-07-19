@@ -237,6 +237,10 @@ Bundle 在**客户端编排**（ADR-0003）；每张仍是原子 VDC。中空阶
 | **M8b · 对外邀请入口** | 可转发短文 + README 挂钉 | **`CALL_FOR_SECOND_IMPL.md`** ✅ | 传播 / 找第二节点 |
 | **M8c · TS L0 自证** | 离线 reverify + plugfest 生命周期 | **`sdk/typescript` `attest:l0`** ✅ | 第二节点仍外征 |
 | **M8d · CI 挂钉** | CI `attest:l0` + `ts-plugfest` · EN 征集入口 | **`.github/workflows/ci.yml`** ✅ | 传播 / 找第二节点 |
+| **M8e · LITE 嵌入边界** | MCU vs 伴侣机 vs 节点；实物分镜 | **`docs/lite-embedded-boundary.md`** ✅ | 真机视频 / ROS2 后置 |
+| **M8f · OpenClaw 对接清单** | 车 Client + OpenClaw Provider 本周真跑 | **`docs/openclaw-adopter-checklist.md`** ✅ | 录屏 / 租狗后换 deliverable |
+| **M8g · 结对 CLI + Skill 壳** | `pair_cli` 一键 SETTLED · OpenClaw `SKILL.md` | **`demo/openclaw_pair/`** ✅ | 分机拆步（可选） |
+| **M8h · 标准 BINDING** | `BINDING-OPENCLAW` 入 spec 索引 | **`spec/BINDING-OPENCLAW.md`** ✅ | — |
 
 **刻意后置**：真法币/持牌清算、协议内积分、跨链「金融功能」、W3C VC 换皮。
 
@@ -262,7 +266,7 @@ Bundle 在**客户端编排**（ADR-0003）；每张仍是原子 VDC。中空阶
 | Exchange + VDC | `novapanda` CORE · NP-HTTP | — |
 | Manifest / well-known | `GET /.well-known/novapanda.json` | 车/桩固件侧暴露 |
 | 物理校验 | `v3/physical.py` · C9 · NP-PHYS | 真表计 Adapter |
-| 弱网姿态 | NP-LITE 成文 | 车端 Outbox 接线 |
+| 弱网姿态 | NP-LITE 成文 · [嵌入边界](lite-embedded-boundary.md) | 真机固件 / 实物视频 |
 | 市场发现 | NP-REP · marketplace-flow | 场站目录产品 |
 | 导出 | `/exchanges/{id}/export` · `adopter/export_pkg.py` | PDF 展示壳（可选） |
 | **Adopter Runtime（M1）** | **`novapanda/adopter/`** · `demo/adopter_closed_loop.py` · `tests/test_adopter_runtime.py` | — |

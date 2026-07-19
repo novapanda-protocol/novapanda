@@ -122,16 +122,17 @@ pytest tests/test_autonomy_dispatch.py -q
 
 ```
 novapanda/           Reference implementation (Python)
+  adopter/           Body-layer runtime (Outbox · Vault · Skill)
   autonomy/          Task split · auction · supply-chain orchestrator
   marketplace/       NP-REP discovery · reputation · Sybil · federation
   wallet/            Multi-chain account · Paymaster · fiat compliance
   node/              Operable HTTP body (zero-node)
 sdk/typescript/      @novapanda/sdk
-spec/                Normative SPEC + JSON Schema
-profiles/            NP-MIN · NODE · BUNDLE · SETTLE · REP · …
-bindings/evm/        Optional settlement rail interfaces
+spec/                Normative SPEC + JSON Schema + BINDING-*
+profiles/            NP-MIN · NODE · BUNDLE · SETTLE · LITE · …
+demo/openclaw_pair/  Car × OpenClaw pair CLI + Skill template
 demo/ · tests/ · conformance/
-docs/                Implementer · deployment · marketplace · open-source scope
+docs/                Implementer · adopter closed-loop · openclaw checklist
 ```
 
 ---
@@ -141,7 +142,8 @@ docs/                Implementer · deployment · marketplace · open-source sco
 We want **independent** nodes and clients — any language — that prove the litmus without our runtime.
 
 **Start here (forwardable):** [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md) · [EN](docs/en/call-for-second-impl.md)  
-Then: [`SECOND_IMPL_STARTER.md`](conformance/SECOND_IMPL_STARTER.md) · [`EXTERNAL_PLUGFEST.md`](conformance/EXTERNAL_PLUGFEST.md) · register in [`docs/compatibility.md`](docs/compatibility.md).
+Then: [`SECOND_IMPL_STARTER.md`](conformance/SECOND_IMPL_STARTER.md) · [`EXTERNAL_PLUGFEST.md`](conformance/EXTERNAL_PLUGFEST.md) · register in [`docs/compatibility.md`](docs/compatibility.md).  
+Robot / drone edge boundary: [`docs/lite-embedded-boundary.md`](docs/lite-embedded-boundary.md).
 
 ```bash
 python -m novapanda conformance report --run          # reference baseline + registration_draft
@@ -157,6 +159,8 @@ python -m novapanda manifest validate ./manifest.json --require-profiles
 | [`CHARTER.md`](CHARTER.md) | In/out of scope · Litmus |
 | [`docs/IMPLEMENTER_GUIDE.md`](docs/IMPLEMENTER_GUIDE.md) | 30-minute implementer path |
 | [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md) | Public call for a second implementation |
+| [`demo/openclaw_pair/README.md`](demo/openclaw_pair/README.md) | Car × OpenClaw install + Skill shell |
+| [`spec/BINDING-OPENCLAW.md`](spec/BINDING-OPENCLAW.md) | OpenClaw binding (informative) |
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Production env · secrets · runner injection |
 | [`docs/OPEN_SOURCE_SCOPE.md`](docs/OPEN_SOURCE_SCOPE.md) | What is open vs body-private |
 | [`docs/marketplace-flow.md`](docs/marketplace-flow.md) | Discover → propose → Sink |

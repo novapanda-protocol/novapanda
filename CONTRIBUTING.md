@@ -26,7 +26,8 @@ python demo/run_demo.py
 2. [`conformance/SECOND_IMPL_STARTER.md`](conformance/SECOND_IMPL_STARTER.md) · SI-01…SI-05  
 3. PR 一行到 [`docs/compatibility.md`](docs/compatibility.md)，备注 `settlement: mock | sandbox | licensed partner`
 
-TypeScript 客户端 L0（非第二节点）：`cd sdk/typescript && npm run attest:l0`。
+TypeScript 客户端 L0（非第二节点）：`cd sdk/typescript && npm run attest:l0`。  
+车 × OpenClaw 结对参考：[`demo/openclaw_pair/`](demo/openclaw_pair/) · [`spec/BINDING-OPENCLAW.md`](spec/BINDING-OPENCLAW.md)。
 
 ## DCO（Developer Certificate of Origin）
 

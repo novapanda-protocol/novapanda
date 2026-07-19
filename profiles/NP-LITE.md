@@ -115,10 +115,13 @@
 
 1. 本设计成文（本任务）  
 2. ✅ 转换层 + 向量：瘦报文 → 标准对象 round-trip（**C-LITE-RT**）  
-3. （更后）边缘参考客户端；勿先改 CORE  
+3. ✅ 嵌入 / 边缘**边界说明**（informative）：[`docs/lite-embedded-boundary.md`](../docs/lite-embedded-boundary.md)  
+4. （更后）真机固件 / ROS2 适配器；勿先改 CORE  
 
 当前：**编码已挂套件**；边缘客户端参考 **`novapanda.adopter.Outbox`** +  
-`AdopterRuntime.check_lite_alignment()` / `np manifest validate`（`lite.offline_queue`）。
+`AdopterRuntime.check_lite_alignment()` / `np manifest validate`（`lite.offline_queue`）。  
+MCU 上**只**做签验·CBOR·Outbox；完整节点属身体层 C，见嵌入边界文 §2–§4。  
+勾选：[`conformance/lite_embedded_checklist.json`](../conformance/lite_embedded_checklist.json)。
 
 ---
 

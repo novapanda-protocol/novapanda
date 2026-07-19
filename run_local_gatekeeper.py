@@ -42,6 +42,7 @@ GATE_TESTS = [
     "tests/test_adopter_skill.py",
     "tests/test_manifest_validate_cli.py",
     "tests/test_schema_v02_drafts.py",
+    "tests/test_openclaw_pair.py",
 ]
 
 REQUIRED_GITIGNORE_SNIPPETS = [

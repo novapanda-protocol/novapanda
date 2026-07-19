@@ -1,0 +1,52 @@
+{
+  "checklist_version": "0.1",
+  "title": "NP-LITE embedded / edge boundary",
+  "doc": "docs/lite-embedded-boundary.md",
+  "profile": "NP-LITE",
+  "must": [
+    {
+      "id": "LE-01",
+      "text": "Ed25519 sign/verify on-device or in companion; no truncated sigs",
+      "maps_to": ["NP-LITE-01", "C1"]
+    },
+    {
+      "id": "LE-02",
+      "text": "Canonical/CBOR payload maps back to JSON test vectors",
+      "maps_to": ["C-LITE-RT", "C1"]
+    },
+    {
+      "id": "LE-03",
+      "text": "Outbox queues ops when partitioned; flush is idempotent; never SETTLED offline",
+      "maps_to": ["NP-LITE-02", "NP-LITE-03"]
+    },
+    {
+      "id": "LE-04",
+      "text": "Device run-states (idle/busy/fault) are not Exchange state",
+      "maps_to": ["NP-LITE-04"]
+    },
+    {
+      "id": "LE-05",
+      "text": "No full uvicorn/node as the default embedded binary",
+      "maps_to": ["docs/lite-embedded-boundary.md §4"]
+    }
+  ],
+  "should": [
+    {
+      "id": "LE-S1",
+      "text": "Manifest declares lite.tier + canonical novapanda-c1 + offline_queue",
+      "maps_to": ["NP-LITE §5"]
+    },
+    {
+      "id": "LE-S2",
+      "text": "Physical meter summary in deliverable/evidence (NP-PHYS), not CORE id",
+      "maps_to": ["NP-PHYS"]
+    }
+  ],
+  "anti_patterns": [
+    "Parallel Record / pending→confirmed API",
+    "Skip verify because RTT is high",
+    "Claim SETTLED while confirm is only in Outbox",
+    "Lite-only weak hash",
+    "ROS2 topic names as protocol state enums"
+  ]
+}

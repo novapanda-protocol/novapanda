@@ -21,6 +21,7 @@
 | **BINDING-MCP** | [BINDING-MCP.md](BINDING-MCP.md) | MCP 工具映射与红线 |
 | **BINDING-A2A** | [BINDING-A2A.md](BINDING-A2A.md) | A2A agent_card / action 映射 |
 | **BINDING-SKILL** | [BINDING-SKILL.md](BINDING-SKILL.md) | Skill action 映射 |
+| **BINDING-OPENCLAW** | [BINDING-OPENCLAW.md](BINDING-OPENCLAW.md) | OpenClaw / 车结对（pair_cli + Skill 壳） |
 
 **合并入口（兼容）**：[SPEC.md](SPEC.md)  
 **Profile**：[`../profiles/`](../profiles/README.md)  

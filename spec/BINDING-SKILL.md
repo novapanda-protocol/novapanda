@@ -53,9 +53,17 @@ Agent（持钥） ──► Exchange HTTP / SDK ──► VDC
 
 ---
 
-## 5. Conformance
+## 5. OpenClaw / 车结对（参考绑定）
+
+智能车 Client + OpenClaw Provider 的标准安装面与 Skill 壳见  
+[`BINDING-OPENCLAW.md`](BINDING-OPENCLAW.md) · [`../demo/openclaw_pair/`](../demo/openclaw_pair/)。
+
+---
+
+## 6. Conformance
 
 - 暂无 **C-SKILL**；`test_surfaces.py` 证明与 SDK 生命周期等价。  
+- OpenClaw 结对参考：`tests/test_openclaw_pair.py`。  
 - Manifest `transport` 含 `skill` 时 **MUST NOT** 暗示已认证宿主安全。
 
 ---

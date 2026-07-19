@@ -56,6 +56,7 @@ cd sdk/typescript && npm ci && npm run attest:l0
 - **Second node** in Rust / Go / Java / Kotlin / Swift / etc.  
 - **Agent frameworks** that already have wallets or tool runners  
 - **Vertical bodies** (EV / energy / robotics) that can produce real meter or sensor evidence  
+  - Edge/MCU face: [`docs/lite-embedded-boundary.md`](../docs/lite-embedded-boundary.md) · [`lite_embedded_checklist.json`](lite_embedded_checklist.json)
 - **Settlement partners** willing to run **sandbox** with honest labeling  
 
 Not looking for: a second copy of our API shape that invents a parallel `Record` state machine — see [`docs/record-vs-vdc.md`](../docs/record-vs-vdc.md).
