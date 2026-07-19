@@ -131,8 +131,9 @@ sdk/typescript/      @novapanda/sdk
 spec/                Normative SPEC + JSON Schema + BINDING-*
 profiles/            NP-MIN · NODE · BUNDLE · SETTLE · LITE · …
 demo/openclaw_pair/  Car × OpenClaw pair CLI + Skill template
+adapters/            Community ecosystem adapters (openclaw · mqtt_iot · ros2…)
 demo/ · tests/ · conformance/
-docs/                Implementer · adopter closed-loop · openclaw checklist
+docs/                Implementer · adopter · ecosystem-adapters
 ```
 
 ---
@@ -161,6 +162,8 @@ python -m novapanda manifest validate ./manifest.json --require-profiles
 | [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md) | Public call for a second implementation |
 | [`demo/openclaw_pair/README.md`](demo/openclaw_pair/README.md) | Car × OpenClaw install + Skill shell |
 | [`spec/BINDING-OPENCLAW.md`](spec/BINDING-OPENCLAW.md) | OpenClaw binding (informative) |
+| [`docs/ecosystem-adapters.md`](docs/ecosystem-adapters.md) | Ecosystem adapter contract + community PR guide |
+| [`adapters/`](adapters/) | Adapter catalog (`python -m novapanda.ecosystem`) |
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Production env · secrets · runner injection |
 | [`docs/OPEN_SOURCE_SCOPE.md`](docs/OPEN_SOURCE_SCOPE.md) | What is open vs body-private |
 | [`docs/marketplace-flow.md`](docs/marketplace-flow.md) | Discover → propose → Sink |

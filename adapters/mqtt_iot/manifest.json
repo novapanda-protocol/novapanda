@@ -1,0 +1,16 @@
+{
+  "slug": "mqtt_iot",
+  "title": "MQTT / IoT sensor summary (example)",
+  "kind": "work_fn",
+  "status": "example",
+  "maintainer": "novapanda",
+  "summary": "Example work_fn that turns a sensor reading dict into a schema-friendly deliverable. No broker required for unit test.",
+  "binding": "spec/BINDING-SKILL.md",
+  "paths": ["adapters/mqtt_iot/"],
+  "profiles": ["NP-MIN", "NP-PHYS"],
+  "settlement_note": "mock",
+  "entry": {
+    "type": "work_fn",
+    "callable": "adapters.mqtt_iot.plugin:build_deliverable"
+  }
+}

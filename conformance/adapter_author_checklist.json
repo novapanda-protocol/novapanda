@@ -1,0 +1,37 @@
+{
+  "checklist_version": "0.1",
+  "title": "Ecosystem adapter author checklist",
+  "doc": "docs/ecosystem-adapters.md",
+  "must": [
+    {
+      "id": "AD-01",
+      "text": "manifest.json present under adapters/<slug>/ with slug/title/kind/status/maintainer"
+    },
+    {
+      "id": "AD-02",
+      "text": "Does not fork Exchange state machine or invent Record API"
+    },
+    {
+      "id": "AD-03",
+      "text": "Signing stays local (SDK/Adopter/pair_cli); no cloud custody of private keys"
+    },
+    {
+      "id": "AD-04",
+      "text": "settlement_note honest: mock | sandbox | licensed partner"
+    },
+    {
+      "id": "AD-05",
+      "text": "Device run-states are not written as Exchange state"
+    }
+  ],
+  "should": [
+    {
+      "id": "AD-S1",
+      "text": "Unit or demo command documented in adapters/<slug>/README.md"
+    },
+    {
+      "id": "AD-S2",
+      "text": "Uses ProviderAdapter or surfaces.dispatch or documented pair_cli"
+    }
+  ]
+}

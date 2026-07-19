@@ -43,6 +43,7 @@ GATE_TESTS = [
     "tests/test_manifest_validate_cli.py",
     "tests/test_schema_v02_drafts.py",
     "tests/test_openclaw_pair.py",
+    "tests/test_ecosystem_adapters.py",
 ]
 
 REQUIRED_GITIGNORE_SNIPPETS = [

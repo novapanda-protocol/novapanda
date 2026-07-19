@@ -44,6 +44,7 @@ Node body（可选）──► Exchange SM ──► VDC
 | 对接清单 | [`docs/openclaw-adopter-checklist.md`](../docs/openclaw-adopter-checklist.md) | 验收勾选 |
 | 边缘边界 | [`docs/lite-embedded-boundary.md`](../docs/lite-embedded-boundary.md) | MCU vs 伴侣机 |
 | 向量测试 | [`tests/test_openclaw_pair.py`](../tests/test_openclaw_pair.py) | 同机 SETTLED + reverify |
+| 生态登记 | [`adapters/openclaw/`](../adapters/openclaw/) | `python -m novapanda.ecosystem` |
 
 ---
 

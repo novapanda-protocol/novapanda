@@ -23,7 +23,7 @@ build-backend = "setuptools.build_meta"
 np = "novapanda.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["novapanda*"]
+include = ["novapanda*", "adapters*"]
 
 [tool.setuptools.package-data]
 "novapanda.node" = ["static/brand/*.png"]

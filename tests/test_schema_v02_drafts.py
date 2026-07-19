@@ -72,3 +72,7 @@ def test_lite_embedded_checklist_json_well_formed():
     assert doc["profile"] == "NP-LITE"
     assert "LE-01" in {x["id"] for x in doc["must"]}
     assert (ROOT / "docs" / "lite-embedded-boundary.md").is_file()
+
+
+def test_adapter_author_checklist_listed_in_conformance():
+    assert (ROOT / "conformance" / "adapter_author_checklist.json").is_file()

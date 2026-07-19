@@ -1,0 +1,16 @@
+{
+  "slug": "my-adapter",
+  "title": "My device / agent adapter",
+  "kind": "work_fn",
+  "status": "skeleton",
+  "maintainer": "your-github-or-org",
+  "summary": "One-line: what physical/agent body this wraps.",
+  "binding": "spec/BINDING-SKILL.md",
+  "paths": ["adapters/my-adapter/"],
+  "profiles": ["NP-MIN"],
+  "settlement_note": "mock",
+  "entry": {
+    "type": "work_fn",
+    "module": "adapters.my_adapter.plugin:build_deliverable"
+  }
+}

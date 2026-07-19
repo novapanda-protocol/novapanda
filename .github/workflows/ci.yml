@@ -28,6 +28,7 @@ jobs:
           tests/test_adopter_site_patrol.py
           tests/test_adopter_skill.py
           tests/test_openclaw_pair.py
+          tests/test_ecosystem_adapters.py
           -q
       - name: Adopter smoke demos
         run: python demo/adopter_smoke_all.py

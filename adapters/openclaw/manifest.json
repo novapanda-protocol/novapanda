@@ -1,0 +1,20 @@
+{
+  "slug": "openclaw",
+  "title": "OpenClaw / car pair",
+  "kind": "agent_host",
+  "status": "reference",
+  "maintainer": "novapanda",
+  "summary": "OpenClaw Skill shell + pair_cli; car Client, OpenClaw host Provider.",
+  "binding": "spec/BINDING-OPENCLAW.md",
+  "paths": [
+    "demo/openclaw_pair/",
+    "spec/BINDING-OPENCLAW.md",
+    "docs/openclaw-adopter-checklist.md"
+  ],
+  "profiles": ["NP-MIN", "NP-LITE"],
+  "settlement_note": "mock",
+  "entry": {
+    "type": "cli",
+    "command": "python demo/openclaw_pair/pair_cli.py run"
+  }
+}

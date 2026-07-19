@@ -1,0 +1,16 @@
+{
+  "slug": "ros2",
+  "title": "ROS2 robot bus (skeleton)",
+  "kind": "robot_bus",
+  "status": "skeleton",
+  "maintainer": "novapanda",
+  "summary": "Placeholder for ROS2 Service/Action → Exchange mapping. No runtime dependency until a hardware partner lands.",
+  "binding": "docs/lite-embedded-boundary.md",
+  "paths": ["adapters/ros2/"],
+  "profiles": ["NP-MIN", "NP-PHYS", "NP-LITE"],
+  "settlement_note": "mock",
+  "entry": {
+    "type": "skeleton",
+    "notes": "Map Topics to deliverable evidence only; do not treat Topic names as Exchange state."
+  }
+}
