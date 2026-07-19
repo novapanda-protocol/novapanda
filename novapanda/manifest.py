@@ -21,6 +21,8 @@ def build_agent_manifest(
     transport: Optional[list[str]] = None,
     version: str = "0.0.1",
     include_did: bool = True,
+    profiles: Optional[list[str]] = None,
+    lite: Optional[dict] = None,
 ) -> dict:
     body = {
         "protocol": "novapanda",
@@ -33,6 +35,10 @@ def build_agent_manifest(
             "transport": transport or ["http"],
         },
     }
+    if profiles is not None:
+        body["profiles"] = list(profiles)
+    if lite is not None:
+        body["lite"] = dict(lite)
     if include_did:
         body["did"] = agent_id_to_did(identity.agent_id)
     body["sig"] = identity.sign(canonical_bytes({k: v for k, v in body.items()}))

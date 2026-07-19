@@ -7,6 +7,7 @@ export {
   agentIdFromPublicKey,
   b58decode,
   b58encode,
+  b64urlDecode,
   b64urlEncode,
   pubkeyFromAgentId,
   sha256Hex,
@@ -18,6 +19,7 @@ export {
   requestSigningBytes,
   signBytes,
   signRequest,
+  verifyBytes,
 } from "./sign.js";
 export type { ExchangeTerms } from "./terms.js";
 export {
@@ -30,13 +32,18 @@ export {
   buildVdc,
   clientSign,
   clientSigningBytes,
+  isValidSettled,
   providerPayloadBytes,
   providerPayloadEncoding,
   providerSign,
   providerSigningBytes,
   providerSigningCborBytes,
   providerSigningPayload,
+  verifyClient,
+  verifyProvider,
 } from "./vdc.js";
+export type { ReverifyChecks } from "./reverify.js";
+export { allOk, reverify } from "./reverify.js";
 export { canonicalCborBytes } from "./cbor.js";
 
 export type ExchangeState =

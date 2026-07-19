@@ -18,6 +18,20 @@ jobs:
         run: pip install -e ".[dev]"
       - name: Pytest
         run: python -m pytest -q
+      - name: Adopter suite
+        run: >
+          python -m pytest
+          tests/test_adopter_runtime.py
+          tests/test_adopter_av_charge.py
+          tests/test_adopter_m3_product.py
+          tests/test_adopter_m4_rails.py
+          tests/test_adopter_site_patrol.py
+          tests/test_adopter_skill.py
+          -q
+      - name: Adopter smoke demos
+        run: python demo/adopter_smoke_all.py
+      - name: Manifest validate + v0.2 schema drafts
+        run: python -m pytest tests/test_manifest_validate_cli.py tests/test_schema_v02_drafts.py -q
       - name: Conformance C1-C7
         run: python -m conformance.run
       - name: Plugfest
@@ -36,3 +50,26 @@ jobs:
           npm ci
           npm run build
           npm test
+      - name: L0 offline reverify (attest)
+        working-directory: sdk/typescript
+        run: npm run attest:l0
+
+  ts-plugfest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Python reference node
+        run: pip install -e ".[dev]"
+      - name: Build TypeScript SDK
+        working-directory: sdk/typescript
+        run: |
+          npm ci
+          npm run build
+      - name: TS auth lifecycle + offline reverify vs uvicorn
+        run: python -m pytest tests/test_ts_plugfest.py -q

@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { NovaPandaClient } from "../dist/index.js";
+import { NovaPandaClient, allOk, reverify } from "../dist/index.js";
 
 const baseUrl = process.argv[2];
 if (!baseUrl) {
@@ -51,4 +51,15 @@ const settled = await client.confirm(eid);
 assert.equal(settled.state, "SETTLED");
 assert.ok(settled.vdc?.signatures?.client_sig);
 
-console.log(JSON.stringify({ ok: true, exchange_id: eid, vdc_id: settled.vdc.vdc_id }));
+// L0: offline reverify — no further HTTP; node may be gone
+const checks = await reverify(settled.vdc, GOOD);
+assert.equal(allOk(checks), true);
+
+console.log(
+  JSON.stringify({
+    ok: true,
+    exchange_id: eid,
+    vdc_id: settled.vdc.vdc_id,
+    reverify: checks,
+  }),
+);

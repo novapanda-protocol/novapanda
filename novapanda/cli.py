@@ -1,4 +1,4 @@
-"""NovaPanda CLI（路线 B2）：rails / quote / negotiate / conformance。
+"""NovaPanda CLI（路线 B2）：rails / quote / negotiate / conformance / manifest。
 
 用法：
   python -m novapanda rails
@@ -6,6 +6,7 @@
   python -m novapanda negotiate --amount 50 --currency USDC --preferred x402,mock
   python -m novapanda conformance list
   python -m novapanda conformance report [--run]
+  python -m novapanda manifest validate path.json
 """
 
 from __future__ import annotations
@@ -105,6 +106,36 @@ def cmd_conformance_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_manifest_validate(args: argparse.Namespace) -> int:
+    import json
+    from pathlib import Path
+
+    from .manifest_validate import validate_agent_manifest, validate_manifest_file
+
+    if args.path == "-":
+        doc = json.load(sys.stdin)
+        report = validate_agent_manifest(
+            doc,
+            claim_mock_only=not args.claim_production,
+            delegation_supported=not args.no_delegation,
+            require_profiles=bool(args.require_profiles),
+        )
+        report["path"] = "-"
+    else:
+        report = validate_manifest_file(
+            Path(args.path),
+            claim_mock_only=not args.claim_production,
+            delegation_supported=not args.no_delegation,
+            require_profiles=bool(args.require_profiles),
+        )
+    _json_out(report)
+    if not report.get("ok"):
+        return 1
+    if args.strict_warnings and report.get("warnings"):
+        return 2
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="novapanda", description="NovaPanda CLI")
     sub = p.add_subparsers(dest="command", required=True)
@@ -137,6 +168,32 @@ def build_parser() -> argparse.ArgumentParser:
     crep = conf_sub.add_parser("report", help="登记用一致性报告（gap audit + Case 列表）")
     crep.add_argument("--run", action="store_true", help="附加运行全套件")
     crep.set_defaults(func=cmd_conformance_report)
+
+    man = sub.add_parser("manifest", help="Agent Manifest 工具")
+    man_sub = man.add_subparsers(dest="man_cmd", required=True)
+    mv = man_sub.add_parser("validate", help="校验 Manifest 签名与 Profile 诚实")
+    mv.add_argument("path", help="manifest JSON 路径，或 - 表示 stdin")
+    mv.add_argument(
+        "--require-profiles",
+        action="store_true",
+        help="缺少 profiles 字段则失败",
+    )
+    mv.add_argument(
+        "--strict-warnings",
+        action="store_true",
+        help="存在 warnings 时以退出码 2 失败",
+    )
+    mv.add_argument(
+        "--claim-production",
+        action="store_true",
+        help="宣告 NP-CLAIM-XFER 时按生产轨（关闭 mock-only 诚实闸）",
+    )
+    mv.add_argument(
+        "--no-delegation",
+        action="store_true",
+        help="节点未启用委托时用于诚实检查",
+    )
+    mv.set_defaults(func=cmd_manifest_validate)
 
     return p
 

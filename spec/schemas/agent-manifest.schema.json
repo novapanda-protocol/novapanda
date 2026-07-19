@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/agent-manifest.schema.json",
+  "title": "Agent Manifest (informative · v0.2 draft)",
+  "description": "自签能力发现文档（/.well-known/novapanda.json）。验签规则见 novapanda.manifest；诚实检查见 np manifest validate。",
+  "type": "object",
+  "required": [
+    "protocol",
+    "agent_id",
+    "pubkey",
+    "capabilities",
+    "endpoints",
+    "sig"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "protocol": { "type": "string", "const": "novapanda" },
+    "version": { "type": "string" },
+    "agent_id": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "pubkey": { "type": "string", "minLength": 1 },
+    "did": { "type": "string" },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["resource_type"],
+        "properties": {
+          "resource_type": { "type": "string", "minLength": 1 },
+          "rules": { "type": "array", "items": { "type": "string" } },
+          "price": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "endpoints": {
+      "type": "object",
+      "required": ["exchange"],
+      "properties": {
+        "exchange": { "type": "string", "minLength": 1 },
+        "transport": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "lite": {
+      "type": "object",
+      "properties": {
+        "tier": { "type": "string", "enum": ["lite", "edge", "full"] },
+        "canonical": { "type": "string", "const": "novapanda-c1" },
+        "offline_queue": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "sig": { "type": "string", "minLength": 1 }
+  }
+}

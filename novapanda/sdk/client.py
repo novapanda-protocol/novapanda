@@ -93,6 +93,13 @@ class NovaPandaClient:
         V.client_sign(doc, self.identity)
         return self._post(f"/exchanges/{exchange_id}/confirm", {"vdc": doc})
 
+    def dispute(self, exchange_id: str, *, reason: str) -> dict:
+        return self._post(f"/exchanges/{exchange_id}/dispute", {"reason": reason})
+
+    def export_exchange(self, exchange_id: str) -> dict:
+        """导出交换包。deliverable 仅当请求鉴权身份为当事方时由节点附带。"""
+        return self._get(f"/exchanges/{exchange_id}/export")
+
     # --- provider 侧 ---
     def deliver(self, exchange_id: str, deliverable: Any, *,
                 evidence_level: str = "dual_signed") -> dict:

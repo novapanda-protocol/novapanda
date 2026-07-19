@@ -80,7 +80,8 @@ python -m novapanda.reverify demo/out/settled_vdc.json \
 ```
 
 ```bash
-cd sdk/typescript && npm run build && npm test
+cd sdk/typescript && npm ci && npm run build && npm test
+cd sdk/typescript && npm run attest:l0    # L0: dual-sign + offline reverify
 ```
 
 ### Config templates (no secrets in git)
@@ -135,12 +136,27 @@ docs/                Implementer · deployment · marketplace · open-source sco
 
 ---
 
+## Second implementation (open call)
+
+We want **independent** nodes and clients — any language — that prove the litmus without our runtime.
+
+**Start here (forwardable):** [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md) · [EN](docs/en/call-for-second-impl.md)  
+Then: [`SECOND_IMPL_STARTER.md`](conformance/SECOND_IMPL_STARTER.md) · [`EXTERNAL_PLUGFEST.md`](conformance/EXTERNAL_PLUGFEST.md) · register in [`docs/compatibility.md`](docs/compatibility.md).
+
+```bash
+python -m novapanda conformance report --run          # reference baseline + registration_draft
+python -m novapanda manifest validate ./manifest.json --require-profiles
+```
+
+---
+
 ## Documentation
 
 | Doc | Purpose |
 |-----|---------|
 | [`CHARTER.md`](CHARTER.md) | In/out of scope · Litmus |
 | [`docs/IMPLEMENTER_GUIDE.md`](docs/IMPLEMENTER_GUIDE.md) | 30-minute implementer path |
+| [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md) | Public call for a second implementation |
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Production env · secrets · runner injection |
 | [`docs/OPEN_SOURCE_SCOPE.md`](docs/OPEN_SOURCE_SCOPE.md) | What is open vs body-private |
 | [`docs/marketplace-flow.md`](docs/marketplace-flow.md) | Discover → propose → Sink |

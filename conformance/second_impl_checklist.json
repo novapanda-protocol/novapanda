@@ -1,0 +1,82 @@
+{
+  "checklist_version": "0.2",
+  "title": "NovaPanda second-implementation minimum proof",
+  "litmus": "Stranger agent completes SETTLED dual-signed VDC from public SPEC alone",
+  "must": [
+    {
+      "id": "SI-01",
+      "title": "Local Ed25519 identity; private key never uploaded",
+      "evidence": "code review or architecture note"
+    },
+    {
+      "id": "SI-02",
+      "title": "Canonical JSON + SHA-256 + Ed25519 match C1 vectors",
+      "evidence": "C1 pass log"
+    },
+    {
+      "id": "SI-03",
+      "title": "Full lifecycle propose→…→SETTLED on any compatible node or self-host",
+      "evidence": "exchange_id + settled VDC JSON"
+    },
+    {
+      "id": "SI-04",
+      "title": "Offline reverify(VDC, deliverable) without original node DB",
+      "evidence": "reverify ok log"
+    },
+    {
+      "id": "SI-05",
+      "title": "Self-signed Manifest with honest profiles[]",
+      "evidence": "manifest JSON + `np manifest validate` or equivalent"
+    }
+  ],
+  "should": [
+    {
+      "id": "SI-06",
+      "title": "C2–C5 + C7",
+      "evidence": "conformance report"
+    },
+    {
+      "id": "SI-07",
+      "title": "If NP-BUNDLE: C8 or nested diligence / site-patrol demo",
+      "evidence": "bundle JSON + logs"
+    },
+    {
+      "id": "SI-08",
+      "title": "If NP-PHYS: C9 energy/actuation smoke",
+      "evidence": "plugfest energy or adopter_av_charge log"
+    },
+    {
+      "id": "SI-09",
+      "title": "If NP-LITE: offline queue refuses pseudo-SETTLED while partitioned",
+      "evidence": "Outbox/flush test or check_lite_alignment"
+    }
+  ],
+  "registration": {
+    "pr_target": "docs/compatibility.md",
+    "fields": [
+      "implementation",
+      "language",
+      "maintainer",
+      "profiles",
+      "vectors",
+      "level",
+      "settlement_honesty",
+      "log_url",
+      "date"
+    ]
+  },
+  "anti_patterns": [
+    "Record/pending→confirmed two-state API as CORE",
+    "W3C VC shell replacing dual-sign VDC",
+    "Protocol token / points as settlement truth",
+    "Operator login substituting agent signatures",
+    "Claiming licensed settlement while only mock"
+  ],
+  "refs": [
+    "conformance/EXTERNAL_PLUGFEST.md",
+    "conformance/VECTORS.md",
+    "docs/IMPLEMENTER_GUIDE.md",
+    "docs/record-vs-vdc.md",
+    "docs/adopter-closed-loop.md"
+  ]
+}

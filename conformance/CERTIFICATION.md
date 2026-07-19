@@ -41,7 +41,7 @@ python -m conformance.run --list
 详见 [`internal/design/UC-40-认证流程设计.md`](../internal/design/UC-40-认证流程设计.md)（L0–L3 分级 · Steward 复核表）。
 
 1. 自测：`python -m conformance.run` + `python -m conformance.gap_audit` + （可选）`python demo/plugfest.py`
-2. TS 交叉：`cd sdk/typescript && npm run build && npm test`
+2. TS 交叉：`cd sdk/typescript && npm run attest:l0`（含离线 reverify）；可选 `pytest tests/test_ts_plugfest.py`
 3. 提交实现版本、manifest 样例、结算 rail 说明 → PR `docs/compatibility.md`
 4. Steward 复核后授予 Compatible（L1/L2）；Certified（L3）待商标/合同就绪
 
@@ -49,6 +49,7 @@ python -m conformance.run --list
 
 - [`VECTORS.md`](VECTORS.md) — 黄金向量与 SPEC / Profile 挂钩
 - [`PRE_PUBLISH_CHECKLIST.md`](PRE_PUBLISH_CHECKLIST.md) — **公开前检查清单（商标/域名/表述红线）**
+- `CALL_FOR_SECOND_IMPL.md` — 第二实现公开征集（可转发）
 - `EXTERNAL_PLUGFEST.md` — 对外 plugfest 指南
 - `TRADEMARK.md` — 商标与标识占位
 - [`../profiles/`](../profiles/) — NP-MIN / NP-NODE / NP-BUNDLE

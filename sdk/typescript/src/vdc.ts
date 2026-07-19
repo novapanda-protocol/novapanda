@@ -3,8 +3,7 @@
 import { randomBytes } from "node:crypto";
 import { canonicalBytes } from "./canonical.js";
 import { canonicalCborBytes } from "./cbor.js";
-import { agentIdFromPrivateKey } from "./sign.js";
-import { signBytes } from "./sign.js";
+import { agentIdFromPrivateKey, signBytes, verifyBytes } from "./sign.js";
 
 export const VDC_VERSION = "0.1";
 export const PROVIDER_PAYLOAD_ENCODINGS = ["json", "cbor"] as const;
@@ -146,4 +145,24 @@ export async function clientSign(vdc: VdcDoc, privateKey: Uint8Array): Promise<V
   }
   vdc.signatures.client_sig = await signBytes(privateKey, clientSigningBytes(vdc));
   return vdc;
+}
+
+export async function verifyProvider(vdc: VdcDoc): Promise<boolean> {
+  const sig = vdc.signatures.provider_sig;
+  if (!sig) return false;
+  return verifyBytes(vdc.parties.provider, sig, providerPayloadBytes(vdc));
+}
+
+export async function verifyClient(vdc: VdcDoc): Promise<boolean> {
+  const sig = vdc.signatures.client_sig;
+  if (!sig) return false;
+  return verifyBytes(vdc.parties.client, sig, clientSigningBytes(vdc));
+}
+
+export async function isValidSettled(vdc: VdcDoc): Promise<boolean> {
+  return (
+    vdc.state === "SETTLED" &&
+    (await verifyProvider(vdc)) &&
+    (await verifyClient(vdc))
+  );
 }

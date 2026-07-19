@@ -202,8 +202,13 @@ def run_energy() -> bool:
             "price": ENERGY_PRICE,
         }],
         exchange_endpoint="http://testserver/exchanges",
+        profiles=["NP-MIN", "NP-PHYS"],
     )
     assert verify_agent_manifest(manifest)
+    from novapanda.manifest_validate import validate_agent_manifest
+
+    mv = validate_agent_manifest(manifest, require_profiles=True)
+    assert mv["ok"] is True, mv
 
     phys = tc.post("/v3/physical/validate", json={
         "resource_type": ENERGY_RESOURCE,

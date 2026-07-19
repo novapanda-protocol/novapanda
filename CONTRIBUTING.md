@@ -18,6 +18,16 @@ python demo/run_demo.py
 - 涉及**复验语义**（规范化、签名范围、状态机、Schema）的改动，MUST 同步更新 `spec/` 并补一致性测试。
 - 不引入"协议托管资金 / 协议费 / 代币"等违反中立性铁律的设计。
 
+## 第二实现 / 兼容登记
+
+独立语言或节点实现欢迎。最短路径：
+
+1. [`conformance/CALL_FOR_SECOND_IMPL.md`](conformance/CALL_FOR_SECOND_IMPL.md)（[EN](docs/en/call-for-second-impl.md)）  
+2. [`conformance/SECOND_IMPL_STARTER.md`](conformance/SECOND_IMPL_STARTER.md) · SI-01…SI-05  
+3. PR 一行到 [`docs/compatibility.md`](docs/compatibility.md)，备注 `settlement: mock | sandbox | licensed partner`
+
+TypeScript 客户端 L0（非第二节点）：`cd sdk/typescript && npm run attest:l0`。
+
 ## DCO（Developer Certificate of Origin）
 
 本项目采用 **DCO**（而非传统 CLA）以降低贡献门槛。每个 commit MUST 带 sign-off：

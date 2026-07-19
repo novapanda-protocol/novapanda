@@ -1,8 +1,9 @@
 # Compatibility Matrix · 实现兼容登记
 
-> **状态**：公开空表 · **v0.3**（登记挂钉 + C-MCP 向量）  
+> **状态**：**v0.3**（参考节点 + TS 客户端已挂钉；**第二节点仍征集**）  
 > **用途**：社会健壮性（开源尺子 P5）——兼容靠向量，不靠单一代码库。  
 > **谁可填**：实现维护者自报 PR；Steward 可抽检向量。  
+> **征集入口**：[`conformance/CALL_FOR_SECOND_IMPL.md`](../conformance/CALL_FOR_SECOND_IMPL.md)  
 > **等级定义**：见 [`IMPLEMENTER_GUIDE.md`](IMPLEMENTER_GUIDE.md) §4。
 
 ---
@@ -12,8 +13,8 @@
 | 实现 | 语言 | 维护方 | Profiles 宣告 | 向量/套件 | 等级自报 | 备注 | plugfest / 日志 | 更新日期 |
 |------|------|--------|---------------|-----------|----------|------|-----------------|----------|
 | novapanda（参考） | Python | 青合 / 社区 | MIN · NODE · **BUNDLE** · PHYS · SETTLE · DELEGATE · PRIV · LITE ·（可选 CLAIM-XFER） | C1–C12 · C-NODE-R · C9 · C-LITE-RT · C-PRIV · C-S1-SANDBOX · C-MCP | L2+ | 结算 mock/sandbox；**Stripe 沙箱真网已测**；CLAIM 生产需 env | `python -m novapanda conformance report --run` | 2026-07-10 |
-| @novapanda/sdk | TypeScript | 同上 | 偏 Client / MIN | C1 交叉 · 部分 | L0–L1 | 以 npm 包测试为准 | — | 2026-07-08 |
-| *（第二节点欢迎）* | | | | | | **刻意征集** · 见 G01 | | |
+| @novapanda/sdk | TypeScript | 同上 | 偏 Client / MIN | C1 交叉 · **L0 reverify** · auth 全生命周期 | L0–L1 | `settlement: mock`（节点 mock）；`npm run attest:l0` · `test/plugfest_lifecycle.mjs` | `sdk/typescript` | 2026-07-19 |
+| *（第二节点欢迎）* | | | | | | **刻意征集** · 见 [`conformance/SECOND_IMPL_STARTER.md`](../conformance/SECOND_IMPL_STARTER.md) | | |
 
 ### 1.1 Manifest 诚实说明（参考节点）
 
@@ -59,4 +60,4 @@
 
 ---
 
-*空表也是设计：先有挂钉，再长第二实现 · v0.3*
+*参考行已挂钉；第二节点仍空 · 转发 [`CALL_FOR_SECOND_IMPL.md`](../conformance/CALL_FOR_SECOND_IMPL.md) · v0.3*

@@ -5,7 +5,9 @@ import * as ed from "@noble/ed25519";
 import { canonicalBytes } from "./canonical.js";
 import {
   agentIdFromPublicKey,
+  b64urlDecode,
   b64urlEncode,
+  pubkeyFromAgentId,
   sha256Hex,
 } from "./crypto.js";
 import type { RequestSigner } from "./auth.js";
@@ -19,6 +21,20 @@ ed.etc.sha512Sync = (...messages: Uint8Array[]) => {
 export async function signBytes(privateKey: Uint8Array, message: Uint8Array): Promise<string> {
   const sig = await ed.signAsync(message, privateKey);
   return b64urlEncode(sig);
+}
+
+export async function verifyBytes(
+  agentId: string,
+  signatureB64url: string,
+  message: Uint8Array,
+): Promise<boolean> {
+  try {
+    const pk = pubkeyFromAgentId(agentId);
+    const sig = b64urlDecode(signatureB64url);
+    return await ed.verifyAsync(sig, message, pk);
+  } catch {
+    return false;
+  }
 }
 
 export function requestSigningBytes(

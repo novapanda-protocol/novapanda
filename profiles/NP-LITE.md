@@ -117,7 +117,8 @@
 2. ✅ 转换层 + 向量：瘦报文 → 标准对象 round-trip（**C-LITE-RT**）  
 3. （更后）边缘参考客户端；勿先改 CORE  
 
-当前：**编码已挂套件**；边缘客户端仍须另令。
+当前：**编码已挂套件**；边缘客户端参考 **`novapanda.adopter.Outbox`** +  
+`AdopterRuntime.check_lite_alignment()` / `np manifest validate`（`lite.offline_queue`）。
 
 ---
 

@@ -27,7 +27,9 @@
 | 5 | （可选）[`profiles/NP-NODE.md`](../profiles/NP-NODE.md) 等 | 仅当你宣告对应 Profile |
 | — | （可选）[`docs/marketplace-flow.md`](marketplace-flow.md) | NP-REP：发现 → propose → 终态 Sink |
 
-说明层（非 MUST）：[`docs/scenarios/`](scenarios/) · 含 [`生态八域`](scenarios/ecosystem-eight-domains.md) 公开登记。
+说明层（非 MUST）：[`docs/scenarios/`](scenarios/) · 含 [`生态八域`](scenarios/ecosystem-eight-domains.md) 公开登记。  
+填「规范很全、场景很远」的中空：[`adopter-closed-loop.md`](adopter-closed-loop.md)。  
+**推荐接入路径**：`NovaPandaClient`（SDK）+ **`novapanda.adopter.AdopterRuntime`**（产品面）+ 可选 **`AdopterSkill`**（LLM 工具）；不要另起 Record / `novapanda_create` 六接口（见 [`record-vs-vdc.md`](record-vs-vdc.md)）。
 
 ---
 
@@ -40,6 +42,7 @@
 ④ 独立 reverify(VDC, deliverable) 全绿（不依赖原节点数据库）
 ⑤ Manifest 宣告 profiles[]；只承诺测过的档
 ⑥ 结算：先 mock；真轨另见 NP-SETTLE + 持牌伙伴（非 Litmus 必选项）
+⑦ 产品面：AdopterRuntime（草稿/Outbox/Vault）· 车充/巡检见 demo · LLM 用 AdopterSkill
 ```
 
 参考：Python 包 `novapanda/`、TS `sdk/typescript`、试用节点（可替代）。
@@ -48,7 +51,10 @@
 python -m conformance.run --list
 python -m conformance.run          # C1–C8、C10–C12（环境具备时）
 python -m conformance.gap_audit    # 套件完整性
-python internal/ops/release_check.py   # 发布前冒烟（T23）
+python run_local_gatekeeper.py     # 含 Adopter 套件 + TRANSITIONS 指纹
+pytest tests/test_adopter_runtime.py tests/test_adopter_av_charge.py tests/test_adopter_m3_product.py tests/test_adopter_m4_rails.py tests/test_adopter_site_patrol.py tests/test_adopter_skill.py -q
+python demo/adopter_smoke_all.py   # M1–M5 demo 一键冒烟
+python -m novapanda manifest validate path/to/manifest.json
 ```
 
 ---
@@ -62,7 +68,8 @@ python internal/ops/release_check.py   # 发布前冒烟（T23）
 | **L2 NODE** | NP-NODE | L1 + recover/sweep/持久化相关检查 |
 | **L3+** | 额外 Profile | 各档自洽：如 NP-BUNDLE→**C8**；NP-SETTLE→**C10**；NP-DELEGATE→**C12** |
 
-公开实现登记表：[`compatibility.md`](compatibility.md)（欢迎 PR 自报，Steward 可复核）。
+公开实现登记表：[`compatibility.md`](compatibility.md)（欢迎 PR 自报，Steward 可复核）。  
+第二实现征集：[`conformance/CALL_FOR_SECOND_IMPL.md`](../conformance/CALL_FOR_SECOND_IMPL.md) · 起步包：[`SECOND_IMPL_STARTER.md`](../conformance/SECOND_IMPL_STARTER.md) · plugfest：[`EXTERNAL_PLUGFEST.md`](../conformance/EXTERNAL_PLUGFEST.md)。
 
 认证标识流程草案：[`conformance/CERTIFICATION.md`](../conformance/CERTIFICATION.md)。  
 **自测通过 ≠ 必须向青合付费**；正式认证标另议，且不作入网闸。
@@ -79,6 +86,9 @@ python internal/ops/release_check.py   # 发布前冒烟（T23）
 | Claim / 积分 = 协议币 | Charter 禁止 |
 | 未交付就 capture | NP-SETTLE / 闭环：先证后付 |
 | 把 MCP/工作流塞进 CORE | 只用 BINDING / 客户端编排 |
+| 另起 `Record` / pending→confirmed 六接口 | 映射到 VDC + Exchange；见 [`record-vs-vdc.md`](record-vs-vdc.md) |
+| 用 W3C VC / Data Credential 替换 VDC | Delivery Claim + 双签 canonical JSON；见同页 §5 |
+| 另起 float 多链钱包当结算真源 | 用 `AgentWalletManager`；SETTLED 仍靠 VDC；见同页 §6 |
 
 ---
 
@@ -113,8 +123,8 @@ python internal/ops/release_check.py   # 发布前冒烟（T23）
 | `python -m novapanda negotiate …` | ✓ | 预览 `settlement_binding` |
 | `python -m novapanda conformance list/run` | ✓ | 包装一致性套件 |
 | `np …`（pip install 后） | ✓ | 同上，`pyproject` scripts 入口 |
-| `np manifest validate` | 待 | Manifest / Profile 诚实检查 |
-| `np lite roundtrip` | △ | 已有 HTTP 工具；CLI 薄封装 |
+| `np manifest validate` | ✓ | 签名 + Profile 诚实 + LITE/PHYS 对齐 |
+| `np lite roundtrip` | △ | 已有 HTTP 工具；CLI 薄封装；Outbox 对齐见 Adopter `check_lite_alignment` |
 
 **纪律**：CLI **不得**上传私钥；签验在本地完成。
 

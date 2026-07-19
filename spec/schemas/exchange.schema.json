@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapanda.dev/spec/schemas/exchange.schema.json",
+  "title": "Exchange Document (informative · v0.2 draft)",
+  "description": "交换编排文档形状（参考实现导出/GET）。非 VDC：状态可变迁；终局证明仍是双签 VDC。语义真源见 spec/CORE.md 与 NP-HTTP。",
+  "type": "object",
+  "required": [
+    "exchange_id",
+    "client",
+    "provider",
+    "resource_type",
+    "quantity",
+    "rule_id",
+    "price",
+    "state",
+    "idempotency_key",
+    "created_at",
+    "updated_at"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "exchange_id": { "type": "string", "minLength": 1 },
+    "client": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "provider": { "type": "string", "pattern": "^ed25519:[1-9A-HJ-NP-Za-km-z]+$" },
+    "resource_type": { "type": "string", "minLength": 1 },
+    "quantity": { "type": "integer", "minimum": 0 },
+    "rule_id": { "type": "string", "minLength": 1 },
+    "price": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "integer" },
+        "currency": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "CONTRACTED",
+        "ESCROWED",
+        "DELIVERED",
+        "VERIFIED",
+        "SETTLED",
+        "REJECTED",
+        "CANCELLED",
+        "EXPIRED_REFUNDED",
+        "DISPUTED"
+      ]
+    },
+    "idempotency_key": { "type": "string", "minLength": 1 },
+    "nonce": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "version": { "type": "integer", "minimum": 0 },
+    "timeouts": { "type": "object" },
+    "deadline_at": { "type": ["string", "null"] },
+    "result_hash": { "type": ["string", "null"] },
+    "deliverable_ref": { "type": ["string", "null"] },
+    "vdc": { "type": ["object", "null"] },
+    "verify_result": { "type": ["object", "null"] },
+    "settlement_receipt": { "type": ["object", "null"] },
+    "settlement_terms": { "type": ["object", "null"] },
+    "settlement_binding": { "type": ["object", "null"] },
+    "terms_hash": { "type": ["string", "null"] },
+    "contract_acks": { "type": "object" },
+    "dispute_info": { "type": ["object", "null"] },
+    "trace_context": { "type": ["object", "null"] }
+  }
+}

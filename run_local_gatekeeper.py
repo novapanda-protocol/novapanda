@@ -33,6 +33,15 @@ GATE_TESTS = [
     "tests/test_autonomy_dispatch.py",
     "tests/test_production_hardening.py",
     "tests/test_marketplace_score_match.py",
+    # Adopter Runtime 闭环（M1–M6 · 填中空 / Bundle / Skill）
+    "tests/test_adopter_runtime.py",
+    "tests/test_adopter_av_charge.py",
+    "tests/test_adopter_m3_product.py",
+    "tests/test_adopter_m4_rails.py",
+    "tests/test_adopter_site_patrol.py",
+    "tests/test_adopter_skill.py",
+    "tests/test_manifest_validate_cli.py",
+    "tests/test_schema_v02_drafts.py",
 ]
 
 REQUIRED_GITIGNORE_SNIPPETS = [

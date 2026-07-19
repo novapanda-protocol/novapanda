@@ -46,6 +46,9 @@
 | `python -m conformance.gap_audit` | ☑ | T15 套件审计 |
 | `python internal/ops/release_check.py` | ☑ | T23 发布前自动检查（非门禁） |
 | `cd sdk/typescript && npm test` | ☑ | 含 CBOR 交叉向量 |
+| `cd sdk/typescript && npm run attest:l0` | ☑ | TS 离线双签 + reverify（L0） |
+| `pytest tests/test_ts_plugfest.py` | ☑ | TS ↔ 参考节点 auth 全生命周期 |
+| 第二实现征集短文可转发 | ☑ | [`CALL_FOR_SECOND_IMPL.md`](CALL_FOR_SECOND_IMPL.md) · [EN](../docs/en/call-for-second-impl.md) |
 | `python demo/run_demo.py` | ☑ | 陌生 Agent 完整仪式 |
 | demo 录屏或 CI 产物链接 | ☐ | 公开前建议准备 |
 | 结算 / LLM / ISO15118 说明为 **adapter + fake** | ☑ | 见 README；不冒充已接持牌伙伴 |
@@ -91,7 +94,7 @@
   → 仓库公开（可先 private → public）+ README + 本清单归档
 
 有早期第三方跑通 conformance
-  → 对外 plugfest 邀请稿（见 EXTERNAL_PLUGFEST.md）
+  → 对外邀请短文 [`CALL_FOR_SECOND_IMPL.md`](CALL_FOR_SECOND_IMPL.md) · 细则 [`EXTERNAL_PLUGFEST.md`](EXTERNAL_PLUGFEST.md)
 
 商标核准 + 认证流程定稿
   → NovaPanda-compatible 标识、正式官网、媒体宣传
@@ -121,6 +124,8 @@
 
 - [`TRADEMARK.md`](TRADEMARK.md) — 商标与兼容标识占位
 - [`CERTIFICATION.md`](CERTIFICATION.md) — Conformance 与认证草案
+- [`CALL_FOR_SECOND_IMPL.md`](CALL_FOR_SECOND_IMPL.md) — 可转发的第二实现征集短文
 - [`EXTERNAL_PLUGFEST.md`](EXTERNAL_PLUGFEST.md) — 对外互操作指南
+- [`SECOND_IMPL_STARTER.md`](SECOND_IMPL_STARTER.md) — 第二实现起步包
 - [`../internal/ops/T23-发布前检查清单.md`](../internal/ops/T23-发布前检查清单.md) — 内部执行版（含 SEC 审阅）
 - [`../README.md`](../README.md) — 快速开始

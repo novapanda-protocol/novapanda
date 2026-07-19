@@ -34,6 +34,9 @@ PROPOSED → CONTRACTED → ESCROWED → DELIVERED → VERIFIED → SETTLED
 
 **生态八域（公开）**：API / MCP / Skill / 工作流 / OTA / P2P… 如何挂接而不膨胀内核 → [`ecosystem-eight-domains.md`](ecosystem-eight-domains.md) · [网页版](ecosystem-eight-domains.html)
 
+**接入方闭环（填中空）**：第三方 Agent / 智能车如何把发现→交割→互存→导出跑通 → [`../adopter-closed-loop.md`](../adopter-closed-loop.md)  
+参考实现：`novapanda/adopter/` · `demo/adopter_smoke_all.py`（M1–M5）· `AdopterSkill`（M6 LLM 工具面）
+
 > SVG 按分期绘制；缺失时本页文字与 [`catalog.md`](catalog.md) 仍完整可读。
 
 ## 场景目录

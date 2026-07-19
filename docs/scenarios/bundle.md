@@ -25,7 +25,7 @@
 | Goal | 供应商尽调包 | 到场巡检闭环 |
 | 成员 | 抽取 → 勾选任务 → LLM 摘要 | 车到场 → 无人机巡检 → 机器人接点 → 可选充电 |
 | catalog | `S-nested-soft-diligence` | `S-nested-site-patrol` |
-| 今天 | Trial / plugfest 腿可排练 | 叙事 + energy/robot 冒烟腿 |
+| 今天 | Trial / plugfest 腿可排练 | **Adopter 竖切可跑**：`demo/adopter_site_patrol.py`（四腿 VDC + Bundle） |
 
 ---
 

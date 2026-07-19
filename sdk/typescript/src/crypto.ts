@@ -67,6 +67,12 @@ export function b64urlEncode(data: Uint8Array): string {
     .replace(/=+$/g, "");
 }
 
+export function b64urlDecode(s: string): Uint8Array {
+  const pad = "=".repeat((4 - (s.length % 4)) % 4);
+  const b64 = (s + pad).replace(/-/g, "+").replace(/_/g, "/");
+  return new Uint8Array(Buffer.from(b64, "base64"));
+}
+
 export function agentIdFromPublicKey(publicKey: Uint8Array): string {
   return `ed25519:${b58encode(publicKey)}`;
 }
