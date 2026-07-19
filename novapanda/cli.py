@@ -1,4 +1,4 @@
-"""NovaPanda CLI（路线 B2）：rails / quote / negotiate / conformance / manifest。
+"""NovaPanda CLI（路线 B2）：rails / quote / negotiate / conformance / manifest / ecosystem。
 
 用法：
   python -m novapanda rails
@@ -7,6 +7,7 @@
   python -m novapanda conformance list
   python -m novapanda conformance report [--run]
   python -m novapanda manifest validate path.json
+  python -m novapanda ecosystem list
 """
 
 from __future__ import annotations
@@ -36,6 +37,14 @@ def _split_csv(raw: Optional[str]) -> Optional[list[str]]:
 
 def cmd_rails(_: argparse.Namespace) -> int:
     _json_out(_registry_from_env().manifest_block())
+    return 0
+
+
+def cmd_ecosystem_list(_: argparse.Namespace) -> int:
+    from .ecosystem import list_adapter_summaries
+
+    rows = list_adapter_summaries()
+    _json_out({"adapters": rows, "count": len(rows)})
     return 0
 
 
@@ -194,6 +203,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="节点未启用委托时用于诚实检查",
     )
     mv.set_defaults(func=cmd_manifest_validate)
+
+    eco = sub.add_parser("ecosystem", help="社区生态适配器目录")
+    eco_sub = eco.add_subparsers(dest="eco_cmd", required=True)
+    eco_sub.add_parser("list", help="列出 adapters/*/manifest.json").set_defaults(
+        func=cmd_ecosystem_list,
+    )
 
     return p
 

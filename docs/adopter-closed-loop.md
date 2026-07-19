@@ -242,6 +242,7 @@ Bundle 在**客户端编排**（ADR-0003）；每张仍是原子 VDC。中空阶
 | **M8g · 结对 CLI + Skill 壳** | `pair_cli` 一键 SETTLED · OpenClaw `SKILL.md` | **`demo/openclaw_pair/`** ✅ | 分机拆步（可选） |
 | **M8h · 标准 BINDING** | `BINDING-OPENCLAW` 入 spec 索引 | **`spec/BINDING-OPENCLAW.md`** ✅ | — |
 | **M8i · 生态适配器挂钉** | registry + openclaw/mqtt/ros2 种子 · 社区模板 | **`adapters/`** · **`novapanda/ecosystem`** ✅ | 社区 PR 填厂商 |
+| **M8j · 生态可发现** | `np ecosystem list` · mqtt demo · catalog 场景 | **CLI + `S-openclaw-pair` / `S-mqtt-iot-adapter`** ✅ | 宣传录屏 |
 
 **刻意后置**：真法币/持牌清算、协议内积分、跨链「金融功能」、W3C VC 换皮。
 

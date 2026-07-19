@@ -2,6 +2,11 @@
 
 展示 **work_fn** 型适配器：传感器摘要 → deliverable，经 `ProviderAdapter` 交付。
 
+```bash
+python demo/adopter_mqtt_iot.py
+python -m novapanda ecosystem list
+```
+
 ```python
 from novapanda.surfaces import ProviderAdapter
 from adapters.mqtt_iot.plugin import build_deliverable

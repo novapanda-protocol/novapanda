@@ -50,3 +50,12 @@ def test_cli_conformance_report(capsys):
     assert "registration_draft" in data
     assert data["registration_draft"]["implementation"].startswith("novapanda")
     assert "registration" in data
+
+
+def test_cli_ecosystem_list(capsys):
+    rc = main(["ecosystem", "list"])
+    assert rc == 0
+    data = json.loads(capsys.readouterr().out)
+    slugs = {a["slug"] for a in data["adapters"]}
+    assert {"openclaw", "mqtt_iot", "ros2"} <= slugs
+    assert data["count"] >= 3

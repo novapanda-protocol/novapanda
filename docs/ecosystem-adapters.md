@@ -65,7 +65,12 @@
 3. 实现最小 `work_fn` **或** 文档说明如何调 `pair_cli` / surfaces  
 4. 勾选 [`conformance/adapter_author_checklist.json`](../conformance/adapter_author_checklist.json)  
 5. PR：附 `settlement: mock|sandbox|…` 与自测命令  
-6. Steward 合并后出现在 `python -m novapanda.ecosystem.list_adapters`  
+6. Steward 合并后出现在：
+
+```bash
+python -m novapanda.ecosystem
+python -m novapanda ecosystem list
+```
 
 红线同 [`BINDING-SKILL`](../spec/BINDING-SKILL.md)：私钥不上云；禁止口头 SETTLED。
 

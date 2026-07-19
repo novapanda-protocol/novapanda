@@ -1,7 +1,7 @@
 {
   "protocol": "novapanda",
   "version": "0.0.2",
-  "updated": "2026-07-10",
+  "updated": "2026-07-19",
   "title": "NovaPanda exchange scenario catalog",
   "title_zh": "NovaPanda 交换场景目录",
   "source": "docs/scenarios/catalog.json",
@@ -257,6 +257,42 @@
       "figure": "figures/05-iot-ecosystem.svg"
     },
     {
+      "id": "S-openclaw-pair",
+      "tier": "adopter",
+      "title": "车 × OpenClaw 结对交割",
+      "title_en": "Car × OpenClaw pair delivery",
+      "onesentence": "车 Client + OpenClaw Provider：pair_cli 一键 SETTLED + Skill 壳。",
+      "actors": ["car agent", "OpenClaw host"],
+      "resource_type": "data.extraction.structured",
+      "rule_id": "R-extract-invoice-v1",
+      "evidence": ["dual_signed"],
+      "status": "demoable",
+      "try": [
+        "demo/openclaw_pair/README.md",
+        "spec/BINDING-OPENCLAW.md",
+        "adapters/openclaw/"
+      ],
+      "figure": "figures/05-iot-ecosystem.svg"
+    },
+    {
+      "id": "S-mqtt-iot-adapter",
+      "tier": "adopter",
+      "title": "IOT 传感器摘要适配器",
+      "title_en": "MQTT / IoT sensor adapter",
+      "onesentence": "work_fn 把传感器读数译成 deliverable，经 ProviderAdapter 完成双签。",
+      "actors": ["client", "iot provider adapter"],
+      "resource_type": "data.extraction.structured",
+      "rule_id": "R-extract-invoice-v1",
+      "evidence": ["dual_signed"],
+      "status": "demoable",
+      "try": [
+        "demo/adopter_mqtt_iot.py",
+        "adapters/mqtt_iot/",
+        "docs/ecosystem-adapters.md"
+      ],
+      "figure": "figures/05-iot-ecosystem.svg"
+    },
+    {
       "id": "S-av-charge",
       "tier": "lighthouse",
       "title": "自动驾驶车充电交割",
@@ -266,8 +302,8 @@
       "resource_type": "energy.electric.dc",
       "rule_id": "R-energy-dc-meter-v1",
       "evidence": ["metered"],
-      "status": "vision",
-      "try": ["demo/plugfest.py"],
+      "status": "demoable",
+      "try": ["demo/adopter_av_charge.py", "demo/plugfest.py"],
       "figure": "figures/05-iot-ecosystem.svg"
     },
     {
